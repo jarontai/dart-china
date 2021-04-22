@@ -12,8 +12,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   bloc: ^7.0.0
+  dotenv: ^3.0.0-nullsafety.0
   flutter_bloc: ^7.0.0
+  flutter_markdown: ^0.6.1
+  html2md: ^1.1.0
   intl: ^0.17.0
+  provider: ^5.0.0
+  discourse_api:
+    git:
+      url: git@github.com:jarontai/discourse_api.git
+      ref: 1e18a44d108449e2ddcd30dc30ceaee6bea3803c  
 
 dev_dependencies:
   flutter_test:
