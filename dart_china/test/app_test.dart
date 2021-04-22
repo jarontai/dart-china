@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dart_china/app/app.dart';
-import 'package:dart_china/counter/counter.dart';
+import 'package:dart_china/modules/counter/counter.dart';
 
 void main() {
   group('App', () {

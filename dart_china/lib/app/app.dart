@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:dart_china/counter/counter.dart';
+import 'package:dart_china/modules/counter/counter.dart';
 import 'package:dart_china/l10n/l10n.dart';
 
 class App extends StatelessWidget {
