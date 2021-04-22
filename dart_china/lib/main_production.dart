@@ -13,11 +13,15 @@ import 'package:bloc/bloc.dart';
 import 'package:dart_china/app/app.dart';
 import 'package:dart_china/app/app_bloc_observer.dart';
 
+import './repositories/repositories.dart';
+
 void main() {
   Bloc.observer = AppBlocObserver();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  initRepository();
 
   runZonedGuarded(
     () => runApp(const App()),
