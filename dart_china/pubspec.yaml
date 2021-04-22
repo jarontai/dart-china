@@ -1,6 +1,6 @@
 name: dart_china
-description: A new Flutter project.
-version: 1.0.0+1
+description: The offical mobile app for www.dart-china.org.
+version: 0.1.0
 publish_to: none
 
 environment:
