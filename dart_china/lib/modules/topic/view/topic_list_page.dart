@@ -7,7 +7,7 @@ class TopicListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF3346CE),
+        color: Color(0xFF435AE4),
       ),
       child: SafeArea(
         child: Container(
@@ -40,13 +40,11 @@ class TopicListPage extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          icon: ClipOval(
-            child: CircleAvatar(
-              backgroundColor: kTagColr,
-              child: Image.asset(
-                'assets/icon/logo_dart.png',
-                width: 25,
-              ),
+          icon: CircleAvatar(
+            backgroundColor: kTagColr,
+            child: Icon(
+              Icons.person_outlined,
+              color: Colors.grey,
             ),
           ),
           onPressed: () {},
@@ -76,13 +74,30 @@ class WelcomeSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Dart China',
-                  style: TextStyle(
-                    color: Colors.grey.shade100,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dart China',
+                      style: TextStyle(
+                        color: Colors.grey.shade100,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Container(
+                      width: 30,
+                      height: 30,
+                      margin: EdgeInsets.only(left: 5),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset(
+                          'assets/icon/logo_dart.png',
+                          width: 25,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 5,
