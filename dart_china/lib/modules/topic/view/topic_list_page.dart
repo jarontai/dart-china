@@ -94,6 +94,7 @@ class WelcomeSection extends StatelessWidget {
                         child: Image.asset(
                           'assets/icon/logo_dart.png',
                           width: 25,
+                          height: 25,
                         ),
                       ),
                     ),
