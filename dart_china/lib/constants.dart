@@ -4,10 +4,10 @@ const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
 const kMainGradient = LinearGradient(
   colors: [
-    Color(0xFF02589b),
-    Color(0xFF2bb7f6),
+    Color(0xFF3346CE),
+    Color(0xFF435AE4),
   ],
-  begin: Alignment(0, -1),
-  end: Alignment(0, 1),
-  stops: [0.1, 0.8],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  // stops: [0.1, 0.8],
 );

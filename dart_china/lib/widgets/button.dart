@@ -18,10 +18,21 @@ class Button extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Color(0xFFb8bbc5),
+          color: Color(0xFFB2B3BF),
         ),
       ),
-      style: ButtonStyle(),
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            Colors.grey.shade300,
+          ),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            EdgeInsets.all(0),
+          )),
       onPressed: () {},
     );
   }

@@ -7,18 +7,25 @@ class TopicListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: kMainGradient,
+        color: Color(0xFF3346CE),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: buildAppBar(),
-        body: SafeArea(
-            child: Column(
-          children: [
-            WelcomeSection(),
-            TopicSection(),
-          ],
-        )),
+      child: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: kMainGradient,
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: buildAppBar(),
+            body: Column(
+              children: [
+                WelcomeSection(),
+                SizedBox(height: 25),
+                Expanded(child: TopicSection()),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -113,10 +120,20 @@ class TopicSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Button(
-        text: '最新',
-        onPressed: () {},
-        pressed: false,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Color(0xFFF1F6FA),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      child: Center(
+        child: Button(
+          text: '最新',
+          onPressed: () {},
+          pressed: false,
+        ),
       ),
     );
   }
