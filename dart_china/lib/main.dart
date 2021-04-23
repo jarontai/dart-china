@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:dart_china/constants.dart';
 import 'package:dart_china/modules/pages.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(DartChinaApp());
 }
 
-class MyApp extends StatelessWidget {
+class DartChinaApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dart China',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
