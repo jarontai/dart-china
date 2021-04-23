@@ -1,4 +1,5 @@
 import 'package:dart_china/constants.dart';
+import 'package:dart_china/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class TopicListPage extends StatelessWidget {
@@ -15,6 +16,7 @@ class TopicListPage extends StatelessWidget {
             child: Column(
           children: [
             WelcomeSection(),
+            TopicSection(),
           ],
         )),
       ),
@@ -100,6 +102,21 @@ class WelcomeSection extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class TopicSection extends StatelessWidget {
+  const TopicSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Button(
+        text: '最新',
+        onPressed: () {},
+        pressed: false,
       ),
     );
   }
