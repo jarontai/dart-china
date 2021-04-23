@@ -79,9 +79,10 @@ class WelcomeSection extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  '由爱好者建立，讨论 Dart、Flutter 的开放型中文社区',
+                  '由爱好者建立，讨论 Dart、Flutter 的开放型技术社区',
                   style: TextStyle(
                     color: Color(0xFFadbcdf),
+                    fontSize: 13,
                   ),
                 ),
               ],

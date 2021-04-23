@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:dart_china/constants.dart';
 import 'package:dart_china/modules/pages.dart';
 
 void main() {
