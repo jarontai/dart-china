@@ -29,7 +29,12 @@ class CategorySelector extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
-            children: [CategoryBlock()],
+            children: [
+              CategoryBlock(),
+              CategoryBlock(),
+              CategoryBlock(),
+              CategoryBlock(),
+            ],
           )
         ],
       ),
@@ -45,8 +50,8 @@ class CategoryBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 80,
+      width: 70,
+      height: 70,
       padding: EdgeInsets.only(
           // top: 15,
           // left: 15,
