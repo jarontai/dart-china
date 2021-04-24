@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import 'widgets.dart';
+import 'widgets/widgets.dart';
 
 class TopicListPage extends StatelessWidget {
   @override

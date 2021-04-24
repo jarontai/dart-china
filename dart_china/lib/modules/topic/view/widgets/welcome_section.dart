@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../widgets/button.dart';
+part of 'widgets.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({Key? key}) : super(key: key);
@@ -73,31 +71,6 @@ class WelcomeSection extends StatelessWidget {
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class TopicSection extends StatelessWidget {
-  const TopicSection({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Color(0xFFF1F6FA),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Center(
-        child: Button(
-          text: '最新',
-          onPressed: () {},
-          pressed: false,
-        ),
       ),
     );
   }
