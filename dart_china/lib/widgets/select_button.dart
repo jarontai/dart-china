@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
-  const Button({
+class SelectButton extends StatelessWidget {
+  const SelectButton({
     Key? key,
     required this.text,
     required this.onPressed,
-    required this.selected,
+    this.selected = false,
     this.marginRight = 10,
   }) : super(key: key);
 
@@ -37,7 +37,9 @@ class Button extends StatelessWidget {
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               EdgeInsets.all(0),
             )),
-        onPressed: onPressed,
+        onPressed: () {
+          onPressed();
+        },
       ),
     );
   }

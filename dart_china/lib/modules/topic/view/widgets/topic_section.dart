@@ -27,8 +27,9 @@ class TopicSection extends StatelessWidget {
             },
           ),
           CategorySelector(
-            names: [],
-            nums: [],
+            names: ['全部', '分享', '问答', '站务'],
+            nums: [100, 62, 30, 2],
+            onSelect: (index) => print('category select: $index'),
           ),
         ],
       ),
@@ -36,7 +37,7 @@ class TopicSection extends StatelessWidget {
   }
 }
 
-class TopicTypeSelector extends StatelessWidget {
+class TopicTypeSelector extends StatefulWidget {
   const TopicTypeSelector({
     Key? key,
     this.configMap = const {
@@ -44,22 +45,30 @@ class TopicTypeSelector extends StatelessWidget {
       'hot': '最热',
     },
     required this.onSelect,
-    this.selectedIndex = 0,
   }) : super(key: key);
 
   final Map<String, String> configMap;
-  final int selectedIndex;
   final IndexCallback onSelect;
+
+  @override
+  _TopicTypeSelectorState createState() => _TopicTypeSelectorState();
+}
+
+class _TopicTypeSelectorState extends State<TopicTypeSelector> {
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     var list = <Widget>[];
-    var values = configMap.values;
+    var values = widget.configMap.values;
     for (int i = 0; i < values.length; i++) {
-      list.add(Button(
+      list.add(SelectButton(
         text: values.elementAt(i),
         onPressed: () {
-          onSelect(i);
+          setState(() {
+            selectedIndex = i;
+          });
+          widget.onSelect(i);
         },
         selected: selectedIndex == i,
         marginRight: 20,
