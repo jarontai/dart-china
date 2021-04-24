@@ -54,7 +54,7 @@ class _CategorySelectorState extends State<CategorySelector> {
               Text(
                 '主题分类',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -97,8 +97,8 @@ class CategoryBlock extends StatelessWidget {
     }
 
     return Container(
-      width: selected ? 65 : 55,
-      height: selected ? 65 : 55,
+      width: selected ? 60 : 52,
+      height: selected ? 60 : 52,
       padding: EdgeInsets.only(
           // top: 15,
           // left: 15,
@@ -118,13 +118,15 @@ class CategoryBlock extends StatelessWidget {
               name,
               style: TextStyle(
                 color: textColor,
-                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Text(
               'x $postNum',
               style: TextStyle(
                 color: textColor,
+                fontSize: 12,
               ),
             ),
           ],
