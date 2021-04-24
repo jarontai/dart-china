@@ -26,11 +26,26 @@ class TopicSection extends StatelessWidget {
               print('select topic $index');
             },
           ),
+          SizedBox(
+            height: 40,
+            child: Align(
+              child: SectionTitle(text: '主题分类'),
+              alignment: Alignment.centerLeft,
+            ),
+          ),
           CategorySelector(
             names: ['全部', '分享', '问答', '站务'],
             nums: [100, 62, 30, 2],
             onSelect: (index) => print('category select: $index'),
           ),
+          SizedBox(
+            height: 55,
+            child: Align(
+              child: SectionTitle(text: '主题列表'),
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+          TopicList(),
         ],
       ),
     );

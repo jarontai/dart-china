@@ -46,20 +46,19 @@ class _CategorySelectorState extends State<CategorySelector> {
       ));
     }
     return Container(
-      margin: EdgeInsets.only(top: 10),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                '主题分类',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     Text(
+          //       '主题分类',
+          //       style: TextStyle(
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.w400,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
