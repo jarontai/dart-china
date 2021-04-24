@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:dart_china/modules/pages.dart';
+import 'modules/pages.dart';
 
 void main() {
   runApp(DartChinaApp());

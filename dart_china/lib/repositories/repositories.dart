@@ -1,6 +1,5 @@
 import 'package:discourse_api/discourse_api.dart';
 import 'package:dotenv/dotenv.dart' as dotenv;
-import 'package:html2md/html2md.dart' as html2md;
 
 late final DiscourseApiClient _client;
 
