@@ -166,8 +166,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "1e18a44d108449e2ddcd30dc30ceaee6bea3803c"
-      resolved-ref: "1e18a44d108449e2ddcd30dc30ceaee6bea3803c"
+      ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
+      resolved-ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
       url: "git@github.com:jarontai/discourse_api.git"
     source: git
     version: "0.0.0"
