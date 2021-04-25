@@ -6,8 +6,17 @@ class TopicList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TopicCard(),
-    );
+        child: ListView.separated(
+      itemCount: 5,
+      itemBuilder: (_, __) {
+        return TopicCard();
+      },
+      separatorBuilder: (_, __) {
+        return SizedBox(height: 18);
+      },
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+    ));
   }
 }
 
@@ -25,6 +34,9 @@ class TopicCard extends StatelessWidget {
       child: Column(
         children: [
           TopicCardHead(),
+          TopicBody(
+              content:
+                  'So, i ve been using c# for a whhole decade now, if you guys know how to break the boring...'),
         ],
       ),
     );
@@ -62,7 +74,7 @@ class TopicCardHead extends StatelessWidget {
                   'Dart In A Nutshell',
                   style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
@@ -90,6 +102,32 @@ class TopicCardHead extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class TopicBody extends StatelessWidget {
+  const TopicBody({
+    Key? key,
+    required this.content,
+  }) : super(key: key);
+
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 10,
+      ),
+      child: Text(
+        content,
+        style: TextStyle(
+          color: Color(0xFF8E8E9F),
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

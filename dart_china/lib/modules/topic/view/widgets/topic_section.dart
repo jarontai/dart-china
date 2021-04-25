@@ -45,7 +45,7 @@ class TopicSection extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
           ),
-          TopicList(),
+          Expanded(child: TopicList()),
         ],
       ),
     );
