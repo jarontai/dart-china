@@ -58,6 +58,7 @@ class WelcomeSection extends StatelessWidget {
           ),
           // SizedBox.expand(),
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 iconSize: 30,
