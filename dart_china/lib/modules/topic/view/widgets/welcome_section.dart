@@ -6,9 +6,6 @@ class WelcomeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 8,
-      ),
       padding: EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
         color: Colors.transparent,

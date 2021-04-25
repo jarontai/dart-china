@@ -21,7 +21,7 @@ class TopicListPage extends StatelessWidget {
             body: Column(
               children: [
                 WelcomeSection(),
-                SizedBox(height: 25),
+                SizedBox(height: 15),
                 Expanded(child: TopicSection()),
               ],
             ),
@@ -38,10 +38,12 @@ class TopicListPage extends StatelessWidget {
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.menu),
+        splashRadius: 25,
         onPressed: () {},
       ),
       actions: [
         IconButton(
+          splashRadius: 30,
           icon: CircleAvatar(
             backgroundColor: kTagColr,
             child: Icon(

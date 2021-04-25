@@ -10,14 +10,14 @@ class TopicSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xFFF1F6FA),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
       padding: EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 20,
+        top: 15,
       ),
       child: Column(
         children: [
