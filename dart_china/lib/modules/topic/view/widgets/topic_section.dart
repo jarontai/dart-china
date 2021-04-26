@@ -1,56 +1,56 @@
 part of 'widgets.dart';
 
-class TopicSection extends StatelessWidget {
-  const TopicSection({Key? key}) : super(key: key);
+// class TopicSection extends StatelessWidget {
+//   const TopicSection({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Color(0xFFF1F6FA),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      padding: EdgeInsets.only(
-        left: 20,
-        right: 20,
-        top: 15,
-      ),
-      child: Column(
-        children: [
-          TopicTypeSelector(
-            onSelect: (index) {
-              print('select topic $index');
-            },
-          ),
-          SizedBox(
-            height: 40,
-            child: Align(
-              child: SectionTitle(text: '主题分类'),
-              alignment: Alignment.centerLeft,
-            ),
-          ),
-          CategorySelector(
-            names: ['全部', '分享', '问答', '站务'],
-            nums: [100, 62, 30, 2],
-            onSelect: (index) => print('category select: $index'),
-          ),
-          SizedBox(
-            height: 55,
-            child: Align(
-              child: SectionTitle(text: '主题列表'),
-              alignment: Alignment.centerLeft,
-            ),
-          ),
-          Expanded(child: TopicList()),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.infinity,
+//       decoration: BoxDecoration(
+//         color: Color(0xFFF1F6FA),
+//         borderRadius: BorderRadius.only(
+//           topLeft: Radius.circular(20),
+//           topRight: Radius.circular(20),
+//         ),
+//       ),
+//       padding: EdgeInsets.only(
+//         left: 20,
+//         right: 20,
+//         top: 15,
+//       ),
+//       child: Column(
+//         children: [
+//           TopicTypeSelector(
+//             onSelect: (index) {
+//               print('select topic $index');
+//             },
+//           ),
+//           SizedBox(
+//             height: 40,
+//             child: Align(
+//               child: SectionTitle(text: '主题分类'),
+//               alignment: Alignment.centerLeft,
+//             ),
+//           ),
+//           CategorySelector(
+//             names: ['全部', '分享', '问答', '站务'],
+//             nums: [100, 62, 30, 2],
+//             onSelect: (index) => print('category select: $index'),
+//           ),
+//           SizedBox(
+//             height: 55,
+//             child: Align(
+//               child: SectionTitle(text: '主题列表'),
+//               alignment: Alignment.centerLeft,
+//             ),
+//           ),
+//           Expanded(child: TopicList()),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class TopicTypeSelector extends StatefulWidget {
   const TopicTypeSelector({

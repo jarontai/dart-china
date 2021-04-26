@@ -27,13 +27,14 @@ class TopicListPage extends StatelessWidget {
                   delegate: SliverCategorySelector(),
                 ),
                 SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                  (_, index) {
-                    return Container(
-                        color: Color(0xFFF1F6FA), child: TopicCard());
-                  },
-                  childCount: 10,
-                ))
+                  delegate: SliverChildBuilderDelegate(
+                    (_, index) {
+                      return Container(
+                          color: Color(0xFFF1F6FA), child: TopicCard());
+                    },
+                    childCount: 10,
+                  ),
+                )
               ],
             ),
           ),

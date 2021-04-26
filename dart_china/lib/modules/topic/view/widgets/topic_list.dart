@@ -1,24 +1,24 @@
 part of 'widgets.dart';
 
-class TopicList extends StatelessWidget {
-  const TopicList({Key? key}) : super(key: key);
+// class TopicList extends StatelessWidget {
+//   const TopicList({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: ListView.separated(
-      itemCount: 5,
-      itemBuilder: (_, __) {
-        return TopicCard();
-      },
-      separatorBuilder: (_, __) {
-        return SizedBox(height: 18);
-      },
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-    ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//         child: ListView.separated(
+//       itemCount: 5,
+//       itemBuilder: (_, __) {
+//         return TopicCard();
+//       },
+//       separatorBuilder: (_, __) {
+//         return SizedBox(height: 18);
+//       },
+//       shrinkWrap: true,
+//       scrollDirection: Axis.vertical,
+//     ));
+//   }
+// }
 
 class TopicCard extends StatelessWidget {
   const TopicCard({Key? key}) : super(key: key);
@@ -43,6 +43,80 @@ class TopicCard extends StatelessWidget {
           TopicBody(
               content:
                   'So, i ve been using c# for a whhole decade now, if you guys know how to break the boring...'),
+          SizedBox(height: 8),
+          TopicStatus(),
+        ],
+      ),
+    );
+  }
+}
+
+class TopicStatus extends StatelessWidget {
+  const TopicStatus({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.visibility_outlined,
+                color: Color(0xFFB0B1BA),
+                size: 18,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '120',
+                style: TextStyle(
+                  color: Color(0xFFB0B1BA),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.chat_bubble_outline,
+                color: Color(0xFFB0B1BA),
+                size: 18,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '120',
+                style: TextStyle(
+                  color: Color(0xFFB0B1BA),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.thumb_up_outlined,
+                color: Color(0xFFB0B1BA),
+                size: 18,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '120',
+                style: TextStyle(
+                  color: Color(0xFFB0B1BA),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -82,6 +156,7 @@ class TopicCardHead extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   'Janu Ptura • 1小时前',
@@ -134,6 +209,8 @@ class TopicBody extends StatelessWidget {
           color: Color(0xFF8E8E9F),
           fontWeight: FontWeight.w500,
         ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
