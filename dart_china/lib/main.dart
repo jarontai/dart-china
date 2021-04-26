@@ -19,6 +19,7 @@ class DartChinaApp extends StatelessWidget {
       routes: {
         '/topic_list': (_) => TopicListPage(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
