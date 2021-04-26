@@ -1,12 +1,11 @@
 part of 'widgets.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  final double expandedHeight = 130;
+  final double expandedHeight = 135;
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final appBarHeight = expandedHeight - shrinkOffset;
     final double welcomeHeight = expandedHeight - kToolbarHeight;
     final offset = welcomeHeight - shrinkOffset;
 
@@ -32,8 +31,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
             ),
           ),
           SizedBox(
-            height:
-                appBarHeight < kToolbarHeight ? kToolbarHeight : appBarHeight,
+            height: kToolbarHeight,
             child: buildAppBar(percent == 0),
           ),
         ],
@@ -71,7 +69,9 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
               color: Colors.grey,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            print('presssed profile!');
+          },
         )
       ],
     );

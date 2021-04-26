@@ -57,16 +57,16 @@ class WelcomeBlock extends StatelessWidget {
             ),
           ),
           // SizedBox.expand(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                iconSize: 30,
-                color: Colors.grey.shade300,
-                icon: Icon(Icons.search),
-                onPressed: () {},
-              )
-            ],
+          Align(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            child: IconButton(
+              iconSize: 30,
+              color: Colors.grey.shade300,
+              icon: Icon(Icons.search),
+              onPressed: () {
+                print('pressed search');
+              },
+            ),
           )
         ],
       ),
