@@ -26,17 +26,18 @@ class SelectButton extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
-            shape: MaterialStateProperty.all<OutlinedBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
-            backgroundColor: MaterialStateProperty.all(
-              selected ? Color(0xFF7C7BFC) : Color(0xFFEDF0F7),
-            ),
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-              EdgeInsets.all(0),
-            )),
+          ),
+          backgroundColor: MaterialStateProperty.all(
+            selected ? Color(0xFF7C7BFC) : Color(0xFFEDF0F7),
+          ),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            EdgeInsets.all(0),
+          ),
+        ),
         onPressed: () {
           onPressed();
         },

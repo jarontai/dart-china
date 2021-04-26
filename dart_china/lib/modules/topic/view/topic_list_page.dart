@@ -8,7 +8,7 @@ class TopicListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: kMainGradient,
+        color: Color(0xFF4162D2),
       ),
       child: SafeArea(
         child: Container(
@@ -30,7 +30,19 @@ class TopicListPage extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                     (_, index) {
                       return Container(
-                          color: Color(0xFFF1F6FA), child: TopicCard());
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF1F6FA),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFFFDFDFD),
+                              blurRadius: 0,
+                              spreadRadius: 0,
+                              offset: Offset(0, 2),
+                            )
+                          ],
+                        ),
+                        child: TopicCard(),
+                      );
                     },
                     childCount: 10,
                   ),

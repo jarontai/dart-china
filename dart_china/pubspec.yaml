@@ -23,26 +23,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  discourse_api:
+    git:
+      url: git@github.com:jarontai/discourse_api.git
+      ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
   bloc: ^7.0.0
+  cupertino_icons: ^1.0.2
+  device_preview: ^0.7.1
   dotenv: ^3.0.0-nullsafety.0
   flutter_bloc: ^7.0.0
   flutter_markdown: ^0.6.1
   html2md: ^1.1.0
   intl: ^0.17.0
   provider: ^5.0.0
-  discourse_api:
-    git:
-      url: git@github.com:jarontai/discourse_api.git
-      ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4  
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.0    
+  flutter_launcher_icons: ^0.9.0
 
 flutter_icons:
   android: true
@@ -53,7 +51,6 @@ flutter_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
 
@@ -66,13 +63,10 @@ flutter:
   assets:
     - assets/icon/logo_dart.png
     - assets/icon/logo_dart_ios.png
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

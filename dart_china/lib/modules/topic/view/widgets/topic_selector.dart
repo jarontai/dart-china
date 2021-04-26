@@ -92,7 +92,11 @@ class _TopicTypeSelectorState extends State<TopicTypeSelector> {
       ));
     }
     return Container(
-      child: Row(children: list),
+      height: 40,
+      child: ListView(
+        children: list,
+        scrollDirection: Axis.horizontal,
+      ),
     );
   }
 }

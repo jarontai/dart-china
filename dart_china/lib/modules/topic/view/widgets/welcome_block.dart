@@ -46,11 +46,13 @@ class WelcomeBlock extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  '由爱好者建立，讨论 Dart、Flutter 的开放型技术社区',
-                  style: TextStyle(
-                    color: Color(0xFFadbcdf),
-                    fontSize: 13,
+                FittedBox(
+                  child: Text(
+                    '由爱好者建立，讨论 Dart、Flutter 的开放型技术社区',
+                    style: TextStyle(
+                      color: Color(0xFFadbcdf),
+                      fontSize: 13,
+                    ),
                   ),
                 ),
               ],
