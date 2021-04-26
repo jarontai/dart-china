@@ -44,7 +44,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   AppBar buildAppBar([bool titleVisiable = false]) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: titleVisiable ? Color(0xFF4162D2) : Colors.transparent,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.menu),
