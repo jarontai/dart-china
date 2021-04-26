@@ -26,6 +26,12 @@ class TopicCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 6,
+        bottom: 6,
+      ),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Color(0xFFFDFDFD),

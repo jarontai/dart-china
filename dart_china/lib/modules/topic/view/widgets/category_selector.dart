@@ -11,7 +11,7 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
         top: 15,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF1F6FA),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -30,10 +30,10 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 145;
+  double get maxExtent => 80;
 
   @override
-  double get minExtent => 145;
+  double get minExtent => 80;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
