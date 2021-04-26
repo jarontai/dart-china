@@ -22,7 +22,7 @@ class SelectButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: selected ? Color(0xFF4F6ED5) : Color(0xFFB2B3BF),
+            color: selected ? Colors.grey.shade50 : Colors.black45,
           ),
         ),
         style: ButtonStyle(
@@ -32,7 +32,7 @@ class SelectButton extends StatelessWidget {
               ),
             ),
             backgroundColor: MaterialStateProperty.all(
-              selected ? Color(0xFFD6E0F4) : Colors.grey.shade300,
+              selected ? Color(0xFF7C7BFC) : Color(0xFFEDF0F7),
             ),
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               EdgeInsets.all(0),

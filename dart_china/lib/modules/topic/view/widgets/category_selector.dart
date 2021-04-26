@@ -1,5 +1,46 @@
 part of 'widgets.dart';
 
+class SliverCategorySelector extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 15,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        children: [
+          TopicTypeSelector(
+            onSelect: (index) {
+              print('select topic $index');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 145;
+
+  @override
+  double get minExtent => 145;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}
+
 class CategorySelector extends StatefulWidget {
   const CategorySelector({
     Key? key,

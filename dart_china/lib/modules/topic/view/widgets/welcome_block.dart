@@ -1,7 +1,7 @@
 part of 'widgets.dart';
 
-class WelcomeSection extends StatelessWidget {
-  const WelcomeSection({Key? key}) : super(key: key);
+class WelcomeBlock extends StatelessWidget {
+  const WelcomeBlock({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

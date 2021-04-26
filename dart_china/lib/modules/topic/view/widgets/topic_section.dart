@@ -56,8 +56,10 @@ class TopicTypeSelector extends StatefulWidget {
   const TopicTypeSelector({
     Key? key,
     this.configMap = const {
-      'latest': '最新',
-      'hot': '最热',
+      'all': '全部',
+      'share': '分享',
+      'question': '问答',
+      'meta': '站务',
     },
     required this.onSelect,
   }) : super(key: key);

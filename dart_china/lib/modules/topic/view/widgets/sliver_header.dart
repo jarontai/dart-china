@@ -25,9 +25,9 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
             child: Opacity(
               opacity: percent,
               child: SizedBox(
-                height: 60,
+                height: 70,
                 width: double.infinity,
-                child: WelcomeSection(),
+                child: WelcomeBlock(),
               ),
             ),
           ),
