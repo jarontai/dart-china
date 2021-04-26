@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constants.dart';
 import '../../../../widgets/widgets.dart';
 
-part 'welcome_section.dart';
-part 'topic_section.dart';
 part 'category_selector.dart';
+part 'sliver_header.dart';
 part 'topic_list.dart';
+part 'topic_section.dart';
+part 'welcome_section.dart';
 
 typedef IndexCallback = void Function(int index);
