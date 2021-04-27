@@ -1,24 +1,28 @@
 part of 'widgets.dart';
 
-// class TopicList extends StatelessWidget {
-//   const TopicList({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: ListView.separated(
-//       itemCount: 5,
-//       itemBuilder: (_, __) {
-//         return TopicCard();
-//       },
-//       separatorBuilder: (_, __) {
-//         return SizedBox(height: 18);
-//       },
-//       shrinkWrap: true,
-//       scrollDirection: Axis.vertical,
-//     ));
-//   }
-// }
+SliverList buildSliverTopicList() {
+  return SliverList(
+    delegate: SliverChildBuilderDelegate(
+      (_, index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFF1F6FA),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFDFDFD),
+                blurRadius: 0,
+                spreadRadius: 0,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: TopicCard(),
+        );
+      },
+      childCount: 10,
+    ),
+  );
+}
 
 class TopicCard extends StatelessWidget {
   const TopicCard({Key? key}) : super(key: key);
@@ -91,7 +95,7 @@ class TopicStatus extends StatelessWidget {
               Icon(
                 Icons.visibility_outlined,
                 color: Color(0xFFB0B1BA),
-                size: 18,
+                size: 14,
               ),
               SizedBox(
                 width: 5,
@@ -100,6 +104,7 @@ class TopicStatus extends StatelessWidget {
                 '120',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
+                  fontSize: 13,
                 ),
               ),
             ],
@@ -109,7 +114,7 @@ class TopicStatus extends StatelessWidget {
               Icon(
                 Icons.chat_bubble_outline,
                 color: Color(0xFFB0B1BA),
-                size: 18,
+                size: 14,
               ),
               SizedBox(
                 width: 5,
@@ -118,6 +123,7 @@ class TopicStatus extends StatelessWidget {
                 '120',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
+                  fontSize: 13,
                 ),
               ),
             ],
@@ -127,7 +133,7 @@ class TopicStatus extends StatelessWidget {
               Icon(
                 Icons.thumb_up_outlined,
                 color: Color(0xFFB0B1BA),
-                size: 18,
+                size: 14,
               ),
               SizedBox(
                 width: 5,
@@ -136,6 +142,7 @@ class TopicStatus extends StatelessWidget {
                 '120',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
+                  fontSize: 13,
                 ),
               ),
             ],
@@ -185,6 +192,7 @@ class TopicCardHead extends StatelessWidget {
                   'Janu Ptura • 1小时前',
                   style: TextStyle(
                     color: Colors.grey.shade400,
+                    fontSize: 13,
                   ),
                 ),
               ],
@@ -199,6 +207,7 @@ class TopicCardHead extends StatelessWidget {
                   icon: Icon(
                     Icons.bookmark_outline,
                     color: Color(0xFFB0B1BA),
+                    size: 20,
                   ),
                   onPressed: () {},
                 )

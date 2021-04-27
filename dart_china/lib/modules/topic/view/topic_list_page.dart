@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
 import 'widgets/widgets.dart';
 
 class TopicListPage extends StatelessWidget {
@@ -26,27 +25,7 @@ class TopicListPage extends StatelessWidget {
                   // floating: true,
                   delegate: SliverCategorySelector(),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF1F6FA),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFFFDFDFD),
-                              blurRadius: 0,
-                              spreadRadius: 0,
-                              offset: Offset(0, 2),
-                            )
-                          ],
-                        ),
-                        child: TopicCard(),
-                      );
-                    },
-                    childCount: 10,
-                  ),
-                )
+                buildSliverTopicList(),
               ],
             ),
           ),

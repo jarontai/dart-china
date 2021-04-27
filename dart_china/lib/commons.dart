@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+typedef IndexCallback = void Function(int index);
+
 const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
 // const kMainGradient = LinearGradient(
