@@ -26,12 +26,12 @@ dependencies:
   discourse_api:
     git:
       url: git@github.com:jarontai/discourse_api.git
-      ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
+      ref: 53f67aa929fc974405ea6bad3ceb617bb111ba29
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   device_preview: ^0.7.1
-  dotenv: ^3.0.0-nullsafety.0
   flutter_bloc: ^7.0.0
+  flutter_dotenv: 4.0.0-nullsafety.0
   flutter_markdown: ^0.6.1
   html2md: ^1.1.0
   intl: ^0.17.0
@@ -61,6 +61,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env  
     - assets/icon/logo_dart.png
     - assets/icon/logo_dart_ios.png
   # An image asset can refer to one or more resolution-specific "variants", see

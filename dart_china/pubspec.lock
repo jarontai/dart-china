@@ -180,13 +180,13 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
-      resolved-ref: df4bffa351f6c3f25a15d95c07c6df739c1197c4
+      ref: "53f67aa929fc974405ea6bad3ceb617bb111ba29"
+      resolved-ref: "53f67aa929fc974405ea6bad3ceb617bb111ba29"
       url: "git@github.com:jarontai/discourse_api.git"
     source: git
     version: "0.0.0"
   dotenv:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dotenv
       url: "https://pub.flutter-io.cn"
@@ -225,6 +225,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "7.0.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0-nullsafety.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

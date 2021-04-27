@@ -1,12 +1,12 @@
 import 'package:discourse_api/discourse_api.dart';
-import 'package:dotenv/dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 late final DiscourseApiClient _client;
 
-Future<void> initRepository() async {
-  dotenv.load();
+initRepository() async {
+  await dotenv.load();
   var siteUrl = dotenv.env['site_url'];
-  _client = DiscourseApiClient(siteUrl!);
+  _client = DiscourseApiClient.single(siteUrl!);
 }
 
 class TopicRepository {
