@@ -27,10 +27,14 @@ class DartChinaApp extends StatelessWidget {
         ),
         initialRoute: '/topic_list',
         routes: {
-          '/topic_list': (_) => BlocProvider(
-                create: (_) => TopicCubit(),
-                child: TopicListPage(),
-              ),
+          '/topic_list': (_) {
+            var topicCubit = TopicCubit();
+            topicCubit.fetchLatest();
+            return BlocProvider(
+              create: (_) => topicCubit,
+              child: TopicListPage(),
+            );
+          },
         },
         debugShowCheckedModeBanner: false,
       ),

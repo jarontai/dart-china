@@ -17,12 +17,10 @@ class TopicListPage extends StatelessWidget {
               slivers: [
                 SliverPersistentHeader(
                   pinned: true,
-                  // floating: true,
                   delegate: SliverHeader(),
                 ),
                 SliverPersistentHeader(
                   pinned: true,
-                  // floating: true,
                   delegate: SliverCategorySelector(),
                 ),
                 buildSliverTopicList(),
