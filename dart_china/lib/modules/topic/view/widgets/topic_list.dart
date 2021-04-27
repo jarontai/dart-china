@@ -29,8 +29,8 @@ class TopicCard extends StatelessWidget {
       margin: EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 6,
-        bottom: 6,
+        top: 8,
+        bottom: 10,
       ),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -59,10 +59,33 @@ class TopicStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: Color(0xFF40a37e),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+              SizedBox(width: 5),
+              Text(
+                '分享',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFFB0B1BA),
+                  height: 1,
+                ),
+              ),
+              SizedBox(width: 50),
+            ],
+          ),
           Row(
             children: [
               Icon(
@@ -71,7 +94,7 @@ class TopicStatus extends StatelessWidget {
                 size: 18,
               ),
               SizedBox(
-                width: 10,
+                width: 5,
               ),
               Text(
                 '120',
@@ -89,7 +112,7 @@ class TopicStatus extends StatelessWidget {
                 size: 18,
               ),
               SizedBox(
-                width: 10,
+                width: 5,
               ),
               Text(
                 '120',
@@ -107,7 +130,7 @@ class TopicStatus extends StatelessWidget {
                 size: 18,
               ),
               SizedBox(
-                width: 10,
+                width: 5,
               ),
               Text(
                 '120',
