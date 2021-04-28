@@ -2,11 +2,18 @@ import 'package:discourse_api/discourse_api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 late final DiscourseApiClient _client;
+final Map<int, String> categorySlugMap = {};
 
 initRepository() async {
   await dotenv.load();
   var siteUrl = dotenv.env['site_url'];
   _client = DiscourseApiClient.single(siteUrl!);
+  var categories = await _client.categories();
+  if (categories.isNotEmpty) {
+    for (var cat in categories) {
+      categorySlugMap[cat.id] = cat.slug;
+    }
+  }
 }
 
 class TopicRepository {
@@ -14,7 +21,10 @@ class TopicRepository {
 
   Future<List<Topic>> latestTopics() async {
     var topics = await client.topicList(latest: true);
-    return topics;
+    return topics.map((e) {
+      var catId = e.categoryId;
+      return e.copyWith(categorySlug: categorySlugMap[catId]);
+    }).toList();
   }
 }
 

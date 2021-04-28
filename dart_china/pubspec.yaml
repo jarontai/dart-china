@@ -26,7 +26,7 @@ dependencies:
   discourse_api:
     git:
       url: git@github.com:jarontai/discourse_api.git
-      ref: 53f67aa929fc974405ea6bad3ceb617bb111ba29
+      ref: 92fc4c84afcc1bdce4c732a2063b33f2fc275d7d
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   device_preview: ^0.7.1

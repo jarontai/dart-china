@@ -6,6 +6,7 @@ Widget buildSliverTopicList(BuildContext context) {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (_, index) {
+            var topic = state.topics[index];
             return Container(
               decoration: BoxDecoration(
                 color: Color(0xFFF1F6FA),
@@ -19,8 +20,14 @@ Widget buildSliverTopicList(BuildContext context) {
                 ],
               ),
               child: TopicCard(
-                  title: state.topics[index].title,
-                  body: state.topics[index].title),
+                title: topic.title,
+                body: topic.excerpt ?? topic.title,
+                pin: topic.pinnedGlobally,
+                viewCount: topic.views,
+                replyCount: topic.postsCount,
+                likeCount: topic.likeCount,
+                slug: topic.categorySlug ?? '',
+              ),
             );
           },
           childCount: state.topics.length,
@@ -35,11 +42,24 @@ Widget buildSliverTopicList(BuildContext context) {
 }
 
 class TopicCard extends StatelessWidget {
-  const TopicCard({Key? key, required this.title, required this.body})
-      : super(key: key);
+  const TopicCard({
+    Key? key,
+    required this.title,
+    required this.body,
+    required this.slug,
+    this.pin = false,
+    this.viewCount = 0,
+    this.replyCount = 0,
+    this.likeCount = 0,
+  }) : super(key: key);
 
   final String title;
   final String body;
+  final String slug;
+  final bool pin;
+  final int viewCount;
+  final int replyCount;
+  final int likeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +79,16 @@ class TopicCard extends StatelessWidget {
         children: [
           TopicCardHead(
             title: title,
+            pin: pin,
           ),
           TopicBody(content: body),
           SizedBox(height: 8),
-          TopicStatus(),
+          TopicStatus(
+            slug: slug,
+            view: viewCount,
+            reply: replyCount,
+            like: likeCount,
+          ),
         ],
       ),
     );
@@ -72,7 +98,60 @@ class TopicCard extends StatelessWidget {
 class TopicStatus extends StatelessWidget {
   const TopicStatus({
     Key? key,
+    this.slug = '',
+    this.view = 0,
+    this.reply = 0,
+    this.like = 0,
   }) : super(key: key);
+
+  final String slug;
+  final int view;
+  final int reply;
+  final int like;
+
+  Text buildType() {
+    var type = '其他';
+    switch (slug) {
+      case 'share':
+        type = '分享';
+        break;
+      case 'question':
+        type = '问答';
+
+        break;
+      case 'meta':
+        type = '站务';
+
+        break;
+    }
+
+    return Text(
+      type,
+      style: TextStyle(
+        fontSize: 11,
+        color: Color(0xFFB0B1BA),
+        height: 1,
+      ),
+    );
+  }
+
+  Color buildColor() {
+    var color = Color(0xFFB0B1BA);
+    switch (slug) {
+      case 'share':
+        color = Color(0xFF40a37e);
+        break;
+      case 'question':
+        color = Color(0xFFd9a01c);
+
+        break;
+      case 'meta':
+        color = Color(0xFFa19b8f);
+
+        break;
+    }
+    return color;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,19 +167,12 @@ class TopicStatus extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: Color(0xFF40a37e),
+                  color: buildColor(),
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),
               SizedBox(width: 5),
-              Text(
-                '分享',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFFB0B1BA),
-                  height: 1,
-                ),
-              ),
+              buildType(),
               SizedBox(width: 50),
             ],
           ),
@@ -115,7 +187,7 @@ class TopicStatus extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '120',
+                '$view',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
                   fontSize: 13,
@@ -134,7 +206,7 @@ class TopicStatus extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '120',
+                '$reply',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
                   fontSize: 13,
@@ -153,7 +225,7 @@ class TopicStatus extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '120',
+                '$like',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
                   fontSize: 13,
@@ -171,9 +243,11 @@ class TopicCardHead extends StatelessWidget {
   const TopicCardHead({
     Key? key,
     required this.title,
+    this.pin = false,
   }) : super(key: key);
 
   final String title;
+  final bool pin;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +277,7 @@ class TopicCardHead extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -223,9 +297,9 @@ class TopicCardHead extends StatelessWidget {
           Container(
             child: IconButton(
               icon: Icon(
-                Icons.bookmark_outline,
-                color: Color(0xFFB0B1BA),
-                size: 20,
+                Icons.push_pin_outlined,
+                color: pin ? Color(0xFFB0B1BA) : Colors.transparent,
+                size: 15,
               ),
               onPressed: () {},
             ),
