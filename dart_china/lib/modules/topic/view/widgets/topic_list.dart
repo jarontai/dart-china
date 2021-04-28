@@ -1,31 +1,45 @@
 part of 'widgets.dart';
 
-SliverList buildSliverTopicList() {
-  return SliverList(
-    delegate: SliverChildBuilderDelegate(
-      (_, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFF1F6FA),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFFFDFDFD),
-                blurRadius: 0,
-                spreadRadius: 0,
-                offset: Offset(0, 2),
+Widget buildSliverTopicList(BuildContext context) {
+  return BlocBuilder<TopicCubit, TopicState>(builder: (_, state) {
+    if (state is TopicSuccess) {
+      return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (_, index) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFF1F6FA),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFFDFDFD),
+                    blurRadius: 0,
+                    spreadRadius: 0,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: TopicCard(),
-        );
-      },
-      childCount: 10,
-    ),
-  );
+              child: TopicCard(
+                  title: state.topics[index].title,
+                  body: state.topics[index].title),
+            );
+          },
+          childCount: state.topics.length,
+        ),
+      );
+    } else {
+      return SliverToBoxAdapter(
+        child: Container(),
+      );
+    }
+  });
 }
 
 class TopicCard extends StatelessWidget {
-  const TopicCard({Key? key}) : super(key: key);
+  const TopicCard({Key? key, required this.title, required this.body})
+      : super(key: key);
+
+  final String title;
+  final String body;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +57,10 @@ class TopicCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          TopicCardHead(),
-          TopicBody(
-              content:
-                  'So, i ve been using c# for a whhole decade now, if you guys know how to break the boring...'),
+          TopicCardHead(
+            title: title,
+          ),
+          TopicBody(content: body),
           SizedBox(height: 8),
           TopicStatus(),
         ],
@@ -154,7 +168,12 @@ class TopicStatus extends StatelessWidget {
 }
 
 class TopicCardHead extends StatelessWidget {
-  const TopicCardHead({Key? key}) : super(key: key);
+  const TopicCardHead({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -173,45 +192,42 @@ class TopicCardHead extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 8,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Dart In A Nutshell',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(
+                left: 8,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  'Janu Ptura • 1小时前',
-                  style: TextStyle(
-                    color: Colors.grey.shade400,
-                    fontSize: 13,
+                  Text(
+                    'Janu Ptura • 1小时前',
+                    style: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 13,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.bookmark_outline,
-                    color: Color(0xFFB0B1BA),
-                    size: 20,
-                  ),
-                  onPressed: () {},
-                )
-              ],
+          Container(
+            child: IconButton(
+              icon: Icon(
+                Icons.bookmark_outline,
+                color: Color(0xFFB0B1BA),
+                size: 20,
+              ),
+              onPressed: () {},
             ),
           )
         ],
@@ -237,11 +253,12 @@ class TopicBody extends StatelessWidget {
       ),
       child: Text(
         content,
+        textAlign: TextAlign.start,
         style: TextStyle(
           color: Color(0xFF8E8E9F),
           fontWeight: FontWeight.w500,
         ),
-        maxLines: 2,
+        maxLines: 3,
         overflow: TextOverflow.ellipsis,
       ),
     );

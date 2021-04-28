@@ -23,7 +23,7 @@ class TopicListPage extends StatelessWidget {
                   pinned: true,
                   delegate: SliverCategorySelector(),
                 ),
-                buildSliverTopicList(),
+                buildSliverTopicList(context),
               ],
             ),
           ),
