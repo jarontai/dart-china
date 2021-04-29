@@ -20,13 +20,7 @@ Widget buildSliverTopicList(BuildContext context) {
                 ],
               ),
               child: TopicCard(
-                title: topic.title,
-                body: topic.excerpt ?? topic.title,
-                pin: topic.pinnedGlobally,
-                viewCount: topic.views,
-                replyCount: topic.postsCount,
-                likeCount: topic.likeCount,
-                slug: topic.categorySlug ?? '',
+                topic: topic,
               ),
             );
           },
@@ -44,22 +38,10 @@ Widget buildSliverTopicList(BuildContext context) {
 class TopicCard extends StatelessWidget {
   const TopicCard({
     Key? key,
-    required this.title,
-    required this.body,
-    required this.slug,
-    this.pin = false,
-    this.viewCount = 0,
-    this.replyCount = 0,
-    this.likeCount = 0,
+    required this.topic,
   }) : super(key: key);
 
-  final String title;
-  final String body;
-  final String slug;
-  final bool pin;
-  final int viewCount;
-  final int replyCount;
-  final int likeCount;
+  final Topic topic;
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +60,17 @@ class TopicCard extends StatelessWidget {
       child: Column(
         children: [
           TopicCardHead(
-            title: title,
-            pin: pin,
+            title: topic.title,
+            pin: topic.pinnedGlobally,
+            avatar: topic.poster?.avatar,
           ),
-          TopicBody(content: body),
+          TopicBody(content: topic.excerpt!),
           SizedBox(height: 8),
           TopicStatus(
-            slug: slug,
-            view: viewCount,
-            reply: replyCount,
-            like: likeCount,
+            slug: topic.categorySlug!,
+            view: topic.views,
+            reply: topic.replyCount,
+            like: topic.likeCount,
           ),
         ],
       ),
@@ -243,10 +226,12 @@ class TopicCardHead extends StatelessWidget {
   const TopicCardHead({
     Key? key,
     required this.title,
+    this.avatar,
     this.pin = false,
   }) : super(key: key);
 
   final String title;
+  final String? avatar;
   final bool pin;
 
   @override
@@ -258,12 +243,19 @@ class TopicCardHead extends StatelessWidget {
             radius: 25,
             backgroundColor: Colors.transparent,
             child: ClipOval(
-              child: Image.asset(
-                'assets/icon/logo_dart_ios.png',
-                fit: BoxFit.fitWidth,
-                width: 35,
-                height: 35,
-              ),
+              child: avatar != null
+                  ? Image.network(
+                      avatar!,
+                      fit: BoxFit.fitWidth,
+                      width: 35,
+                      height: 35,
+                    )
+                  : Image.asset(
+                      'assets/icon/logo_dart_ios.png',
+                      fit: BoxFit.fitWidth,
+                      width: 35,
+                      height: 35,
+                    ),
             ),
           ),
           Expanded(
@@ -299,7 +291,7 @@ class TopicCardHead extends StatelessWidget {
               icon: Icon(
                 Icons.push_pin_outlined,
                 color: pin ? Color(0xFFB0B1BA) : Colors.transparent,
-                size: 15,
+                size: 20,
               ),
               onPressed: () {},
             ),
@@ -321,6 +313,7 @@ class TopicBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.centerLeft,
       padding: EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 10,

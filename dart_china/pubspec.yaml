@@ -37,6 +37,10 @@ dependencies:
   intl: ^0.17.0
   provider: ^5.0.0
 
+dependency_overrides:
+  discourse_api:
+    path: ../../discourse_api
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

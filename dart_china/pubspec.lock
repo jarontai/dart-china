@@ -179,12 +179,10 @@ packages:
   discourse_api:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "92fc4c84afcc1bdce4c732a2063b33f2fc275d7d"
-      resolved-ref: "92fc4c84afcc1bdce4c732a2063b33f2fc275d7d"
-      url: "git@github.com:jarontai/discourse_api.git"
-    source: git
-    version: "0.0.0"
+      path: "../../discourse_api"
+      relative: true
+    source: path
+    version: "0.1.4"
   dotenv:
     dependency: transitive
     description:
