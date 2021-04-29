@@ -27,6 +27,31 @@ Widget buildSliverTopicList(BuildContext context) {
           childCount: state.topics.length,
         ),
       );
+    } else if (state is TopicInitial) {
+      return SliverFillRemaining(
+        child: Container(
+          padding: EdgeInsets.only(top: 50),
+          decoration: BoxDecoration(
+            color: Color(0xFFF1F6FA),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFDFDFD),
+                blurRadius: 0,
+                spreadRadius: 0,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
     } else {
       return SliverToBoxAdapter(
         child: Container(),
