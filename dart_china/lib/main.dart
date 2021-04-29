@@ -2,11 +2,11 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'modules/topic/cubit/topic_cubit.dart';
 import 'repositories/repositories.dart';
-import 'modules/pages.dart';
+import 'features/features.dart';
 
 const kReleaseMode = false;
+final topicCubit = TopicCubit()..fetchLatest();
 
 void main() async {
   await initRepository();
@@ -28,8 +28,6 @@ class DartChinaApp extends StatelessWidget {
         initialRoute: '/topic_list',
         routes: {
           '/topic_list': (_) {
-            var topicCubit = TopicCubit();
-            topicCubit.fetchLatest();
             return BlocProvider(
               create: (_) => topicCubit,
               child: TopicListPage(),
