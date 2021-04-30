@@ -16,6 +16,5 @@ class TopicCubit extends Cubit<TopicState> {
   void fetchLatest() async {
     var topics = await repository.latestTopics();
     emit(TopicSuccess(topics));
-    print(topics[0]);
   }
 }

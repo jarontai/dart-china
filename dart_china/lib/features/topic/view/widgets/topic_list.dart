@@ -85,9 +85,7 @@ class TopicCard extends StatelessWidget {
       child: Column(
         children: [
           TopicCardHead(
-            title: topic.title,
-            pin: topic.pinnedGlobally,
-            avatar: topic.poster?.avatar,
+            topic: topic,
           ),
           TopicBody(content: topic.excerpt!),
           SizedBox(height: 8),
@@ -137,7 +135,7 @@ class TopicStatus extends StatelessWidget {
       type,
       style: TextStyle(
         fontSize: 11,
-        color: Color(0xFFB0B1BA),
+        color: Colors.grey.shade500,
         height: 1,
       ),
     );
@@ -250,17 +248,31 @@ class TopicStatus extends StatelessWidget {
 class TopicCardHead extends StatelessWidget {
   const TopicCardHead({
     Key? key,
-    required this.title,
-    this.avatar,
-    this.pin = false,
+    required this.topic,
   }) : super(key: key);
 
-  final String title;
-  final String? avatar;
-  final bool pin;
+  final Topic topic;
+
+  String _buildCreatedAt(DateTime dateTime) {
+    DateTime now = DateTime.now();
+    var diff = now.difference(dateTime);
+    var minutes = diff.inMinutes;
+    if (minutes >= 1440) {
+      return '${diff.inDays} 天前';
+    } else if (minutes >= 60 && minutes < 1440) {
+      return '${diff.inHours} 小时前';
+    } else {
+      return '$minutes 分钟前';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var title = topic.title;
+    var pin = topic.pinnedGlobally;
+    var avatar = topic.poster?.avatar;
+    var username = topic.poster?.username;
+
     return Container(
       child: Row(
         children: [
@@ -270,7 +282,7 @@ class TopicCardHead extends StatelessWidget {
             child: ClipOval(
               child: avatar != null
                   ? Image.network(
-                      avatar!,
+                      avatar,
                       fit: BoxFit.fitWidth,
                       width: 35,
                       height: 35,
@@ -301,9 +313,9 @@ class TopicCardHead extends StatelessWidget {
                     maxLines: 2,
                   ),
                   Text(
-                    'Janu Ptura • 1小时前',
+                    '$username • ${_buildCreatedAt(topic.createdAt)}',
                     style: TextStyle(
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade500,
                       fontSize: 13,
                     ),
                   ),
