@@ -13,18 +13,25 @@ class TopicListPage extends StatelessWidget {
         child: Container(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverHeader(),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverCategorySelector(),
-                ),
-                buildSliverTopicList(context),
-              ],
+            body: RefreshIndicator(
+              onRefresh: () async {
+                // TODO:
+                print('Pull Refresh!');
+              },
+              child: CustomScrollView(
+                physics: ClampingScrollPhysics(),
+                slivers: [
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SliverHeader(),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SliverCategorySelector(),
+                  ),
+                  buildSliverTopicList(context),
+                ],
+              ),
             ),
           ),
         ),
