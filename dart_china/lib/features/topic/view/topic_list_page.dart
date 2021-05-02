@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
 class TopicListPage extends StatelessWidget {
@@ -15,8 +17,7 @@ class TopicListPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             body: RefreshIndicator(
               onRefresh: () async {
-                // TODO:
-                print('Pull Refresh!');
+                BlocProvider.of<TopicCubit>(context).pollLatest();
               },
               child: CustomScrollView(
                 physics: ClampingScrollPhysics(),

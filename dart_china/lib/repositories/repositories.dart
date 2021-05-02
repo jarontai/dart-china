@@ -41,6 +41,10 @@ class TopicRepository {
     }
     return result;
   }
+
+  Future<bool> hasNewTopic() async {
+    return _client.pollLatest();
+  }
 }
 
 class PostRepository {

@@ -13,8 +13,15 @@ class TopicCubit extends Cubit<TopicState> {
 
   TopicCubit() : super(TopicInitial());
 
-  void fetchLatest() async {
+  Future<void> fetchLatest() async {
     var topics = await repository.latestTopics();
     emit(TopicSuccess(topics));
+  }
+
+  Future<void> pollLatest() async {
+    var latest = await repository.hasNewTopic();
+    if (latest) {
+      await fetchLatest();
+    }
   }
 }
