@@ -19,12 +19,15 @@ Widget buildSliverTopicList(BuildContext context) {
                   ),
                 ],
               ),
-              child: TopicCard(
-                topic: topic,
-              ),
+              child: index >= state.topics.length
+                  ? BottomLoader()
+                  : TopicCard(
+                      topic: topic,
+                    ),
             );
           },
-          childCount: state.topics.length,
+          childCount:
+              state.more ? state.topics.length + 1 : state.topics.length,
         ),
       );
     } else if (state is TopicInitial) {
