@@ -23,12 +23,21 @@ class TopicCubit extends Cubit<TopicState> {
   }
 
   Future<void> _doFetchLatest({bool refresh = false}) async {
-    var topics = await repository.latestTopics(refresh: refresh);
-    if (state is TopicInitial) {
-      emit(TopicSuccess(topics));
+    if (state is TopicInitial || refresh) {
+      var topics = await repository.latestTopics(page: 0);
+      emit(TopicSuccess(topics: topics));
     } else if (state is TopicSuccess) {
-      var current = state as TopicSuccess;
-      emit(TopicSuccess(List.of(current.topics)..addAll(topics)));
+      var previous = state as TopicSuccess;
+      if (previous.more) {
+        var currentPage = previous.page + 1;
+        var topics = await repository.latestTopics(page: currentPage);
+        var current = previous.copyWith(
+          topics: List.of(previous.topics)..addAll(topics),
+          page: currentPage,
+          more: topics.length > 0,
+        );
+        emit(current);
+      }
     }
   }
 
