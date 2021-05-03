@@ -287,32 +287,28 @@ class TopicCardHead extends StatelessWidget {
       child: Row(
         children: [
           ClipOval(
-            child: Material(
-              color: Colors.transparent,
-              shape: CircleBorder(),
-              child: IconButton(
-                onPressed: () {
-                  // TODO:
-                  print('Profile pressed');
-                },
-                icon: CircleAvatar(
-                  radius: 25,
-                  // backgroundColor: Colors.transparent,
-                  child: ClipOval(
-                    child: avatar != null
-                        ? Image.network(
-                            avatar,
-                            fit: BoxFit.fitWidth,
-                            width: 35,
-                            height: 35,
-                          )
-                        : Image.asset(
-                            'assets/icon/logo_dart_ios.png',
-                            fit: BoxFit.fitWidth,
-                            width: 35,
-                            height: 35,
-                          ),
-                  ),
+            child: IconButton(
+              onPressed: () {
+                // TODO:
+                print('Profile pressed');
+              },
+              icon: CircleAvatar(
+                backgroundColor: Colors.grey.shade200,
+                radius: 25,
+                child: ClipOval(
+                  child: avatar != null
+                      ? Image.network(
+                          avatar,
+                          fit: BoxFit.fitWidth,
+                          width: 35,
+                          height: 35,
+                        )
+                      : Image.asset(
+                          'assets/icon/logo_dart_ios.png',
+                          fit: BoxFit.fitWidth,
+                          width: 35,
+                          height: 35,
+                        ),
                 ),
               ),
             ),
@@ -327,8 +323,9 @@ class TopicCardHead extends StatelessWidget {
                 children: [
                   TextButton(
                     style: ButtonStyle(
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.grey.shade100)),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.grey.shade100),
+                    ),
                     onPressed: () {},
                     child: Text(
                       title,

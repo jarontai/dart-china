@@ -45,6 +45,8 @@ class TopicListCubit extends Cubit<TopicListState> {
     var latest = await repository.hasNewTopic();
     if (latest) {
       await fetchLatest(refresh: true);
+    } else {
+      await Future.delayed(Duration(milliseconds: 500));
     }
   }
 }
