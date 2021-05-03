@@ -8,7 +8,17 @@ import 'features/features.dart';
 const kReleaseMode = false;
 final topicCubit = TopicCubit()..fetchLatest();
 
+class CubitObserver extends BlocObserver {
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('${bloc.runtimeType} $change');
+  }
+}
+
 void main() async {
+  Bloc.observer = CubitObserver();
+
   await initRepository();
 
   runApp(DartChinaApp());

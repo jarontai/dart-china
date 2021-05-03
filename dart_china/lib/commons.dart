@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 typedef IndexCallback = void Function(int index);
@@ -13,3 +15,18 @@ const kTagColr = Color(0xFFf2f6fa);
 //   end: Alignment.bottomRight,
 //   // stops: [0.1, 0.8],
 // );
+
+class Debouncer {
+  late int millisecond;
+  Timer? _timer;
+
+  Debouncer({this.millisecond = 500});
+
+  run(VoidCallback action) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+
+    _timer = Timer(Duration(milliseconds: millisecond), action);
+  }
+}

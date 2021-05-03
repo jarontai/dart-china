@@ -21,10 +21,24 @@ initRepository() async {
 class TopicRepository {
   DiscourseApiClient get client => _client;
 
-  Future<List<Topic>> latestTopics() async {
-    var topics = await client.topicList(latest: true);
+  int page = 0;
+  bool hasNext = true;
+
+  Future<List<Topic>> latestTopics({bool refresh = false}) async {
     var result = <Topic>[];
-    for (var topic in topics) {
+    if (!hasNext) {
+      return result;
+    }
+
+    if (refresh) {
+      page = 0;
+    }
+
+    var topics = await client.topicList(latest: true, page: page);
+    page++;
+    hasNext = topics.hasNext;
+
+    for (var topic in topics.data) {
       topic.users?.forEach((user) {
         userMap.putIfAbsent(user.id, () => user);
       });
@@ -39,6 +53,7 @@ class TopicRepository {
         poster: poster,
       ));
     }
+
     return result;
   }
 

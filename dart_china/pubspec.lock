@@ -182,7 +182,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.1.7"
+    version: "0.1.9"
   dotenv:
     dependency: transitive
     description:
