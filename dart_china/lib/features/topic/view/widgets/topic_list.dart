@@ -89,7 +89,15 @@ class TopicCard extends StatelessWidget {
           TopicCardHead(
             topic: topic,
           ),
-          TopicBody(content: topic.excerpt!),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                print('Press topic id: ${topic.id}');
+              },
+              child: TopicBody(content: topic.excerpt!),
+            ),
+          ),
           SizedBox(height: 8),
           TopicStatus(
             slug: topic.categorySlug!,
@@ -278,23 +286,35 @@ class TopicCardHead extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.transparent,
-            child: ClipOval(
-              child: avatar != null
-                  ? Image.network(
-                      avatar,
-                      fit: BoxFit.fitWidth,
-                      width: 35,
-                      height: 35,
-                    )
-                  : Image.asset(
-                      'assets/icon/logo_dart_ios.png',
-                      fit: BoxFit.fitWidth,
-                      width: 35,
-                      height: 35,
-                    ),
+          ClipOval(
+            child: Material(
+              color: Colors.transparent,
+              shape: CircleBorder(),
+              child: IconButton(
+                onPressed: () {
+                  // TODO:
+                  print('Profile pressed');
+                },
+                icon: CircleAvatar(
+                  radius: 25,
+                  // backgroundColor: Colors.transparent,
+                  child: ClipOval(
+                    child: avatar != null
+                        ? Image.network(
+                            avatar,
+                            fit: BoxFit.fitWidth,
+                            width: 35,
+                            height: 35,
+                          )
+                        : Image.asset(
+                            'assets/icon/logo_dart_ios.png',
+                            fit: BoxFit.fitWidth,
+                            width: 35,
+                            height: 35,
+                          ),
+                  ),
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -305,14 +325,21 @@ class TopicCardHead extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
+                  TextButton(
+                    style: ButtonStyle(
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.grey.shade100)),
+                    onPressed: () {},
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
                   ),
                   Text(
                     '$username • ${_buildCreatedAt(topic.createdAt)}',

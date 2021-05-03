@@ -62,10 +62,12 @@ class WelcomeBlock extends StatelessWidget {
           Align(
             // mainAxisAlignment: MainAxisAlignment.center,
             child: IconButton(
+              splashRadius: kSplashRadius,
               iconSize: 30,
               color: Colors.grey.shade300,
               icon: Icon(Icons.search),
               onPressed: () {
+                // TODO:
                 print('pressed search');
               },
             ),

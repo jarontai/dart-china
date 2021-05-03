@@ -6,6 +6,9 @@ typedef IndexCallback = void Function(int index);
 
 const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
+
+const kSplashRadius = 25.0;
+
 // const kMainGradient = LinearGradient(
 //   colors: [
 //     Color(0xFF435AE4),

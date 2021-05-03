@@ -46,7 +46,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.menu),
-        splashRadius: 25,
+        splashRadius: kSplashRadius,
         onPressed: () {},
       ),
       title: titleVisiable
@@ -60,7 +60,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
           : null,
       actions: [
         IconButton(
-          splashRadius: 25,
+          splashRadius: kSplashRadius,
           icon: Icon(Icons.add),
           onPressed: () {
             print('presssed add!');
