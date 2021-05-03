@@ -8,13 +8,13 @@ import '../../../repositories/repositories.dart';
 
 export 'package:discourse_api/discourse_api.dart' show Topic;
 
-part 'topic_state.dart';
+part 'topic_list_state.dart';
 
-class TopicCubit extends Cubit<TopicState> {
+class TopicListCubit extends Cubit<TopicListState> {
   final TopicRepository repository = TopicRepository();
   final Debouncer _debouncer = Debouncer();
 
-  TopicCubit() : super(TopicInitial());
+  TopicListCubit() : super(TopicListInitial());
 
   Future<void> fetchLatest({bool refresh = false}) async {
     _debouncer.run(() async {
@@ -23,11 +23,11 @@ class TopicCubit extends Cubit<TopicState> {
   }
 
   Future<void> _doFetchLatest({bool refresh = false}) async {
-    if (state is TopicInitial || refresh) {
+    if (state is TopicListInitial || refresh) {
       var topics = await repository.latestTopics(page: 0);
-      emit(TopicSuccess(topics: topics));
-    } else if (state is TopicSuccess) {
-      var previous = state as TopicSuccess;
+      emit(TopicListSuccess(topics: topics));
+    } else if (state is TopicListSuccess) {
+      var previous = state as TopicListSuccess;
       if (previous.more) {
         var currentPage = previous.page + 1;
         var topics = await repository.latestTopics(page: currentPage);

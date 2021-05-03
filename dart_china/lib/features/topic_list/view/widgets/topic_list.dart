@@ -1,8 +1,8 @@
 part of 'widgets.dart';
 
 Widget buildSliverTopicList(BuildContext context) {
-  return BlocBuilder<TopicCubit, TopicState>(builder: (_, state) {
-    if (state is TopicSuccess) {
+  return BlocBuilder<TopicListCubit, TopicListState>(builder: (_, state) {
+    if (state is TopicListSuccess) {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (_, index) {
@@ -29,7 +29,7 @@ Widget buildSliverTopicList(BuildContext context) {
               state.more ? state.topics.length + 1 : state.topics.length,
         ),
       );
-    } else if (state is TopicInitial) {
+    } else if (state is TopicListInitial) {
       return SliverFillRemaining(
         child: Container(
           padding: EdgeInsets.only(top: 50),

@@ -6,7 +6,7 @@ import 'repositories/repositories.dart';
 import 'features/features.dart';
 
 const kReleaseMode = false;
-final topicCubit = TopicCubit()..fetchLatest();
+final topicCubit = TopicListCubit()..fetchLatest();
 
 class CubitObserver extends BlocObserver {
   @override

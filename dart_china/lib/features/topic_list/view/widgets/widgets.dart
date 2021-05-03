@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../commons.dart';
 import '../../../../widgets/widgets.dart';
-import '../../cubit/topic_cubit.dart';
+import '../../cubit/topic_list_cubit.dart';
 
 part 'category_selector.dart';
 part 'sliver_header.dart';
