@@ -1,3 +1,4 @@
+import 'package:dart_china/commons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,17 +12,27 @@ class TopicListPage extends StatefulWidget {
 
 class _TopicListPageState extends State<TopicListPage> {
   late ScrollController _scrollController;
+  bool scrollToTop = false;
 
   @override
   void initState() {
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      if (_scrollController.hasClients &&
-          _scrollController.offset >=
-              (_scrollController.position.maxScrollExtent * 0.9) &&
-          !_scrollController.position.outOfRange) {
-        print('call fetchLatest');
-        BlocProvider.of<TopicCubit>(context).fetchLatest();
+      if (_scrollController.hasClients) {
+        var maxExtent = _scrollController.position.maxScrollExtent;
+        if (_scrollController.offset >= (maxExtent * 0.9) &&
+            !_scrollController.position.outOfRange) {
+          BlocProvider.of<TopicCubit>(context).fetchLatest();
+        }
+
+        var shouldScrollTop = false;
+        if (_scrollController.offset >= (maxExtent * 0.1) &&
+            !_scrollController.position.outOfRange) {
+          shouldScrollTop = true;
+        }
+        setState(() {
+          scrollToTop = shouldScrollTop;
+        });
       }
     });
 
@@ -64,6 +75,16 @@ class _TopicListPageState extends State<TopicListPage> {
                 ],
               ),
             ),
+            floatingActionButton: scrollToTop
+                ? FloatingActionButton(
+                    mini: true,
+                    backgroundColor: kBackgroundColor,
+                    child: Icon(Icons.arrow_upward_outlined),
+                    onPressed: () {
+                      _scrollController.jumpTo(1);
+                    },
+                  )
+                : null,
           ),
         ),
       ),

@@ -54,23 +54,16 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
               'Dart China',
               style: TextStyle(
                 color: Colors.grey.shade100,
-                // fontSize: 26,
                 fontWeight: FontWeight.w500,
               ),
             )
           : null,
       actions: [
         IconButton(
-          splashRadius: 30,
-          icon: CircleAvatar(
-            backgroundColor: kTagColr,
-            child: Icon(
-              Icons.person_outlined,
-              color: Colors.grey,
-            ),
-          ),
+          splashRadius: 25,
+          icon: Icon(Icons.add),
           onPressed: () {
-            print('presssed profile!');
+            print('presssed add!');
           },
         )
       ],
