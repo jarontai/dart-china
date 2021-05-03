@@ -6,7 +6,6 @@ Widget buildSliverTopicList(BuildContext context) {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (_, index) {
-            var topic = state.topics[index];
             return Container(
               decoration: BoxDecoration(
                 color: Color(0xFFF1F6FA),
@@ -22,7 +21,7 @@ Widget buildSliverTopicList(BuildContext context) {
               child: index >= state.topics.length
                   ? BottomLoader()
                   : TopicCard(
-                      topic: topic,
+                      topic: state.topics[index],
                     ),
             );
           },

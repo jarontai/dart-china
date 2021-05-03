@@ -5,13 +5,13 @@ class BottomLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      height: 80,
+      alignment: Alignment.center,
       child: SizedBox(
         height: 24,
         width: 24,
-        child: CircularProgressIndicator(
-          strokeWidth: 1.5,
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }
