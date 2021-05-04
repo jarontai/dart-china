@@ -11,26 +11,26 @@ export 'package:discourse_api/discourse_api.dart' show Topic;
 part 'topic_list_state.dart';
 
 class TopicListCubit extends Cubit<TopicListState> {
-  final TopicRepository repository = TopicRepository();
-  final Debouncer _debouncer = Debouncer();
-
   TopicListCubit() : super(TopicListInitial());
 
-  Future<void> fetchLatest({bool refresh = false}) async {
+  TopicRepository get repository => topicRepository;
+  final Debouncer _debouncer = Debouncer();
+
+  fetchLatest({bool refresh = false}) async {
     _debouncer.run(() async {
       _doFetchLatest(refresh: refresh);
     });
   }
 
-  Future<void> _doFetchLatest({bool refresh = false}) async {
+  _doFetchLatest({bool refresh = false}) async {
     if (state is TopicListInitial || refresh) {
-      var topics = await repository.latestTopics(page: 0);
+      var topics = await repository.fetchLatest(page: 0);
       emit(TopicListSuccess(topics: topics));
     } else if (state is TopicListSuccess) {
       var previous = state as TopicListSuccess;
       if (previous.more) {
         var currentPage = previous.page + 1;
-        var topics = await repository.latestTopics(page: currentPage);
+        var topics = await repository.fetchLatest(page: currentPage);
         var current = previous.copyWith(
           topics: List.of(previous.topics)..addAll(topics),
           page: currentPage,
@@ -41,8 +41,8 @@ class TopicListCubit extends Cubit<TopicListState> {
     }
   }
 
-  Future<void> pollLatest() async {
-    var latest = await repository.hasNewTopic();
+  checkLatest() async {
+    var latest = await repository.checkLatest();
     if (latest) {
       await fetchLatest(refresh: true);
     } else {

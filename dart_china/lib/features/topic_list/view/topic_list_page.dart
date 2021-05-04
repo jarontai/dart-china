@@ -57,7 +57,7 @@ class _TopicListPageState extends State<TopicListPage> {
             backgroundColor: Colors.transparent,
             body: RefreshIndicator(
               onRefresh: () async {
-                await BlocProvider.of<TopicListCubit>(context).pollLatest();
+                await BlocProvider.of<TopicListCubit>(context).checkLatest();
               },
               child: CustomScrollView(
                 controller: _scrollController,

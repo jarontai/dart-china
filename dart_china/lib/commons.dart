@@ -23,7 +23,7 @@ class Debouncer {
   late int millisecond;
   Timer? _timer;
 
-  Debouncer({this.millisecond = 500});
+  Debouncer({this.millisecond = 300});
 
   run(VoidCallback action) {
     if (_timer != null) {

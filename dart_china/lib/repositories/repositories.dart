@@ -5,6 +5,9 @@ late final DiscourseApiClient _client;
 final Map<int, String> categorySlugMap = {};
 final Map<int, User> userMap = {};
 
+final TopicRepository topicRepository = TopicRepository();
+final PostRepository postRepository = PostRepository();
+
 initRepository() async {
   await dotenv.load();
   var siteUrl = dotenv.env['site_url'];
@@ -21,7 +24,7 @@ initRepository() async {
 class TopicRepository {
   DiscourseApiClient get client => _client;
 
-  Future<List<Topic>> latestTopics({int page = 0}) async {
+  Future<List<Topic>> fetchLatest({int page = 0}) async {
     var result = <Topic>[];
 
     var topics = await client.topicList(latest: true, page: page);
@@ -44,15 +47,19 @@ class TopicRepository {
     return result;
   }
 
-  Future<bool> hasNewTopic() async {
+  Future<bool> checkLatest() async {
     return _client.pollLatest();
+  }
+
+  Future<Topic> findTopic(int topicId) async {
+    return await client.topicDetail(topicId);
   }
 }
 
 class PostRepository {
   DiscourseApiClient get client => _client;
 
-  Future<List<Post>> topicPosts(Topic topic, {int page = 1}) async {
+  Future<List<Post>> fetchTopicPosts(Topic topic, {int page = 0}) async {
     var topics = await client.topicPosts(topic, page: page);
     return topics;
   }
