@@ -4,6 +4,12 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    // var categories;
+    // var state = BlocProvider.of<TopicListCubit>(context).state;
+    // if (state is TopicListSuccess) {
+    //   state.
+    // }
+
     return Container(
       padding: EdgeInsets.only(
         left: 20,
@@ -49,45 +55,35 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
   }
 }
 
-class CategorySelector extends StatefulWidget {
+class CategorySelector extends StatelessWidget {
   const CategorySelector({
     Key? key,
-    this.configMap = const {
-      'all': '全部',
-      'share': '分享',
-      'question': '问答',
-      'meta': '站务',
+    this.categories = const {
+      'all': 'all',
     },
+    this.current = 'all',
     required this.onSelect,
   }) : super(key: key);
 
-  final Map<String, String> configMap;
-  final IndexCallback onSelect;
-
-  @override
-  _CategorySelectorState createState() => _CategorySelectorState();
-}
-
-class _CategorySelectorState extends State<CategorySelector> {
-  int selectedIndex = 0;
+  final Map<String, String> categories;
+  final StrDataCallback onSelect;
+  final String current;
 
   @override
   Widget build(BuildContext context) {
     var list = <Widget>[];
-    var values = widget.configMap.values;
-    for (int i = 0; i < values.length; i++) {
+
+    for (var entry in categories.entries) {
       list.add(SelectButton(
-        text: values.elementAt(i),
+        text: entry.value,
         onPressed: () {
-          setState(() {
-            selectedIndex = i;
-          });
-          widget.onSelect(i);
+          onSelect(entry.key);
         },
-        selected: selectedIndex == i,
+        selected: entry.key == current,
         marginRight: 20,
       ));
     }
+
     return Container(
       height: 35,
       child: ListView(

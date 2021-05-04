@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/features.dart';
 
 const kReleaseMode = false;
-final topicCubit = TopicListCubit()..fetchLatest();
+// final topicCubit = TopicListCubit()..fetchLatest();
 
 class DartChinaApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,7 +22,7 @@ class DartChinaApp extends StatelessWidget {
         routes: {
           '/topic_list': (_) {
             return BlocProvider(
-              create: (_) => topicCubit,
+              create: (_) => TopicListCubit()..fetchLatest(),
               child: TopicListPage(),
             );
           },

@@ -31,12 +31,11 @@ class TopicListCubit extends Cubit<TopicListState> {
       if (previous.more) {
         var currentPage = previous.page + 1;
         var topics = await repository.fetchLatest(page: currentPage);
-        var current = previous.copyWith(
+        emit(previous.copyWith(
           topics: List.of(previous.topics)..addAll(topics),
           page: currentPage,
           more: topics.length > 0,
-        );
-        emit(current);
+        ));
       }
     }
   }

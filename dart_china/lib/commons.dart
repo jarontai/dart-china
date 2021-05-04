@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 typedef IndexCallback = void Function(int index);
+typedef StrDataCallback = void Function(String data);
 
 const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
