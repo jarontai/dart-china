@@ -52,6 +52,7 @@ class TopicListCubit extends Cubit<TopicListState> {
         topics: topics,
         categoryIndex: 0,
         categories: categories,
+        loading: false,
       ));
     } else if (state is TopicListSuccess) {
       var current = state as TopicListSuccess;
@@ -73,6 +74,7 @@ class TopicListCubit extends Cubit<TopicListState> {
           topics: oldTopics..addAll(newTopics),
           page: nextPage,
           more: newTopics.length > 0,
+          loading: false,
         ));
       }
     }
@@ -98,6 +100,7 @@ class TopicListCubit extends Cubit<TopicListState> {
       if (index < categories.length) {
         emit(current.copyWith(
           categoryIndex: index,
+          loading: true,
         ));
         await fetchLatest(refresh: true);
       }

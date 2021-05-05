@@ -13,6 +13,7 @@ class TopicListSuccess extends TopicListState {
   final bool more;
   final List<Category> categories;
   final int categoryIndex;
+  final bool loading;
 
   TopicListSuccess({
     required this.topics,
@@ -20,6 +21,7 @@ class TopicListSuccess extends TopicListState {
     this.more = true,
     this.categories = const [],
     this.categoryIndex = 0,
+    this.loading = false,
   });
 
   TopicListSuccess copyWith({
@@ -28,6 +30,7 @@ class TopicListSuccess extends TopicListState {
     bool? more,
     List<Category>? categories,
     int? categoryIndex,
+    bool? loading,
   }) {
     return TopicListSuccess(
       topics: topics ?? this.topics,
@@ -35,6 +38,7 @@ class TopicListSuccess extends TopicListState {
       more: more ?? this.more,
       categories: categories ?? this.categories,
       categoryIndex: categoryIndex ?? this.categoryIndex,
+      loading: loading ?? this.loading,
     );
   }
 }

@@ -1,6 +1,10 @@
 part of 'widgets.dart';
 
 class SliverCategorySelector extends SliverPersistentHeaderDelegate {
+  final VoidCallback onSelect;
+
+  SliverCategorySelector({required this.onSelect});
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -41,8 +45,8 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
               names: names,
               current: current,
               onSelect: (index) {
-                print('select topic category $index');
                 context.read<TopicListCubit>().changeCategory(index);
+                onSelect();
               },
             ),
           ],

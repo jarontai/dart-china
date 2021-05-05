@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 Widget buildSliverTopicList(BuildContext context) {
   return BlocBuilder<TopicListCubit, TopicListState>(builder: (_, state) {
-    if (state is TopicListSuccess) {
+    if (state is TopicListSuccess && !state.loading) {
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (_, index) {
@@ -29,7 +29,7 @@ Widget buildSliverTopicList(BuildContext context) {
               state.more ? state.topics.length + 1 : state.topics.length,
         ),
       );
-    } else if (state is TopicListInitial) {
+    } else {
       return SliverFillRemaining(
         child: Container(
           padding: EdgeInsets.only(top: 50),
@@ -53,10 +53,6 @@ Widget buildSliverTopicList(BuildContext context) {
             ),
           ),
         ),
-      );
-    } else {
-      return SliverToBoxAdapter(
-        child: Container(),
       );
     }
   });
