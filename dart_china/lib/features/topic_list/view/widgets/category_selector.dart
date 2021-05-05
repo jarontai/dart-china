@@ -4,43 +4,51 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    // var categories;
-    // var state = BlocProvider.of<TopicListCubit>(context).state;
-    // if (state is TopicListSuccess) {
-    //   state.
-    // }
-
-    return Container(
-      padding: EdgeInsets.only(
-        left: 20,
-        right: 20,
-        top: 20,
-      ),
-      decoration: BoxDecoration(
-        color: Color(0xFFF1F6FA),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+    return BlocBuilder<TopicListCubit, TopicListState>(
+        builder: (context, state) {
+      var names = <String>[];
+      var current = -1;
+      if (state is TopicListSuccess) {
+        for (var cat in state.categories) {
+          names.add(cat.name);
+        }
+        current = state.categoryIndex;
+      }
+      return Container(
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xFFF1F6FA),
-            blurRadius: 0,
-            spreadRadius: 0,
-            offset: Offset(0, 2),
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          CategorySelector(
-            onSelect: (index) {
-              print('select topic $index');
-            },
+        decoration: BoxDecoration(
+          color: Color(0xFFF1F6FA),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-        ],
-      ),
-    );
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFFF1F6FA),
+              blurRadius: 0,
+              spreadRadius: 0,
+              offset: Offset(0, 2),
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            CategorySelector(
+              names: names,
+              current: current,
+              onSelect: (index) {
+                print('select topic category $index');
+                context.read<TopicListCubit>().changeCategory(index);
+              },
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   @override
@@ -58,28 +66,26 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
 class CategorySelector extends StatelessWidget {
   const CategorySelector({
     Key? key,
-    this.categories = const {
-      'all': 'all',
-    },
-    this.current = 'all',
+    this.names = const [],
+    this.current = 0,
     required this.onSelect,
   }) : super(key: key);
 
-  final Map<String, String> categories;
-  final StrDataCallback onSelect;
-  final String current;
+  final List<String> names;
+  final IndexCallback onSelect;
+  final int current;
 
   @override
   Widget build(BuildContext context) {
     var list = <Widget>[];
 
-    for (var entry in categories.entries) {
+    for (int i = 0; i < names.length; i++) {
       list.add(SelectButton(
-        text: entry.value,
+        text: names[i],
         onPressed: () {
-          onSelect(entry.key);
+          onSelect(i);
         },
-        selected: entry.key == current,
+        selected: i == current,
         marginRight: 20,
       ));
     }

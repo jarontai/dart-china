@@ -22,7 +22,7 @@ class _TopicListPageState extends State<TopicListPage> {
         var maxExtent = _scrollController.position.maxScrollExtent;
         if (_scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
-          BlocProvider.of<TopicListCubit>(context).fetchLatest();
+          context.read<TopicListCubit>().fetchLatest();
         }
 
         var shouldScrollTop = false;
@@ -57,7 +57,7 @@ class _TopicListPageState extends State<TopicListPage> {
             backgroundColor: Colors.transparent,
             body: RefreshIndicator(
               onRefresh: () async {
-                await BlocProvider.of<TopicListCubit>(context).checkLatest();
+                await context.read<TopicListCubit>().checkLatest();
               },
               child: CustomScrollView(
                 controller: _scrollController,
@@ -82,8 +82,7 @@ class _TopicListPageState extends State<TopicListPage> {
                     child: Icon(Icons.arrow_upward_outlined),
                     onPressed: () {
                       var time = 500;
-                      var state =
-                          BlocProvider.of<TopicListCubit>(context).state;
+                      var state = context.read<TopicListCubit>().state;
                       if (state is TopicListSuccess) {
                         time += state.page * 400;
                       }

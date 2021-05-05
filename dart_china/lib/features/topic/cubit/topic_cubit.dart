@@ -9,8 +9,8 @@ part 'topic_state.dart';
 class TopicCubit extends Cubit<TopicState> {
   TopicCubit() : super(TopicState(init: true));
 
-  PostRepository get repository => postRepository;
-  TopicRepository get topicRepository => topicRepository;
+  PostRepository get repository => thePostRepository;
+  TopicRepository get topicRepository => theTopicRepository;
 
   final Debouncer _debouncer = Debouncer();
 

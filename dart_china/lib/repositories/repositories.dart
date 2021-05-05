@@ -5,8 +5,9 @@ late final DiscourseApiClient _client;
 final Map<int, String> categorySlugMap = {};
 final Map<int, User> userMap = {};
 
-final TopicRepository topicRepository = TopicRepository();
-final PostRepository postRepository = PostRepository();
+final TopicRepository theTopicRepository = TopicRepository();
+final PostRepository thePostRepository = PostRepository();
+final CategoryRepository theCategoryRepository = CategoryRepository();
 
 initRepository() async {
   await dotenv.load();
@@ -21,13 +22,20 @@ initRepository() async {
   }
 }
 
-class TopicRepository {
+abstract class BaseRepository {
   DiscourseApiClient get client => _client;
+}
 
-  Future<List<Topic>> fetchLatest({int page = 0}) async {
+class TopicRepository extends BaseRepository {
+  Future<List<Topic>> fetchLatest(
+      {int page = 0, int? categoryId, String? categorySlug}) async {
     var result = <Topic>[];
 
-    var topics = await client.topicList(latest: true, page: page);
+    var topics = await client.topicList(
+        latest: true,
+        page: page,
+        categoryId: categoryId,
+        categorySlug: categorySlug);
     for (var topic in topics) {
       topic.users?.forEach((user) {
         userMap.putIfAbsent(user.id, () => user);
@@ -56,11 +64,15 @@ class TopicRepository {
   }
 }
 
-class PostRepository {
-  DiscourseApiClient get client => _client;
-
+class PostRepository extends BaseRepository {
   Future<List<Post>> fetchTopicPosts(Topic topic, {int page = 0}) async {
     var topics = await client.topicPosts(topic, page: page);
     return topics;
+  }
+}
+
+class CategoryRepository extends BaseRepository {
+  Future<List<Category>> fetchAll() async {
+    return client.categories();
   }
 }
