@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/commons.dart';
-import 'package:dart_china/features/features.dart';
 import 'package:discourse_api/discourse_api.dart';
 import 'package:meta/meta.dart';
 
+import '../../../commons.dart';
 import '../../../repositories/repositories.dart';
+import '../../features.dart';
 
 export 'package:discourse_api/discourse_api.dart' show Topic;
 

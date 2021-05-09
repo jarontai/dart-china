@@ -1,7 +1,9 @@
 part of 'topic_cubit.dart';
 
+enum TopicStatus { initial, success }
+
 class TopicState {
-  final bool init;
+  final TopicStatus status;
   final bool error;
   final String? errorMessage;
   final Topic? topic;
@@ -10,7 +12,7 @@ class TopicState {
   final bool more;
 
   TopicState({
-    this.init = false,
+    this.status = TopicStatus.initial,
     this.error = false,
     this.errorMessage,
     this.topic,
@@ -20,7 +22,7 @@ class TopicState {
   });
 
   TopicState copyWith({
-    bool? init,
+    TopicStatus? status,
     bool? error,
     String? errorMessage,
     Topic? topic,
@@ -29,7 +31,7 @@ class TopicState {
     bool? more,
   }) {
     return TopicState(
-      init: init ?? this.init,
+      status: status ?? this.status,
       error: error ?? this.error,
       errorMessage: errorMessage ?? this.errorMessage,
       topic: topic ?? this.topic,

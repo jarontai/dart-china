@@ -19,7 +19,7 @@ Widget buildSliverTopicList(BuildContext context) {
                 ],
               ),
               child: index >= state.topics.length
-                  ? BottomLoader()
+                  ? ListLoader()
                   : TopicCard(
                       topic: state.topics[index],
                     ),
@@ -84,12 +84,16 @@ class TopicCard extends StatelessWidget {
         children: [
           TopicCardHead(
             topic: topic,
+            onAvatarPressed: () {},
+            onTitlePressed: () {
+              Navigator.of(context).pushNamed('/topic', arguments: topic.id);
+            },
           ),
           Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                print('Press topic id: ${topic.id}');
+                Navigator.of(context).pushNamed('/topic', arguments: topic.id);
               },
               child: TopicBody(content: topic.excerpt!),
             ),
@@ -255,9 +259,13 @@ class TopicCardHead extends StatelessWidget {
   const TopicCardHead({
     Key? key,
     required this.topic,
+    required this.onAvatarPressed,
+    required this.onTitlePressed,
   }) : super(key: key);
 
   final Topic topic;
+  final VoidCallback onAvatarPressed;
+  final VoidCallback onTitlePressed;
 
   String _buildCreatedAt(DateTime dateTime) {
     DateTime now = DateTime.now();
@@ -284,10 +292,7 @@ class TopicCardHead extends StatelessWidget {
         children: [
           ClipOval(
             child: IconButton(
-              onPressed: () {
-                // TODO:
-                print('Profile pressed');
-              },
+              onPressed: onAvatarPressed,
               icon: CircleAvatar(
                 backgroundColor: Colors.grey.shade200,
                 radius: 25,
@@ -322,7 +327,7 @@ class TopicCardHead extends StatelessWidget {
                       overlayColor:
                           MaterialStateProperty.all(Colors.grey.shade100),
                     ),
-                    onPressed: () {},
+                    onPressed: onTitlePressed,
                     child: Text(
                       title,
                       style: TextStyle(

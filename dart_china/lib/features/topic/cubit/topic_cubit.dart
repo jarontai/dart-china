@@ -7,7 +7,7 @@ import '../../../repositories/repositories.dart';
 part 'topic_state.dart';
 
 class TopicCubit extends Cubit<TopicState> {
-  TopicCubit() : super(TopicState(init: true));
+  TopicCubit() : super(TopicState());
 
   PostRepository get repository => thePostRepository;
   TopicRepository get topicRepository => theTopicRepository;
@@ -17,8 +17,8 @@ class TopicCubit extends Cubit<TopicState> {
   fetchTopic(int topicId) async {
     var topic = await topicRepository.findTopic(topicId);
     emit(state.copyWith(
-      init: false,
       topic: topic,
+      posts: List.of(topic.posts ?? []),
     ));
   }
 
@@ -35,8 +35,7 @@ class TopicCubit extends Cubit<TopicState> {
       var posts = await repository.fetchTopicPosts(state.topic!);
       var more = posts.length > 0;
       emit(state.copyWith(
-        init: false,
-        posts: List.of(state.posts)..addAll(posts),
+        posts: state.posts..addAll(posts),
         more: more,
       ));
     }
