@@ -4,6 +4,8 @@ import 'package:discourse_api/discourse_api.dart';
 import '../../../commons.dart';
 import '../../../repositories/repositories.dart';
 
+export 'package:discourse_api/discourse_api.dart' show Topic, Post, User;
+
 part 'topic_state.dart';
 
 class TopicCubit extends Cubit<TopicState> {
@@ -17,6 +19,7 @@ class TopicCubit extends Cubit<TopicState> {
   fetchTopic(int topicId) async {
     var topic = await topicRepository.findTopic(topicId);
     emit(state.copyWith(
+      status: TopicStatus.success,
       topic: topic,
       posts: List.of(topic.posts ?? []),
     ));

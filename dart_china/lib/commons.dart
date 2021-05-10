@@ -7,18 +7,9 @@ typedef StrDataCallback = void Function(String data);
 
 const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
-
+const kTopicBgColor = Color(0xFFF1F6FA);
+const kTopicCardColor = Color(0xFFFDFDFD);
 const kSplashRadius = 25.0;
-
-// const kMainGradient = LinearGradient(
-//   colors: [
-//     Color(0xFF435AE4),
-//     Color(0xFF4162D2),
-//   ],
-//   begin: Alignment.topLeft,
-//   end: Alignment.bottomRight,
-//   // stops: [0.1, 0.8],
-// );
 
 class Debouncer {
   late int millisecond;

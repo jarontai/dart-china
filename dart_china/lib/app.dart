@@ -28,12 +28,12 @@ class DartChinaApp extends StatelessWidget {
           },
         },
         onGenerateRoute: (settings) {
-          if (settings.name == TopicPage.routeName) {
+          if (settings.name == OldTopicPage.routeName) {
             final topicId = settings.arguments as int;
             return MaterialPageRoute(
               builder: (_) => BlocProvider(
                 create: (_) => TopicCubit(),
-                child: TopicPage(
+                child: OldTopicPage(
                   topicId: topicId,
                 ),
               ),

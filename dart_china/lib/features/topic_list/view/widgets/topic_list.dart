@@ -8,10 +8,10 @@ Widget buildSliverTopicList(BuildContext context) {
           (_, index) {
             return Container(
               decoration: BoxDecoration(
-                color: Color(0xFFF1F6FA),
+                color: kTopicBgColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xFFFDFDFD),
+                    color: kTopicCardColor,
                     blurRadius: 0,
                     spreadRadius: 0,
                     offset: Offset(0, 2),
@@ -34,10 +34,10 @@ Widget buildSliverTopicList(BuildContext context) {
         child: Container(
           padding: EdgeInsets.only(top: 50),
           decoration: BoxDecoration(
-            color: Color(0xFFF1F6FA),
+            color: kTopicBgColor,
             boxShadow: [
               BoxShadow(
-                color: Color(0xFFFDFDFD),
+                color: kTopicCardColor,
                 blurRadius: 0,
                 spreadRadius: 0,
                 offset: Offset(0, 2),
@@ -77,7 +77,7 @@ class TopicCard extends StatelessWidget {
       ),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Color(0xFFFDFDFD),
+        color: kTopicCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -189,7 +189,7 @@ class TopicStatus extends StatelessWidget {
               ),
               SizedBox(width: 5),
               buildType(),
-              SizedBox(width: 50),
+              SizedBox(width: 75),
             ],
           ),
           Row(
