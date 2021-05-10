@@ -82,7 +82,7 @@ class TopicCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          TopicCardHead(
+          TopicPostHeader(
             topic: topic,
             onAvatarPressed: () {},
             onTitlePressed: () {
@@ -249,117 +249,6 @@ class TopicStatus extends StatelessWidget {
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class TopicCardHead extends StatelessWidget {
-  const TopicCardHead({
-    Key? key,
-    required this.topic,
-    required this.onAvatarPressed,
-    required this.onTitlePressed,
-  }) : super(key: key);
-
-  final Topic topic;
-  final VoidCallback onAvatarPressed;
-  final VoidCallback onTitlePressed;
-
-  String _buildCreatedAt(DateTime dateTime) {
-    DateTime now = DateTime.now();
-    var diff = now.difference(dateTime);
-    var minutes = diff.inMinutes;
-    if (minutes >= 1440) {
-      return '${diff.inDays} 天前';
-    } else if (minutes >= 60 && minutes < 1440) {
-      return '${diff.inHours} 小时前';
-    } else {
-      return '$minutes 分钟前';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var title = topic.title;
-    var pin = topic.pinnedGlobally;
-    var avatar = topic.poster?.avatar;
-    var username = topic.poster?.username;
-
-    return Container(
-      child: Row(
-        children: [
-          ClipOval(
-            child: IconButton(
-              onPressed: onAvatarPressed,
-              icon: CircleAvatar(
-                backgroundColor: Colors.grey.shade200,
-                radius: 25,
-                child: ClipOval(
-                  child: avatar != null
-                      ? Image.network(
-                          avatar,
-                          fit: BoxFit.fitWidth,
-                          width: 35,
-                          height: 35,
-                        )
-                      : Image.asset(
-                          'assets/icon/logo_dart_ios.png',
-                          fit: BoxFit.fitWidth,
-                          width: 35,
-                          height: 35,
-                        ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(
-                left: 8,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextButton(
-                    style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.grey.shade100),
-                    ),
-                    onPressed: onTitlePressed,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  ),
-                  Text(
-                    '$username • ${_buildCreatedAt(topic.createdAt)}',
-                    style: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            child: IconButton(
-              icon: Icon(
-                Icons.push_pin_outlined,
-                color: pin ? Color(0xFFB0B1BA) : Colors.transparent,
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
-          )
         ],
       ),
     );
