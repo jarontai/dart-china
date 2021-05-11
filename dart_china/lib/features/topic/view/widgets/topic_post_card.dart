@@ -11,16 +11,37 @@ class TopicPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 200,
+        padding: EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 10,
+        ),
         decoration: BoxDecoration(
           color: kTopicCardColor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: TopicPostHeader(
-          topicHead: false,
-          topic: topic,
-          onAvatarPressed: () {},
-          onTitlePressed: () {},
+        child: Column(
+          children: [
+            TopicPostHeader(
+              topicHead: false,
+              topic: topic,
+              onAvatarPressed: () {},
+              onTitlePressed: () {},
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                topic.title,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            )
+          ],
         ));
   }
 }

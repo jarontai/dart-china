@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models.dart';
+import '../commons.dart';
 import 'avatar_button.dart';
 
 class TopicPostHeader extends StatelessWidget {
@@ -40,7 +41,7 @@ class TopicPostHeader extends StatelessWidget {
     var title;
     var subTitle;
     if (topicHead) {
-      titleColor = Colors.black87;
+      titleColor = kTitleColor;
       title = topic.title;
       subTitle = '$username • ${_buildCreatedAt(topic.createdAt)}';
     } else {
@@ -61,23 +62,24 @@ class TopicPostHeader extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(
-                    style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.grey.shade100),
-                    ),
-                    onPressed: onTitlePressed,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: titleColor,
+                  Material(
+                    child: InkWell(
+                      onTap: onTitlePressed,
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: titleColor,
+                          height: 1.2,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: topicHead ? 2 : 1,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
                     ),
                   ),
+                  SizedBox(height: 2),
                   Text(
                     subTitle,
                     style: TextStyle(
@@ -90,14 +92,16 @@ class TopicPostHeader extends StatelessWidget {
             ),
           ),
           Container(
-            child: IconButton(
-              icon: Icon(
-                Icons.push_pin_outlined,
-                color: pin ? Color(0xFFB0B1BA) : Colors.transparent,
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
+            child: topicHead
+                ? IconButton(
+                    icon: Icon(
+                      Icons.push_pin_outlined,
+                      color: pin ? Color(0xFFB0B1BA) : Colors.transparent,
+                      size: 20,
+                    ),
+                    onPressed: () {},
+                  )
+                : null,
           )
         ],
       ),

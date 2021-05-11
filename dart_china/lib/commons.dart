@@ -9,6 +9,7 @@ const kBackgroundColor = Color(0xFF2656cc);
 const kTagColr = Color(0xFFf2f6fa);
 const kTopicBgColor = Color(0xFFF1F6FA);
 const kTopicCardColor = Color(0xFFFDFDFD);
+const kTitleColor = Colors.black87;
 const kSplashRadius = 25.0;
 
 class Debouncer {
