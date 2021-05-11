@@ -10,6 +10,8 @@ const kTagColr = Color(0xFFf2f6fa);
 const kTopicBgColor = Color(0xFFF1F6FA);
 const kTopicCardColor = Color(0xFFFDFDFD);
 const kTitleColor = Colors.black87;
+const kPostTextColor = Color(0xFF8E8E9F);
+
 const kSplashRadius = 25.0;
 
 class Debouncer {

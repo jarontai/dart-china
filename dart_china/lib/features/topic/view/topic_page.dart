@@ -47,10 +47,11 @@ class _TopicPageState extends State<TopicPage> {
       body: BlocBuilder<TopicCubit, TopicState>(
         builder: (_, state) {
           if (state.status == TopicStatus.success) {
+            var topic = state.topic!;
             return Column(
               children: [
                 TopicPostCard(
-                  topic: state.topic!,
+                  topic: topic,
                 ),
               ],
             );

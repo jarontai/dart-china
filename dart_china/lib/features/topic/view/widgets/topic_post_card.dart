@@ -10,6 +10,7 @@ class TopicPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var post = topic.posts!.first;
     return Container(
         padding: EdgeInsets.symmetric(
           vertical: 10,
@@ -36,11 +37,15 @@ class TopicPostCard extends StatelessWidget {
               child: Text(
                 topic.title,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-            )
+            ),
+            PostBody(
+              content: post.cooked,
+              maxLines: 500,
+            ),
           ],
         ));
   }

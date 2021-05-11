@@ -95,7 +95,7 @@ class TopicCard extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushNamed('/topic', arguments: topic);
               },
-              child: TopicBody(content: topic.excerpt!),
+              child: PostBody(content: topic.excerpt!),
             ),
           ),
           SizedBox(height: 8),
@@ -250,36 +250,6 @@ class TopicStatus extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class TopicBody extends StatelessWidget {
-  const TopicBody({
-    Key? key,
-    required this.content,
-  }) : super(key: key);
-
-  final String content;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
-      ),
-      child: Text(
-        content,
-        textAlign: TextAlign.start,
-        style: TextStyle(
-          color: Color(0xFF8E8E9F),
-          fontWeight: FontWeight.w500,
-        ),
-        maxLines: 3,
-        overflow: TextOverflow.ellipsis,
       ),
     );
   }
