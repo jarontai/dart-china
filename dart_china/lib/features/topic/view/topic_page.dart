@@ -1,3 +1,4 @@
+import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,10 +11,10 @@ class TopicPage extends StatefulWidget {
 
   const TopicPage({
     Key? key,
-    required this.topicId,
+    required this.topic,
   }) : super(key: key);
 
-  final int topicId;
+  final Topic topic;
 
   @override
   _TopicPageState createState() => _TopicPageState();
@@ -26,7 +27,7 @@ class _TopicPageState extends State<TopicPage> {
   void initState() {
     super.initState();
     _topicCubit = context.read<TopicCubit>();
-    _topicCubit.fetchTopic(widget.topicId);
+    _topicCubit.fetchTopic(widget.topic);
   }
 
   @override
@@ -43,9 +44,9 @@ class _TopicPageState extends State<TopicPage> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: Container(
-        child: BlocBuilder<TopicCubit, TopicState>(
-          builder: (_, state) {
+      body: BlocBuilder<TopicCubit, TopicState>(
+        builder: (_, state) {
+          if (state.status == TopicStatus.success) {
             return Column(
               children: [
                 TopicPostCard(
@@ -53,8 +54,10 @@ class _TopicPageState extends State<TopicPage> {
                 ),
               ],
             );
-          },
-        ),
+          } else {
+            return ListLoader();
+          }
+        },
       ),
     );
   }

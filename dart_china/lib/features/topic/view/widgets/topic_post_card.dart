@@ -11,21 +11,16 @@ class TopicPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: 200,
         decoration: BoxDecoration(
           color: kTopicCardColor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                AvatarButton(
-                  onPressed: () {},
-                  avatarUrl: topic.users!.first.avatar,
-                )
-              ],
-            )
-          ],
+        child: TopicPostHeader(
+          topicHead: false,
+          topic: topic,
+          onAvatarPressed: () {},
+          onTitlePressed: () {},
         ));
   }
 }
