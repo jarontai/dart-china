@@ -1,7 +1,7 @@
 part of 'widgets.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  final double expandedHeight = 135;
+  final double expandedHeight = 130;
 
   @override
   Widget build(

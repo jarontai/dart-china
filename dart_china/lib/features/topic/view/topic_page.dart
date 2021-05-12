@@ -61,9 +61,26 @@ class _TopicPageState extends State<TopicPage> {
                     topicPost: index == 0,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Divider(
-                  color: kTopicBgColor,
-                ),
+                separatorBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    return Container(
+                      padding: EdgeInsets.only(top: 20, left: 10),
+                      height: 50,
+                      color: kTopicBgColor,
+                      child: Text(
+                        '回复（10）',
+                        style: TextStyle(
+                          color: kTitleColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Divider(
+                      color: kTopicBgColor,
+                    );
+                  }
+                },
                 itemCount: topic.posts!.length,
               ),
             );
