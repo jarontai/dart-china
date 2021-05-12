@@ -9,11 +9,13 @@ class TopicPostHeader extends StatelessWidget {
     Key? key,
     this.topicHead = true,
     required this.topic,
+    required this.post,
     required this.onAvatarPressed,
     required this.onTitlePressed,
   }) : super(key: key);
 
   final Topic topic;
+  final Post? post;
   final bool topicHead;
   final VoidCallback onAvatarPressed;
   final VoidCallback onTitlePressed;

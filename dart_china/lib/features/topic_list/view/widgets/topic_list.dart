@@ -84,6 +84,7 @@ class TopicCard extends StatelessWidget {
         children: [
           TopicPostHeader(
             topic: topic,
+            post: topic.posts?.first,
             onAvatarPressed: () {},
             onTitlePressed: () {
               Navigator.of(context).pushNamed('/topic', arguments: topic);

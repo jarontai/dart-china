@@ -48,12 +48,24 @@ class _TopicPageState extends State<TopicPage> {
         builder: (_, state) {
           if (state.status == TopicStatus.success) {
             var topic = state.topic!;
-            return ListView(
-              children: [
-                TopicPostCard(
-                  topic: topic,
-                )
-              ],
+            return Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 15,
+              ),
+              child: ListView.separated(
+                itemBuilder: (_, index) {
+                  return TopicPostCard(
+                    topic: topic,
+                    post: topic.posts![index],
+                    topicPost: index == 0,
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                  color: kTopicBgColor,
+                ),
+                itemCount: topic.posts!.length,
+              ),
             );
           } else {
             return ListLoader();
