@@ -11,7 +11,7 @@ part 'topic_state.dart';
 class TopicCubit extends Cubit<TopicState> {
   TopicCubit() : super(TopicState());
 
-  PostRepository get repository => thePostRepository;
+  PostRepository get postRepository => thePostRepository;
   TopicRepository get topicRepository => theTopicRepository;
 
   final Debouncer _debouncer = Debouncer();
@@ -38,7 +38,7 @@ class TopicCubit extends Cubit<TopicState> {
 
   _doFetchTopicPosts({int page = 1}) async {
     if (state.topic != null) {
-      var posts = await repository.fetchTopicPosts(state.topic!);
+      var posts = await postRepository.fetchTopicPosts(state.topic!);
       var more = posts.length > 0;
       emit(state.copyWith(
         posts: state.posts..addAll(posts),

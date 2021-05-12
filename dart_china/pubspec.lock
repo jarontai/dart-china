@@ -231,7 +231,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.2.6"
+    version: "0.2.7"
   dotenv:
     dependency: transitive
     description:
@@ -372,7 +372,7 @@ packages:
     source: hosted
     version: "0.15.0"
   html2md:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: html2md
       url: "https://pub.flutter-io.cn"
