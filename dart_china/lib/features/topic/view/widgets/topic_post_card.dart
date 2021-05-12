@@ -42,9 +42,14 @@ class TopicPostCard extends StatelessWidget {
                 ),
               ),
             ),
-            PostBody(
-              content: post.cooked,
-              maxLines: 500,
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 15,
+              ),
+              child: MarkdownBody(
+                data: post.markdown!,
+              ),
             ),
           ],
         ));

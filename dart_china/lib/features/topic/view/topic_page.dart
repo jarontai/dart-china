@@ -48,11 +48,11 @@ class _TopicPageState extends State<TopicPage> {
         builder: (_, state) {
           if (state.status == TopicStatus.success) {
             var topic = state.topic!;
-            return Column(
+            return ListView(
               children: [
                 TopicPostCard(
                   topic: topic,
-                ),
+                )
               ],
             );
           } else {

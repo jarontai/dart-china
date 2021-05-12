@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart';
+import '../models/models.dart';
 import '../commons.dart';
 import 'avatar_button.dart';
 
