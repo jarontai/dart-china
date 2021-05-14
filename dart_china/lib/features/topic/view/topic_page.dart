@@ -38,11 +38,11 @@ class _TopicPageState extends State<TopicPage> {
         centerTitle: false,
         title: Text(
           '查看话题',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: kTitleColor),
         ),
         backgroundColor: kTopicBgColor,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: kTitleColor),
       ),
       body: BlocBuilder<TopicCubit, TopicState>(
         builder: (_, state) {
@@ -68,10 +68,10 @@ class _TopicPageState extends State<TopicPage> {
                       height: 50,
                       color: kTopicBgColor,
                       child: Text(
-                        '回复（10）',
+                        '回复（${topic.postsCount})',
                         style: TextStyle(
                           color: kTitleColor,
-                          fontSize: 15,
+                          fontSize: 16,
                         ),
                       ),
                     );

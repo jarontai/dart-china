@@ -35,9 +35,9 @@ class TopicPostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var pin = topic.pinnedGlobally;
-    var avatar = topic.poster?.avatar;
-    var username = topic.poster?.username;
+    var pin = topicHead ? topic.pinnedGlobally : false;
+    var avatar = topicHead ? topic.poster?.avatar : post!.avatar;
+    var username = topicHead ? topic.poster?.username : post!.username;
 
     var titleColor;
     var title;
