@@ -73,20 +73,26 @@ class _TopicPageState extends State<TopicPage> {
               itemCount += 1;
             }
 
-            return Container(
-              padding: EdgeInsets.only(
-                top: 5,
-                left: 20,
-                right: 20,
-              ),
-              child: Stack(
-                children: [
-                  _buildPostList(topic, postCount, itemCount, state),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ReplySection(),
-                  ),
-                ],
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: 5,
+                  left: 20,
+                  right: 20,
+                ),
+                child: Stack(
+                  children: [
+                    _buildPostList(topic, postCount, itemCount, state),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ReplySection(),
+                    ),
+                  ],
+                ),
               ),
             );
           } else {
