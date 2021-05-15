@@ -23,11 +23,13 @@ final theAllCategory = Category(
 const kEnableCategories = ['share', 'question', 'meta'];
 
 class TopicListCubit extends Cubit<TopicListState> {
-  TopicListCubit() : super(TopicListInitial());
+  TopicListCubit(
+    this.topicRepository,
+    this.categoryRepository,
+  ) : super(TopicListInitial());
 
-  TopicRepository get repository => theTopicRepository;
-  CategoryRepository get categoryRepository => theCategoryRepository;
-
+  final TopicRepository topicRepository;
+  final CategoryRepository categoryRepository;
   final Debouncer _debouncer = Debouncer();
 
   fetchLatest({bool refresh = false}) async {
@@ -45,7 +47,7 @@ class TopicListCubit extends Cubit<TopicListState> {
 
   _doFetchLatest({bool refresh = false}) async {
     if (state is TopicListInitial) {
-      var topics = await repository.fetchLatest(page: 0);
+      var topics = await topicRepository.fetchLatest(page: 0);
       var categories = await _fetchCategories();
       categories.insert(0, theAllCategory);
       emit(TopicListSuccess(
@@ -66,7 +68,7 @@ class TopicListCubit extends Cubit<TopicListState> {
         }
 
         var nextPage = refresh ? 0 : current.page + 1;
-        var newTopics = await repository.fetchLatest(
+        var newTopics = await topicRepository.fetchLatest(
             page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
 
         var oldTopics = refresh ? <Topic>[] : List.of(current.topics);
@@ -81,7 +83,7 @@ class TopicListCubit extends Cubit<TopicListState> {
   }
 
   checkLatest() async {
-    var latest = await repository.checkLatest();
+    var latest = await topicRepository.checkLatest();
     if (latest) {
       await fetchLatest(refresh: true);
     } else {

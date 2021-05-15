@@ -5,10 +5,6 @@ late final DiscourseApiClient _client;
 final Map<int, String> categorySlugMap = {};
 final Map<int, User> userMap = {};
 
-final TopicRepository theTopicRepository = TopicRepository();
-final PostRepository thePostRepository = PostRepository();
-final CategoryRepository theCategoryRepository = CategoryRepository();
-
 const kPostType = 1;
 
 initRepository() async {
@@ -74,6 +70,10 @@ class PostRepository extends BaseRepository {
           topics.where((element) => element.postType == kPostType).toList();
     }
     return topics;
+  }
+
+  Future<Post> createPost(int topicId, String content) async {
+    return await client.postCreate(topicId, content);
   }
 }
 

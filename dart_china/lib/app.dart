@@ -1,3 +1,4 @@
+import 'package:dart_china/repositories/repositories.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
+      enabled: !kReleaseMode,
       builder: (_) => MaterialApp(
         builder: DevicePreview.appBuilder,
         title: 'Dart China',
@@ -22,7 +24,10 @@ class DartChinaApp extends StatelessWidget {
         routes: {
           TopicListPage.routeName: (_) {
             return BlocProvider(
-              create: (_) => TopicListCubit()..fetchLatest(),
+              create: (context) => TopicListCubit(
+                context.read<TopicRepository>(),
+                context.read<CategoryRepository>(),
+              )..fetchLatest(),
               child: TopicListPage(),
             );
           },
@@ -32,7 +37,10 @@ class DartChinaApp extends StatelessWidget {
             final topic = settings.arguments as Topic;
             return MaterialPageRoute(
               builder: (_) => BlocProvider(
-                create: (_) => TopicCubit(),
+                create: (_) => TopicCubit(
+                  context.read<PostRepository>(),
+                  context.read<TopicRepository>(),
+                ),
                 child: TopicPage(
                   topic: topic,
                 ),

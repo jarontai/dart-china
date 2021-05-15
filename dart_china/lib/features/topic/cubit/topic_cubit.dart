@@ -9,10 +9,13 @@ export 'package:discourse_api/discourse_api.dart' show Topic, Post, User;
 part 'topic_state.dart';
 
 class TopicCubit extends Cubit<TopicState> {
-  TopicCubit() : super(TopicState());
+  TopicCubit(
+    this.postRepository,
+    this.topicRepository,
+  ) : super(TopicState());
 
-  PostRepository get postRepository => thePostRepository;
-  TopicRepository get topicRepository => theTopicRepository;
+  final PostRepository postRepository;
+  final TopicRepository topicRepository;
 
   final Debouncer _debouncer = Debouncer();
 

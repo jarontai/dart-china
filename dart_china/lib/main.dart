@@ -17,5 +17,20 @@ void main() async {
 
   await initRepository();
 
-  runApp(DartChinaApp());
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<TopicRepository>(
+          create: (context) => TopicRepository(),
+        ),
+        RepositoryProvider<PostRepository>(
+          create: (context) => PostRepository(),
+        ),
+        RepositoryProvider<CategoryRepository>(
+          create: (context) => CategoryRepository(),
+        ),
+      ],
+      child: DartChinaApp(),
+    ),
+  );
 }

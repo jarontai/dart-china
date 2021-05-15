@@ -74,49 +74,68 @@ class _TopicPageState extends State<TopicPage> {
             }
 
             return Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 15,
+              padding: EdgeInsets.only(
+                top: 5,
+                left: 20,
+                right: 20,
               ),
-              child: ListView.separated(
-                controller: _scrollController,
-                itemBuilder: (_, index) {
-                  if (index >= postCount) {
-                    return ListLoader();
-                  }
-                  return TopicPostCard(
-                    topic: topic,
-                    post: state.posts[index],
-                    topicPost: index == 0,
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return Container(
-                      padding: EdgeInsets.only(top: 20, left: 10),
-                      height: 50,
-                      color: kTopicBgColor,
-                      child: Text(
-                        '回复（${topic.postsCount})',
-                        style: TextStyle(
-                          color: kTitleColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Divider(
-                      color: kTopicBgColor,
-                    );
-                  }
-                },
-                itemCount: itemCount,
+              child: Stack(
+                children: [
+                  _buildPostList(topic, postCount, itemCount, state),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ReplySection(),
+                  ),
+                ],
               ),
             );
           } else {
             return ListLoader();
           }
         },
+      ),
+    );
+  }
+
+  Container _buildPostList(
+      Topic topic, int postCount, int itemCount, TopicState state) {
+    return Container(
+      padding: EdgeInsets.only(
+        top: 5,
+      ),
+      child: ListView.separated(
+        controller: _scrollController,
+        itemBuilder: (_, index) {
+          if (index >= postCount) {
+            return ListLoader();
+          }
+          return TopicPostCard(
+            topic: topic,
+            post: state.posts[index],
+            topicPost: index == 0,
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return Container(
+              padding: EdgeInsets.only(top: 20, left: 10),
+              height: 50,
+              color: kTopicBgColor,
+              child: Text(
+                '回复（${topic.postsCount})',
+                style: TextStyle(
+                  color: kTitleColor,
+                  fontSize: 16,
+                ),
+              ),
+            );
+          } else {
+            return Divider(
+              color: kTopicBgColor,
+            );
+          }
+        },
+        itemCount: itemCount,
       ),
     );
   }
