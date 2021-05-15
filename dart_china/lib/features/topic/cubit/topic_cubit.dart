@@ -28,21 +28,28 @@ class TopicCubit extends Cubit<TopicState> {
     ));
   }
 
-  fetchTopicPosts({int page = 1}) async {
-    if (state.topic != null && state.more && page > 0) {
+  fetchTopicPosts() async {
+    if (state.topic != null && state.more) {
       _debouncer.run(() async {
-        await _doFetchTopicPosts(page: page);
+        await _doFetchTopicPosts();
       });
     }
   }
 
-  _doFetchTopicPosts({int page = 1}) async {
-    if (state.topic != null) {
-      var posts = await postRepository.fetchTopicPosts(state.topic!);
+  _doFetchTopicPosts() async {
+    if (state.topic != null && state.more) {
+      emit(state.copyWith(loading: true));
+
+      var page = state.page + 1;
+      var posts =
+          await postRepository.fetchTopicPosts(state.topic!, page: page);
       var more = posts.length > 0;
+      var newPosts = List.of(state.posts)..addAll(posts);
       emit(state.copyWith(
-        posts: state.posts..addAll(posts),
+        posts: newPosts,
+        page: page,
         more: more,
+        loading: false,
       ));
     }
   }

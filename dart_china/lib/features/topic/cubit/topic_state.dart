@@ -10,6 +10,7 @@ class TopicState {
   final List<Post> posts;
   final int page;
   final bool more;
+  final bool loading;
 
   TopicState({
     this.status = TopicStatus.initial,
@@ -19,6 +20,7 @@ class TopicState {
     this.posts = const [],
     this.page = 0,
     this.more = true,
+    this.loading = false,
   });
 
   TopicState copyWith({
@@ -29,6 +31,7 @@ class TopicState {
     List<Post>? posts,
     int? page,
     bool? more,
+    bool? loading,
   }) {
     return TopicState(
       status: status ?? this.status,
@@ -38,6 +41,7 @@ class TopicState {
       posts: posts ?? this.posts,
       page: page ?? this.page,
       more: more ?? this.more,
+      loading: loading ?? this.loading,
     );
   }
 }

@@ -9,6 +9,8 @@ final TopicRepository theTopicRepository = TopicRepository();
 final PostRepository thePostRepository = PostRepository();
 final CategoryRepository theCategoryRepository = CategoryRepository();
 
+const kPostType = 1;
+
 initRepository() async {
   await dotenv.load();
   var siteUrl = dotenv.env['site_url'];
@@ -67,6 +69,10 @@ class TopicRepository extends BaseRepository {
 class PostRepository extends BaseRepository {
   Future<List<Post>> fetchTopicPosts(Topic topic, {int page = 0}) async {
     var topics = await client.topicPosts(topic, page: page);
+    if (topics.isNotEmpty) {
+      topics =
+          topics.where((element) => element.postType == kPostType).toList();
+    }
     return topics;
   }
 }

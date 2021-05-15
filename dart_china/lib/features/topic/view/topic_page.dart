@@ -22,12 +22,31 @@ class TopicPage extends StatefulWidget {
 
 class _TopicPageState extends State<TopicPage> {
   late TopicCubit _topicCubit;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+
     _topicCubit = context.read<TopicCubit>();
     _topicCubit.fetchTopic(widget.topic);
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.hasClients) {
+        var maxExtent = _scrollController.position.maxScrollExtent;
+        if (_scrollController.offset >= (maxExtent * 0.9) &&
+            !_scrollController.position.outOfRange) {
+          context.read<TopicCubit>().fetchTopicPosts();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,16 +67,26 @@ class _TopicPageState extends State<TopicPage> {
         builder: (_, state) {
           if (state.status == TopicStatus.success) {
             var topic = state.topic!;
+            var postCount = state.posts.length;
+            var itemCount = postCount;
+            if (state.loading) {
+              itemCount += 1;
+            }
+
             return Container(
               padding: EdgeInsets.symmetric(
                 vertical: 5,
                 horizontal: 15,
               ),
               child: ListView.separated(
+                controller: _scrollController,
                 itemBuilder: (_, index) {
+                  if (index >= postCount) {
+                    return ListLoader();
+                  }
                   return TopicPostCard(
                     topic: topic,
-                    post: topic.posts![index],
+                    post: state.posts[index],
                     topicPost: index == 0,
                   );
                 },
@@ -81,7 +110,7 @@ class _TopicPageState extends State<TopicPage> {
                     );
                   }
                 },
-                itemCount: topic.posts!.length,
+                itemCount: itemCount,
               ),
             );
           } else {

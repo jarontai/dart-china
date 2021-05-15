@@ -19,6 +19,8 @@ class _TopicListPageState extends State<TopicListPage> {
 
   @override
   void initState() {
+    super.initState();
+
     _refreshKey = GlobalKey<RefreshIndicatorState>();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -39,8 +41,6 @@ class _TopicListPageState extends State<TopicListPage> {
         });
       }
     });
-
-    super.initState();
   }
 
   @override
