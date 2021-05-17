@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/features.dart';
 
-const kReleaseMode = false;
+const kReleaseMode = true;
 // final topicCubit = TopicListCubit()..fetchLatest();
 
 class DartChinaApp extends StatelessWidget {

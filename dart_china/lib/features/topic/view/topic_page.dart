@@ -53,15 +53,14 @@ class _TopicPageState extends State<TopicPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kTopicBgColor,
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(
-          '查看话题',
-          style: TextStyle(color: kTitleColor),
-        ),
-        backgroundColor: kTopicBgColor,
-        elevation: 0,
-        iconTheme: IconThemeData(color: kTitleColor),
+      appBar: _buildAppBar(),
+      floatingActionButton: FloatingActionButton(
+        mini: true,
+        backgroundColor: kBackgroundColor,
+        child: Icon(Icons.send),
+        onPressed: () {
+          print('pressed send');
+        },
       ),
       body: BlocBuilder<TopicCubit, TopicState>(
         builder: (_, state) {
@@ -73,40 +72,32 @@ class _TopicPageState extends State<TopicPage> {
               itemCount += 1;
             }
             var enableSend = state.status != TopicStatus.posting;
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: 5,
-                  left: 20,
-                  right: 20,
-                ),
-                child: Stack(
-                  children: [
-                    _buildPostList(topic, postCount, itemCount, state),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ReplySection(
-                        enableSend: enableSend,
-                        onSubmit: (data) {
-                          context
-                              .read<TopicCubit>()
-                              .createTopicPost(topic.id, data);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+            return Container(
+              padding: EdgeInsets.only(
+                top: 5,
+                left: 20,
+                right: 20,
               ),
+              child: _buildPostList(topic, postCount, itemCount, state),
             );
           } else {
             return ListLoader();
           }
         },
       ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      centerTitle: false,
+      title: Text(
+        '查看话题',
+        style: TextStyle(color: kTitleColor),
+      ),
+      backgroundColor: kTopicBgColor,
+      elevation: 0,
+      iconTheme: IconThemeData(color: kTitleColor),
     );
   }
 
@@ -135,7 +126,7 @@ class _TopicPageState extends State<TopicPage> {
               height: 50,
               color: kTopicBgColor,
               child: Text(
-                '回复（${topic.postsCount})',
+                '回复 (${topic.postsCount})',
                 style: TextStyle(
                   color: kTitleColor,
                   fontSize: 16,

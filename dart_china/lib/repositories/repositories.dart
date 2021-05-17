@@ -1,4 +1,5 @@
 import 'package:discourse_api/discourse_api.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 
 part 'topic_repository.dart';
@@ -14,7 +15,9 @@ initRepository() async {
   await dotenv.load();
   var siteUrl = dotenv.env['site_url'];
   var cdnUrl = dotenv.env['cdn_url'];
-  _client = DiscourseApiClient.single(siteUrl!, cdnUrl: cdnUrl);
+  var dir = await getApplicationDocumentsDirectory();
+  _client =
+      DiscourseApiClient.single(siteUrl!, cdnUrl: cdnUrl, cookieDir: dir.path);
   var categories = await _client.categories();
   if (categories.isNotEmpty) {
     for (var cat in categories) {
