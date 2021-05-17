@@ -56,4 +56,15 @@ class TopicCubit extends Cubit<TopicState> {
       ));
     }
   }
+
+  createTopicPost(int topicId, String content) async {
+    emit(state.copyWith(
+      status: TopicStatus.posting,
+    ));
+    var post = await postRepository.createPost(topicId, content);
+    emit(state.copyWith(
+      posts: List.of(state.posts)..add(post),
+      status: TopicStatus.success,
+    ));
+  }
 }

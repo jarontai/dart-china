@@ -72,7 +72,7 @@ class _TopicPageState extends State<TopicPage> {
             if (state.loading) {
               itemCount += 1;
             }
-
+            var enableSend = state.status != TopicStatus.posting;
             return GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -89,7 +89,14 @@ class _TopicPageState extends State<TopicPage> {
                     _buildPostList(topic, postCount, itemCount, state),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: ReplySection(),
+                      child: ReplySection(
+                        enableSend: enableSend,
+                        onSubmit: (data) {
+                          context
+                              .read<TopicCubit>()
+                              .createTopicPost(topic.id, data);
+                        },
+                      ),
                     ),
                   ],
                 ),

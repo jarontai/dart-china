@@ -1,6 +1,6 @@
 part of 'topic_cubit.dart';
 
-enum TopicStatus { initial, success }
+enum TopicStatus { initial, success, posting }
 
 class TopicState {
   final TopicStatus status;

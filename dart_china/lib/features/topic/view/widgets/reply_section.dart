@@ -1,7 +1,14 @@
 part of 'widgets.dart';
 
 class ReplySection extends StatefulWidget {
-  const ReplySection({Key? key}) : super(key: key);
+  const ReplySection({
+    Key? key,
+    this.enableSend = true,
+    required this.onSubmit,
+  }) : super(key: key);
+
+  final bool enableSend;
+  final StrDataCallback onSubmit;
 
   @override
   _ReplySectionState createState() => _ReplySectionState();
@@ -55,9 +62,11 @@ class _ReplySectionState extends State<ReplySection> {
                 Icons.send,
                 color: kBackgroundColor,
               ),
-              onPressed: () {
-                print('send pressed');
-              },
+              onPressed: widget.enableSend
+                  ? () {
+                      widget.onSubmit(_textEditingController.text);
+                    }
+                  : null,
             ),
           ],
         ),
