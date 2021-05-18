@@ -25,14 +25,14 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
           top: 20,
         ),
         decoration: BoxDecoration(
-          color: kTopicBgColor,
+          color: ColorPalette.topicBgColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           boxShadow: [
             BoxShadow(
-              color: kTopicBgColor,
+              color: ColorPalette.topicBgColor,
               blurRadius: 0,
               spreadRadius: 0,
               offset: Offset(0, 2),

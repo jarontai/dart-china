@@ -24,7 +24,7 @@ class PostBody extends StatelessWidget {
         content,
         textAlign: TextAlign.start,
         style: TextStyle(
-          color: kPostTextColor,
+          color: ColorPalette.postTextColor,
           fontWeight: FontWeight.w500,
         ),
         maxLines: maxLines,

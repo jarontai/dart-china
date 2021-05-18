@@ -43,7 +43,7 @@ class TopicPostHeader extends StatelessWidget {
     var title;
     var subTitle;
     if (topicHead) {
-      titleColor = kTitleColor;
+      titleColor = ColorPalette.titleColor;
       title = topic.title;
       subTitle = '$username • ${_buildCreatedAt(topic.createdAt)}';
     } else {

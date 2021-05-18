@@ -4,3 +4,4 @@ export 'list_loader.dart';
 export 'avatar_button.dart';
 export 'topic_post_header.dart';
 export 'post_body.dart';
+export 'input_widget.dart';

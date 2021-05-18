@@ -102,7 +102,7 @@ class _TopicListPageState extends State<TopicListPage> {
             floatingActionButton: scrollToTop
                 ? FloatingActionButton(
                     mini: true,
-                    backgroundColor: kBackgroundColor,
+                    backgroundColor: ColorPalette.backgroundColor,
                     child: Icon(Icons.arrow_upward_outlined),
                     onPressed: () {
                       _scrollToTop();

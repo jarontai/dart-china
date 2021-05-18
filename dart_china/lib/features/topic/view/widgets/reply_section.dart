@@ -60,7 +60,7 @@ class _ReplySectionState extends State<ReplySection> {
             IconButton(
               icon: Icon(
                 Icons.send,
-                color: kBackgroundColor,
+                color: ColorPalette.backgroundColor,
               ),
               onPressed: widget.enableSend
                   ? () {

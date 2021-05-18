@@ -54,11 +54,11 @@ class _TopicPageState extends State<TopicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kTopicBgColor,
+      backgroundColor: ColorPalette.topicBgColor,
       appBar: _buildAppBar(),
       floatingActionButton: FloatingActionButton(
         mini: true,
-        backgroundColor: kBackgroundColor,
+        backgroundColor: ColorPalette.backgroundColor,
         child: Icon(Icons.send),
         onPressed: () {
           var appState = context.read<AppCubit>().state;
@@ -97,11 +97,11 @@ class _TopicPageState extends State<TopicPage> {
       centerTitle: false,
       title: Text(
         '查看话题',
-        style: TextStyle(color: kTitleColor),
+        style: TextStyle(color: ColorPalette.titleColor),
       ),
-      backgroundColor: kTopicBgColor,
+      backgroundColor: ColorPalette.topicBgColor,
       elevation: 0,
-      iconTheme: IconThemeData(color: kTitleColor),
+      iconTheme: IconThemeData(color: ColorPalette.titleColor),
     );
   }
 
@@ -128,18 +128,18 @@ class _TopicPageState extends State<TopicPage> {
             return Container(
               padding: EdgeInsets.only(top: 20, left: 10),
               height: 50,
-              color: kTopicBgColor,
+              color: ColorPalette.topicBgColor,
               child: Text(
                 '回复 (${topic.postsCount})',
                 style: TextStyle(
-                  color: kTitleColor,
+                  color: ColorPalette.titleColor,
                   fontSize: 16,
                 ),
               ),
             );
           } else {
             return Divider(
-              color: kTopicBgColor,
+              color: ColorPalette.topicBgColor,
             );
           }
         },

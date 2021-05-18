@@ -20,7 +20,7 @@ class TopicPostCard extends StatelessWidget {
         horizontal: 10,
       ),
       decoration: BoxDecoration(
-        color: kTopicCardColor,
+        color: ColorPalette.topicCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
