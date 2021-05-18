@@ -1,4 +1,4 @@
-import 'package:dart_china/widgets/widgets.dart';
+import '../../../widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

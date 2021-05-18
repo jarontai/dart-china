@@ -5,5 +5,5 @@ import '../../../../commons.dart';
 import '../../../../widgets/widgets.dart';
 import '../../cubit/topic_cubit.dart';
 
-part 'topic_post_card.dart';
 part 'reply_section.dart';
+part 'topic_post_card.dart';

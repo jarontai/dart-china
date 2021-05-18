@@ -1,26 +1,32 @@
-import 'package:dart_china/repositories/repositories.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import 'features/features.dart';
+import 'repositories/repositories.dart';
+
+final getIt = GetIt.instance;
 
 const kReleaseMode = false;
 
 class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (_) => MaterialApp(
-        builder: DevicePreview.appBuilder,
-        title: 'Dart China',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (_) => getIt.get<AppCubit>(),
+      child: DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (_) => MaterialApp(
+          builder: DevicePreview.appBuilder,
+          title: 'Dart China',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          initialRoute: TopicListPage.routeName,
+          onGenerateRoute: (settings) => generateRoutes(settings, context),
+          debugShowCheckedModeBanner: false,
         ),
-        initialRoute: TopicListPage.routeName,
-        onGenerateRoute: (settings) => generateRoutes(settings, context),
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
@@ -30,10 +36,7 @@ class DartChinaApp extends StatelessWidget {
     if (routeName == TopicListPage.routeName) {
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => TopicListCubit(
-            context.read<TopicRepository>(),
-            context.read<CategoryRepository>(),
-          )..fetchLatest(),
+          create: (context) => getIt.get<TopicListCubit>()..fetchLatest(),
           child: TopicListPage(),
         ),
       );
@@ -41,10 +44,7 @@ class DartChinaApp extends StatelessWidget {
       final topic = settings.arguments as Topic;
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (_) => TopicCubit(
-            context.read<PostRepository>(),
-            context.read<TopicRepository>(),
-          ),
+          create: (_) => getIt.get<TopicCubit>(),
           child: TopicPage(
             topic: topic,
           ),

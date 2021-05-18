@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/models.dart';
 import '../commons.dart';
+import '../models/models.dart';
 import 'avatar_button.dart';
 
 class TopicPostHeader extends StatelessWidget {

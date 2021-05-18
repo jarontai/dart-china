@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/models/models.dart';
-import 'package:dart_china/repositories/repositories.dart';
+
+import '../../../models/models.dart';
+import '../../../repositories/repositories.dart';
 
 part 'auth_state.dart';
 

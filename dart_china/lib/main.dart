@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import 'app.dart';
+import 'features/features.dart';
 import 'repositories/repositories.dart';
+
+final getIt = GetIt.instance;
 
 class CubitObserver extends BlocObserver {
   @override
@@ -12,25 +16,27 @@ class CubitObserver extends BlocObserver {
   }
 }
 
-void main() async {
+setup() async {
   Bloc.observer = CubitObserver();
 
   await initRepository();
 
-  runApp(
-    MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<TopicRepository>(
-          create: (context) => TopicRepository(),
-        ),
-        RepositoryProvider<PostRepository>(
-          create: (context) => PostRepository(),
-        ),
-        RepositoryProvider<CategoryRepository>(
-          create: (context) => CategoryRepository(),
-        ),
-      ],
-      child: DartChinaApp(),
-    ),
-  );
+  // Register repositories and cubits
+  getIt.registerSingleton<TopicRepository>(TopicRepository());
+  getIt.registerSingleton<PostRepository>(PostRepository());
+  getIt.registerSingleton<CategoryRepository>(CategoryRepository());
+  getIt.registerSingleton<AuthRepository>(AuthRepository());
+
+  getIt.registerSingleton<TopicListCubit>(TopicListCubit(
+      getIt.get<TopicRepository>(), getIt.get<CategoryRepository>()));
+  getIt.registerSingleton<TopicCubit>(
+      TopicCubit(getIt.get<PostRepository>(), getIt.get<TopicRepository>()));
+  getIt.registerSingleton<AuthCubit>(AuthCubit(getIt.get<AuthRepository>()));
+  getIt.registerSingleton<AppCubit>(AppCubit(getIt.get<AuthCubit>()));
+}
+
+void main() async {
+  await setup();
+
+  runApp(DartChinaApp());
 }
