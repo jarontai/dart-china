@@ -4,8 +4,9 @@ class PostRepository extends BaseRepository {
   Future<List<Post>> fetchTopicPosts(Topic topic, {int page = 0}) async {
     var topics = await client.topicPosts(topic, page: page);
     if (topics.isNotEmpty) {
-      topics =
-          topics.where((element) => element.postType == kPostType).toList();
+      topics = topics
+          .where((element) => element.postType == kDefaultPostType)
+          .toList();
     }
     return topics;
   }
