@@ -5,11 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/features.dart';
 
-const kReleaseMode = true;
-// final topicCubit = TopicListCubit()..fetchLatest();
+const kReleaseMode = false;
 
 class DartChinaApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
@@ -20,36 +18,38 @@ class DartChinaApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/topic_list',
-        routes: {
-          TopicListPage.routeName: (_) {
-            return BlocProvider(
-              create: (context) => TopicListCubit(
-                context.read<TopicRepository>(),
-                context.read<CategoryRepository>(),
-              )..fetchLatest(),
-              child: TopicListPage(),
-            );
-          },
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == TopicPage.routeName) {
-            final topic = settings.arguments as Topic;
-            return MaterialPageRoute(
-              builder: (_) => BlocProvider(
-                create: (_) => TopicCubit(
-                  context.read<PostRepository>(),
-                  context.read<TopicRepository>(),
-                ),
-                child: TopicPage(
-                  topic: topic,
-                ),
-              ),
-            );
-          }
-        },
+        initialRoute: TopicListPage.routeName,
+        onGenerateRoute: (settings) => generateRoutes(settings, context),
         debugShowCheckedModeBanner: false,
       ),
     );
+  }
+
+  Route<dynamic>? generateRoutes(RouteSettings settings, BuildContext context) {
+    var routeName = settings.name;
+    if (routeName == TopicListPage.routeName) {
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (context) => TopicListCubit(
+            context.read<TopicRepository>(),
+            context.read<CategoryRepository>(),
+          )..fetchLatest(),
+          child: TopicListPage(),
+        ),
+      );
+    } else if (routeName == TopicPage.routeName) {
+      final topic = settings.arguments as Topic;
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => TopicCubit(
+            context.read<PostRepository>(),
+            context.read<TopicRepository>(),
+          ),
+          child: TopicPage(
+            topic: topic,
+          ),
+        ),
+      );
+    } else if (routeName == LoginPage.routeName) {}
   }
 }
