@@ -7,10 +7,16 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    return Scaffold(
+      body: Column(
         children: [
-          Container(),
+          Column(
+            children: [
+              Text('欢迎回到DartChina'),
+              SizedBox(height: 40),
+              Image.asset('assets/icon/logo_dart_ios.png'),
+            ],
+          ),
           Container(),
         ],
       ),

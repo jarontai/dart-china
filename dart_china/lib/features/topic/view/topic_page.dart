@@ -1,3 +1,5 @@
+import 'package:dart_china/features/app/cubit/app_cubit.dart';
+
 import '../../../widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,42 +53,41 @@ class _TopicPageState extends State<TopicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt.get<TopicCubit>(),
-      child: Scaffold(
-        backgroundColor: kTopicBgColor,
-        appBar: _buildAppBar(),
-        floatingActionButton: FloatingActionButton(
-          mini: true,
-          backgroundColor: kBackgroundColor,
-          child: Icon(Icons.send),
-          onPressed: () {
-            print('pressed send');
-          },
-        ),
-        body: BlocBuilder<TopicCubit, TopicState>(
-          builder: (_, state) {
-            if (state.status == TopicStatus.success) {
-              var topic = state.topic!;
-              var postCount = state.posts.length;
-              var itemCount = postCount;
-              if (state.loading) {
-                itemCount += 1;
-              }
-              var enableSend = state.status != TopicStatus.posting;
-              return Container(
-                padding: EdgeInsets.only(
-                  top: 5,
-                  left: 20,
-                  right: 20,
-                ),
-                child: _buildPostList(topic, postCount, itemCount, state),
-              );
-            } else {
-              return ListLoader();
+    return Scaffold(
+      backgroundColor: kTopicBgColor,
+      appBar: _buildAppBar(),
+      floatingActionButton: FloatingActionButton(
+        mini: true,
+        backgroundColor: kBackgroundColor,
+        child: Icon(Icons.send),
+        onPressed: () {
+          var appState = context.read<AppCubit>().state;
+          if (!appState.userLogin) {
+            Navigator.pushNamed(context, '/login');
+          } else {}
+        },
+      ),
+      body: BlocBuilder<TopicCubit, TopicState>(
+        builder: (_, state) {
+          if (state.status == TopicStatus.success) {
+            var topic = state.topic!;
+            var postCount = state.posts.length;
+            var itemCount = postCount;
+            if (state.loading) {
+              itemCount += 1;
             }
-          },
-        ),
+            return Container(
+              padding: EdgeInsets.only(
+                top: 5,
+                left: 20,
+                right: 20,
+              ),
+              child: _buildPostList(topic, postCount, itemCount, state),
+            );
+          } else {
+            return ListLoader();
+          }
+        },
       ),
     );
   }

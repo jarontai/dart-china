@@ -32,15 +32,28 @@ class DartChinaApp extends StatelessWidget {
     var routeName = settings.name;
     if (routeName == TopicListPage.routeName) {
       return MaterialPageRoute(
-        builder: (_) => TopicListPage(),
+        builder: (_) => BlocProvider(
+          create: (context) => getIt.get<TopicListCubit>()..fetchLatest(),
+          child: TopicListPage(),
+        ),
       );
     } else if (routeName == TopicPage.routeName) {
       final topic = settings.arguments as Topic;
       return MaterialPageRoute(
-        builder: (_) => TopicPage(
-          topic: topic,
+        builder: (_) => BlocProvider(
+          create: (context) => getIt.get<TopicCubit>(),
+          child: TopicPage(
+            topic: topic,
+          ),
         ),
       );
-    } else if (routeName == LoginPage.routeName) {}
+    } else if (routeName == LoginPage.routeName) {
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => getIt.get<AuthCubit>(),
+          child: LoginPage(),
+        ),
+      );
+    }
   }
 }
