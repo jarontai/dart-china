@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+final getIt = GetIt.instance;
 
 typedef IndexCallback = void Function(int index);
 typedef StrDataCallback = void Function(String data);

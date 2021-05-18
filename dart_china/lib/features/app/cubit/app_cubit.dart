@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+
 import '../../auth/cubit/auth_cubit.dart';
 
 part 'app_state.dart';

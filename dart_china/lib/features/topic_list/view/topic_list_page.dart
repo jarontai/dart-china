@@ -74,41 +74,44 @@ class _TopicListPageState extends State<TopicListPage> {
       ),
       child: SafeArea(
         child: Container(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: RefreshIndicator(
-              key: _refreshKey,
-              onRefresh: () async {
-                await context.read<TopicListCubit>().checkLatest();
-              },
-              child: CustomScrollView(
-                controller: _scrollController,
-                physics: ClampingScrollPhysics(),
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverHeader(),
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverCategorySelector(onSelect: () {
-                      _jumpToTop();
-                    }),
-                  ),
-                  buildSliverTopicList(context),
-                ],
+          child: BlocProvider(
+            create: (context) => getIt.get<TopicListCubit>()..fetchLatest(),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: RefreshIndicator(
+                key: _refreshKey,
+                onRefresh: () async {
+                  await context.read<TopicListCubit>().checkLatest();
+                },
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  physics: ClampingScrollPhysics(),
+                  slivers: [
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SliverHeader(),
+                    ),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SliverCategorySelector(onSelect: () {
+                        _jumpToTop();
+                      }),
+                    ),
+                    buildSliverTopicList(context),
+                  ],
+                ),
               ),
+              floatingActionButton: scrollToTop
+                  ? FloatingActionButton(
+                      mini: true,
+                      backgroundColor: kBackgroundColor,
+                      child: Icon(Icons.arrow_upward_outlined),
+                      onPressed: () {
+                        _scrollToTop();
+                      },
+                    )
+                  : null,
             ),
-            floatingActionButton: scrollToTop
-                ? FloatingActionButton(
-                    mini: true,
-                    backgroundColor: kBackgroundColor,
-                    child: Icon(Icons.arrow_upward_outlined),
-                    onPressed: () {
-                      _scrollToTop();
-                    },
-                  )
-                : null,
           ),
         ),
       ),

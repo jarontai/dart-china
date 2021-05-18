@@ -1,12 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 import 'features/features.dart';
-import 'repositories/repositories.dart';
-
-final getIt = GetIt.instance;
+import 'commons.dart';
 
 const kReleaseMode = false;
 
@@ -35,19 +32,13 @@ class DartChinaApp extends StatelessWidget {
     var routeName = settings.name;
     if (routeName == TopicListPage.routeName) {
       return MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (context) => getIt.get<TopicListCubit>()..fetchLatest(),
-          child: TopicListPage(),
-        ),
+        builder: (_) => TopicListPage(),
       );
     } else if (routeName == TopicPage.routeName) {
       final topic = settings.arguments as Topic;
       return MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (_) => getIt.get<TopicCubit>(),
-          child: TopicPage(
-            topic: topic,
-          ),
+        builder: (_) => TopicPage(
+          topic: topic,
         ),
       );
     } else if (routeName == LoginPage.routeName) {}
