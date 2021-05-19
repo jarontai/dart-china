@@ -11,7 +11,7 @@ typedef StrDataCallback = void Function(String data);
 const kSplashRadius = 25.0;
 
 abstract class ColorPalette {
-  static final backgroundColor = Color(0xFF2656cc);
+  static final backgroundColor = Color(0xFF3978f8);
   static final tagColr = Color(0xFFf2f6fa);
   static final topicBgColor = Color(0xFFF1F6FA);
   static final topicCardColor = Color(0xFFFDFDFD);
