@@ -2,7 +2,7 @@ part of 'topic_cubit.dart';
 
 enum TopicStatus { initial, success, posting }
 
-class TopicState {
+class TopicState extends Equatable {
   final TopicStatus status;
   final bool error;
   final String? errorMessage;
@@ -11,6 +11,7 @@ class TopicState {
   final int page;
   final bool more;
   final bool loading;
+  final bool enableReply;
 
   TopicState({
     this.status = TopicStatus.initial,
@@ -21,6 +22,7 @@ class TopicState {
     this.page = 0,
     this.more = true,
     this.loading = false,
+    this.enableReply = false,
   });
 
   TopicState copyWith({
@@ -32,6 +34,7 @@ class TopicState {
     int? page,
     bool? more,
     bool? loading,
+    bool? enableReply,
   }) {
     return TopicState(
       status: status ?? this.status,
@@ -42,6 +45,10 @@ class TopicState {
       page: page ?? this.page,
       more: more ?? this.more,
       loading: loading ?? this.loading,
+      enableReply: enableReply ?? this.enableReply,
     );
   }
+
+  @override
+  List<Object?> get props => [status, topic, posts, page, loading, enableReply];
 }

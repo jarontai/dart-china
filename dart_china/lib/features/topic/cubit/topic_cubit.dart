@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../commons.dart';
 import '../../../repositories/repositories.dart';
@@ -55,6 +56,10 @@ class TopicCubit extends Cubit<TopicState> {
         loading: false,
       ));
     }
+  }
+
+  togglePostReply(bool enable) {
+    emit(state.copyWith(enableReply: enable));
   }
 
   createTopicPost(int topicId, String content) async {

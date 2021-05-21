@@ -41,7 +41,7 @@ class DartChinaApp extends StatelessWidget {
       final topic = settings.arguments as Topic;
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt.get<TopicCubit>(),
+          create: (context) => getIt.get<TopicCubit>()..fetchTopic(topic),
           child: TopicPage(
             topic: topic,
           ),

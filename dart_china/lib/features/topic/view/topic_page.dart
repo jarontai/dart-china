@@ -1,10 +1,10 @@
-import 'package:dart_china/features/app/cubit/app_cubit.dart';
-
-import '../../../widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:dart_china/features/app/cubit/app_cubit.dart';
+
 import '../../../commons.dart';
+import '../../../widgets/widgets.dart';
 import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
@@ -23,15 +23,11 @@ class TopicPage extends StatefulWidget {
 }
 
 class _TopicPageState extends State<TopicPage> {
-  late TopicCubit _topicCubit;
   late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-
-    _topicCubit = context.read<TopicCubit>();
-    _topicCubit.fetchTopic(widget.topic);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -56,17 +52,7 @@ class _TopicPageState extends State<TopicPage> {
     return Scaffold(
       backgroundColor: ColorPalette.topicBgColor,
       appBar: _buildAppBar(),
-      floatingActionButton: FloatingActionButton(
-        mini: true,
-        backgroundColor: ColorPalette.backgroundColor,
-        child: Icon(Icons.send),
-        onPressed: () {
-          var appState = context.read<AppCubit>().state;
-          if (!appState.userLogin) {
-            Navigator.pushNamed(context, '/login');
-          } else {}
-        },
-      ),
+      floatingActionButton: _buildPostButton(context),
       body: BlocBuilder<TopicCubit, TopicState>(
         builder: (_, state) {
           if (state.status == TopicStatus.success) {
@@ -89,6 +75,19 @@ class _TopicPageState extends State<TopicPage> {
           }
         },
       ),
+    );
+  }
+
+  Widget _buildPostButton(BuildContext context) {
+    var appState = context.read<AppCubit>().state;
+    return ReplySection(
+      canOpen: appState.userLogin,
+      onReject: () {
+        Navigator.of(context).pushNamed('/login');
+      },
+      onReply: (text) {
+        // TODO:
+      },
     );
   }
 
@@ -145,6 +144,90 @@ class _TopicPageState extends State<TopicPage> {
         },
         itemCount: itemCount,
       ),
+    );
+  }
+}
+
+class ReplySection extends StatefulWidget {
+  const ReplySection({
+    Key? key,
+    this.canOpen = false,
+    required this.onReject,
+    required this.onReply,
+  }) : super(key: key);
+
+  final bool canOpen;
+  final VoidCallback onReject;
+  final StrDataCallback onReply;
+
+  @override
+  _ReplySectionState createState() => _ReplySectionState();
+}
+
+class _ReplySectionState extends State<ReplySection> {
+  bool _open = false;
+  String _text = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        Container(
+          color: Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                mini: true,
+                backgroundColor: ColorPalette.backgroundColor,
+                child: Icon(Icons.send),
+                onPressed: () {
+                  if (!widget.canOpen) {
+                    widget.onReject();
+                    return;
+                  }
+
+                  if (!_open) {
+                    setState(() {
+                      _open = true;
+                    });
+                  } else {
+                    widget.onReply(_text);
+                  }
+
+                  // var topicCubit = context.read<TopicCubit>();
+                  // var appState = context.read<AppCubit>().state;
+                  // if (!appState.userLogin) {
+                  //   topicCubit.togglePostReply(false);
+                  //   Navigator.pushNamed(context, '/login');
+                  // } else {
+                  //   topicCubit.togglePostReply(true);
+                  // }
+                },
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  FloatingActionButton _buildOpen(BuildContext context) {
+    return FloatingActionButton(
+      mini: true,
+      backgroundColor: ColorPalette.backgroundColor,
+      child: Icon(Icons.send),
+      onPressed: () {
+        var topicCubit = context.read<TopicCubit>();
+        var appState = context.read<AppCubit>().state;
+        if (!appState.userLogin) {
+          topicCubit.togglePostReply(false);
+          Navigator.pushNamed(context, '/login');
+        } else {
+          topicCubit.togglePostReply(true);
+        }
+      },
     );
   }
 }

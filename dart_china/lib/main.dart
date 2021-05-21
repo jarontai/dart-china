@@ -25,12 +25,12 @@ setup() async {
   getIt.registerSingleton<CategoryRepository>(CategoryRepository());
   getIt.registerSingleton<AuthRepository>(AuthRepository());
 
-  getIt.registerSingleton<TopicListCubit>(TopicListCubit(
+  getIt.registerFactory(() => TopicListCubit(
       getIt.get<TopicRepository>(), getIt.get<CategoryRepository>()));
-  getIt.registerSingleton<TopicCubit>(
+  getIt.registerFactory(() =>
       TopicCubit(getIt.get<PostRepository>(), getIt.get<TopicRepository>()));
-  getIt.registerSingleton<AuthCubit>(AuthCubit(getIt.get<AuthRepository>()));
-  getIt.registerSingleton<AppCubit>(AppCubit(getIt.get<AuthCubit>()));
+  getIt.registerFactory(() => AuthCubit(getIt.get<AuthRepository>()));
+  getIt.registerFactory(() => AppCubit(getIt.get<AuthCubit>()));
 }
 
 void main() async {
