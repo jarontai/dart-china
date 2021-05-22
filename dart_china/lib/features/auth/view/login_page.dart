@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       color: ColorPalette.backgroundColor,
       width: double.infinity,
-      padding: EdgeInsets.only(top: 55, bottom: 25),
+      padding: EdgeInsets.only(top: 60, bottom: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
               width: 40,
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Text(
             '欢迎回到 Dart China',
             style: TextStyle(
@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 35,
-        vertical: 20,
+        vertical: 15,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
