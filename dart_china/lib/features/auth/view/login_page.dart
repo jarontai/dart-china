@@ -1,7 +1,8 @@
-import 'package:dart_china/commons.dart';
-import 'package:dart_china/widgets/button_widget.dart';
-import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+
+import '../../../commons.dart';
+import '../../../widgets/button_widget.dart';
+import '../../../widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 typedef IndexCallback = void Function(int index);
-typedef StrDataCallback = void Function(String data);
+typedef StringCallback = void Function(String data);
 
 const kSplashRadius = 25.0;
 

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:dart_china/features/app/cubit/app_cubit.dart';
-
 import '../../../commons.dart';
 import '../../../widgets/widgets.dart';
+import '../../app/cubit/app_cubit.dart';
 import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
@@ -62,14 +61,7 @@ class _TopicPageState extends State<TopicPage> {
             if (state.loading) {
               itemCount += 1;
             }
-            return Container(
-              padding: EdgeInsets.only(
-                top: 5,
-                left: 20,
-                right: 20,
-              ),
-              child: _buildPostList(topic, postCount, itemCount, state),
-            );
+            return _buildPostList(topic, postCount, itemCount, state);
           } else {
             return ListLoader();
           }
@@ -108,7 +100,9 @@ class _TopicPageState extends State<TopicPage> {
       Topic topic, int postCount, int itemCount, TopicState state) {
     return Container(
       padding: EdgeInsets.only(
-        top: 5,
+        top: 10,
+        left: 20,
+        right: 20,
       ),
       child: ListView.separated(
         controller: _scrollController,
@@ -144,90 +138,6 @@ class _TopicPageState extends State<TopicPage> {
         },
         itemCount: itemCount,
       ),
-    );
-  }
-}
-
-class ReplySection extends StatefulWidget {
-  const ReplySection({
-    Key? key,
-    this.canOpen = false,
-    required this.onReject,
-    required this.onReply,
-  }) : super(key: key);
-
-  final bool canOpen;
-  final VoidCallback onReject;
-  final StrDataCallback onReply;
-
-  @override
-  _ReplySectionState createState() => _ReplySectionState();
-}
-
-class _ReplySectionState extends State<ReplySection> {
-  bool _open = false;
-  String _text = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        Container(
-          color: Colors.red,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                mini: true,
-                backgroundColor: ColorPalette.backgroundColor,
-                child: Icon(Icons.send),
-                onPressed: () {
-                  if (!widget.canOpen) {
-                    widget.onReject();
-                    return;
-                  }
-
-                  if (!_open) {
-                    setState(() {
-                      _open = true;
-                    });
-                  } else {
-                    widget.onReply(_text);
-                  }
-
-                  // var topicCubit = context.read<TopicCubit>();
-                  // var appState = context.read<AppCubit>().state;
-                  // if (!appState.userLogin) {
-                  //   topicCubit.togglePostReply(false);
-                  //   Navigator.pushNamed(context, '/login');
-                  // } else {
-                  //   topicCubit.togglePostReply(true);
-                  // }
-                },
-              )
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  FloatingActionButton _buildOpen(BuildContext context) {
-    return FloatingActionButton(
-      mini: true,
-      backgroundColor: ColorPalette.backgroundColor,
-      child: Icon(Icons.send),
-      onPressed: () {
-        var topicCubit = context.read<TopicCubit>();
-        var appState = context.read<AppCubit>().state;
-        if (!appState.userLogin) {
-          topicCubit.togglePostReply(false);
-          Navigator.pushNamed(context, '/login');
-        } else {
-          topicCubit.togglePostReply(true);
-        }
-      },
     );
   }
 }
