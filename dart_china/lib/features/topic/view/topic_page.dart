@@ -27,6 +27,7 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
+    context.read<TopicCubit>().fetchTopic(widget.topic);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {

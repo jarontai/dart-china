@@ -21,6 +21,8 @@ class _TopicListPageState extends State<TopicListPage> {
   void initState() {
     super.initState();
 
+    context.read<TopicListCubit>().fetchLatest();
+
     _refreshKey = GlobalKey<RefreshIndicatorState>();
     _scrollController = ScrollController();
     _scrollController.addListener(() {

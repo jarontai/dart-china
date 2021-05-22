@@ -20,17 +20,17 @@ setup() async {
   await initRepository();
 
   // Register repositories and cubits
-  getIt.registerSingleton<TopicRepository>(TopicRepository());
-  getIt.registerSingleton<PostRepository>(PostRepository());
-  getIt.registerSingleton<CategoryRepository>(CategoryRepository());
-  getIt.registerSingleton<AuthRepository>(AuthRepository());
+  // getIt.registerSingleton<TopicRepository>(TopicRepository());
+  // getIt.registerSingleton<PostRepository>(PostRepository());
+  // getIt.registerSingleton<CategoryRepository>(CategoryRepository());
+  // getIt.registerSingleton<AuthRepository>(AuthRepository());
 
-  getIt.registerFactory(() => TopicListCubit(
-      getIt.get<TopicRepository>(), getIt.get<CategoryRepository>()));
-  getIt.registerFactory(() =>
-      TopicCubit(getIt.get<PostRepository>(), getIt.get<TopicRepository>()));
-  getIt.registerFactory(() => AuthCubit(getIt.get<AuthRepository>()));
-  getIt.registerFactory(() => AppCubit(getIt.get<AuthCubit>()));
+  // getIt.registerFactory(() => TopicListCubit(
+  //     getIt.get<TopicRepository>(), getIt.get<CategoryRepository>()));
+  // getIt.registerFactory(() =>
+  //     TopicCubit(getIt.get<PostRepository>(), getIt.get<TopicRepository>()));
+  // getIt.registerFactory(() => AuthCubit(getIt.get<AuthRepository>()));
+  // getIt.registerFactory(() => AppCubit(getIt.get<AuthCubit>()));
 }
 
 void main() async {

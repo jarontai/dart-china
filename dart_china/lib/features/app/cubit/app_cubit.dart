@@ -19,6 +19,8 @@ class AppCubit extends Cubit<AppState> {
         updateLogin(false, null);
       }
     });
+
+    checkLogin();
   }
 
   checkLogin() async {
