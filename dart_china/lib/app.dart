@@ -11,7 +11,7 @@ class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<AppCubit>(),
+      create: (_) => getIt.get<AppCubit>()..checkLogin(),
       child: DevicePreview(
         enabled: !kReleaseMode,
         builder: (_) => MaterialApp(

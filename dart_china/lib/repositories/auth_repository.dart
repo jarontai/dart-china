@@ -8,4 +8,12 @@ class AuthRepository extends BaseRepository {
   Future<void> logout(String username) async {
     return await client.logout(username);
   }
+
+  Future<bool> checkLogin() async {
+    return await client.checkLogin();
+  }
+
+  Future<User> userInfo(String username) async {
+    return await client.userInfo(username);
+  }
 }
