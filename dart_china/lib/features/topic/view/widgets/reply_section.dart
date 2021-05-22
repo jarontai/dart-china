@@ -17,7 +17,7 @@ class ReplySection extends StatefulWidget {
 }
 
 class _ReplySectionState extends State<ReplySection> {
-  bool _open = true;
+  bool _open = false;
   String _text = '';
 
   @override
@@ -30,22 +30,28 @@ class _ReplySectionState extends State<ReplySection> {
           margin: EdgeInsets.only(
             left: 31.5,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.red,
-                  child: TextField(),
-                ),
-              ),
-            ],
-          ),
+          child: _open
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.red,
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          right: 50,
+                        ),
+                        child: TextField(),
+                      ),
+                    ),
+                  ],
+                )
+              : SizedBox.shrink(),
         ),
-        IconButton(
-          // mini: true,
-          // backgroundColor: ColorPalette.backgroundColor,
-          icon: Icon(Icons.send),
+        FloatingActionButton(
+          mini: true,
+          backgroundColor: ColorPalette.backgroundColor,
+          child: Icon(Icons.send),
           onPressed: () {
             if (!widget.canOpen) {
               widget.onReject();
