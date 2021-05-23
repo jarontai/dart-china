@@ -8,8 +8,12 @@ class InputWidget extends StatelessWidget {
     this.hint = '',
     this.label = '',
     this.obscure = false,
+    this.controller,
+    this.validator,
   }) : super(key: key);
 
+  final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
   final String hint;
   final String label;
   final bool obscure;
@@ -30,7 +34,9 @@ class InputWidget extends StatelessWidget {
           ),
           Container(
             height: 50,
-            child: TextField(
+            child: TextFormField(
+              controller: controller,
+              validator: validator,
               obscureText: obscure,
               style: TextStyle(),
               decoration: InputDecoration(

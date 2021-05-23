@@ -21,6 +21,9 @@ class TopicCubit extends Cubit<TopicState> {
   final Debouncer _debouncer = Debouncer();
 
   fetchTopic(Topic topic) async {
+    emit(state.copyWith(
+      status: TopicStatus.initial,
+    ));
     var theTopic = await topicRepository.findTopic(topic.id);
     theTopic = theTopic.copyWith(
       poster: topic.poster,

@@ -4,20 +4,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/models.dart';
 import '../../../repositories/repositories.dart';
 
-part 'auth_state.dart';
+part 'login_state.dart';
 
-class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.authRepository) : super(AuthState());
+class LoginCubit extends Cubit<LoginState> {
+  LoginCubit(AuthRepository authRepository)
+      : _authRepository = authRepository,
+        super(LoginState());
 
-  final AuthRepository authRepository;
+  final AuthRepository _authRepository;
 
   check() async {
-    var login = await authRepository.checkLogin();
+    var login = await _authRepository.checkLogin();
     if (login) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var username = prefs.getString('username');
       if (username != null && username.isNotEmpty) {
-        var user = await authRepository.userInfo(username);
+        var user = await _authRepository.userInfo(username);
         emit(state.copyWith(
           loading: false,
           isLogin: true,
@@ -27,25 +29,30 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  returnRoute(String route) {
+    emit(state.copyWith(returnRoute: route));
+  }
+
   login(String username, String password) async {
     emit(state.copyWith(
       loading: true,
       isLogin: false,
       user: null,
     ));
-    var user = await authRepository.login(username, password);
+    var user = await _authRepository.login(username, password);
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', user.username);
+
     emit(state.copyWith(
       loading: false,
       isLogin: true,
       user: user,
     ));
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', user.username);
   }
 
   logout(String username) async {
-    await authRepository.logout(username);
+    await _authRepository.logout(username);
     emit(state.copyWith(
       isLogin: false,
       user: null,

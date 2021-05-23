@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-typedef IndexCallback = void Function(int index);
-typedef StringCallback = void Function(String data);
+typedef DataCallback<T> = void Function(T data);
 
 const kSplashRadius = 25.0;
 

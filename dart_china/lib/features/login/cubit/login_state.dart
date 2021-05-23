@@ -1,25 +1,29 @@
-part of 'auth_cubit.dart';
+part of 'login_cubit.dart';
 
-class AuthState {
+class LoginState {
   final bool isLogin;
   final bool loading;
   final User? user;
+  final String? returnRoute;
 
-  AuthState({
+  LoginState({
     this.isLogin = false,
     this.loading = false,
     this.user,
+    this.returnRoute,
   });
 
-  AuthState copyWith({
+  LoginState copyWith({
     bool? isLogin,
     bool? loading,
     User? user,
+    String? returnRoute,
   }) {
-    return AuthState(
+    return LoginState(
       isLogin: isLogin ?? this.isLogin,
       loading: loading ?? this.loading,
       user: user ?? this.user,
+      returnRoute: returnRoute ?? this.returnRoute,
     );
   }
 }

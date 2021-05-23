@@ -14,10 +14,10 @@ class DartChinaApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit(AuthRepository()),
+          create: (context) => LoginCubit(AuthRepository()),
         ),
         BlocProvider(
-          create: (context) => AppCubit(BlocProvider.of<AuthCubit>(context)),
+          create: (context) => AppCubit(BlocProvider.of<LoginCubit>(context)),
         ),
         BlocProvider(
           create: (context) =>
