@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,8 +54,14 @@ class _TopicPageState extends State<TopicPage> {
       backgroundColor: ColorPalette.topicBgColor,
       appBar: _buildAppBar(),
       floatingActionButton: _buildPostButton(context),
-      body: BlocBuilder<TopicCubit, TopicState>(
-        builder: (_, state) {
+      body: BlocConsumer<TopicCubit, TopicState>(
+        listener: (context, state) {
+          if (state.postSuccess) {
+            Fluttertoast.showToast(
+                msg: '帖子发布成功', backgroundColor: ColorPalette.backgroundColor);
+          }
+        },
+        builder: (context, state) {
           if (state.status == TopicStatus.success) {
             var topic = state.topic!;
             var postCount = state.posts.length;
@@ -72,6 +79,7 @@ class _TopicPageState extends State<TopicPage> {
   }
 
   Widget _buildPostButton(BuildContext context) {
+    var topicCubit = context.read<TopicCubit>();
     var appState = context.read<AppCubit>().state;
     return ReplySection(
       canOpen: appState.userLogin,
@@ -79,7 +87,7 @@ class _TopicPageState extends State<TopicPage> {
         Navigator.of(context).pushNamed('/login');
       },
       onReply: (text) {
-        // TODO:
+        topicCubit.createTopicPost(text);
       },
     );
   }

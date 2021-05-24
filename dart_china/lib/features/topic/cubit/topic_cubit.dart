@@ -23,6 +23,7 @@ class TopicCubit extends Cubit<TopicState> {
   fetchTopic(Topic topic) async {
     emit(state.copyWith(
       status: TopicStatus.initial,
+      postSuccess: false,
     ));
     var theTopic = await topicRepository.findTopic(topic.id);
     theTopic = theTopic.copyWith(
@@ -65,14 +66,17 @@ class TopicCubit extends Cubit<TopicState> {
     emit(state.copyWith(enableReply: enable));
   }
 
-  createTopicPost(int topicId, String content) async {
+  createTopicPost(String content) async {
+    assert(state.topic != null, 'Topic should not be null');
     emit(state.copyWith(
       status: TopicStatus.posting,
+      postSuccess: false,
     ));
-    var post = await postRepository.createPost(topicId, content);
+    var post = await postRepository.createPost(state.topic!.id, content);
     emit(state.copyWith(
       posts: List.of(state.posts)..add(post),
       status: TopicStatus.success,
+      postSuccess: true,
     ));
   }
 }

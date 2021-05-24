@@ -18,7 +18,7 @@ class ReplySection extends StatefulWidget {
 
 class _ReplySectionState extends State<ReplySection> {
   bool _open = false;
-  String _text = '';
+  TextEditingController _textEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,10 @@ class _ReplySectionState extends State<ReplySection> {
                           left: 10,
                           right: 50,
                         ),
-                        child: TextField(),
+                        child: TextField(
+                          controller: _textEditingController,
+                          maxLines: 5,
+                        ),
                       ),
                     ),
                   ],
@@ -63,7 +66,16 @@ class _ReplySectionState extends State<ReplySection> {
                 _open = true;
               });
             } else {
-              widget.onReply(_text);
+              if (_textEditingController.text.isEmpty) {
+                setState(() {
+                  _open = false;
+                });
+              } else {
+                widget.onReply(_textEditingController.text);
+                setState(() {
+                  _open = false;
+                });
+              }
             }
           },
         )
