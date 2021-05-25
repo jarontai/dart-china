@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if (state.isLogin) {
-                Navigator.of(context).pushNamed('/topic_list');
+                Navigator.of(context).pushNamed('/');
               }
             },
             builder: (context, state) {

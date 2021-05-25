@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../commons.dart';
 import '../cubit/topic_list_cubit.dart';
@@ -77,7 +78,6 @@ class _TopicListPageState extends State<TopicListPage> {
       child: SafeArea(
         child: Container(
           child: Scaffold(
-            drawer: HomeDrawer(),
             backgroundColor: Colors.transparent,
             body: RefreshIndicator(
               key: _refreshKey,
@@ -90,7 +90,11 @@ class _TopicListPageState extends State<TopicListPage> {
                 slivers: [
                   SliverPersistentHeader(
                     pinned: true,
-                    delegate: SliverHeader(),
+                    delegate: SliverHeader(
+                      onMenuPressed: () {
+                        ZoomDrawer.of(context)?.open();
+                      },
+                    ),
                   ),
                   SliverPersistentHeader(
                     pinned: true,

@@ -24,7 +24,7 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.0.1
   shared_preferences: ^2.0.5
-  flutter_advanced_drawer: ^1.1.0
+  flutter_zoom_drawer: ^2.0.2+3
 
 dependency_overrides:
   discourse_api:

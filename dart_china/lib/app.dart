@@ -1,3 +1,4 @@
+import 'package:dart_china/features/topic_list/view/home_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,7 @@ class DartChinaApp extends StatelessWidget {
           ),
           initialRoute: TopicListPage.routeName,
           routes: {
-            TopicListPage.routeName: (_) => TopicListPage(),
+            HomePage.routeName: (_) => HomePage(),
             LoginPage.routeName: (_) => LoginPage(),
           },
           onGenerateRoute: (settings) => generateRoutes(settings, context),

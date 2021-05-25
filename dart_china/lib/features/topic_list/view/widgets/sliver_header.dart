@@ -1,12 +1,15 @@
 part of 'widgets.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  final double expandedHeight = 130;
+  SliverHeader({this.onMenuPressed});
+
+  final VoidCallback? onMenuPressed;
+  final double _expandedHeight = 130;
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final double welcomeHeight = expandedHeight - kToolbarHeight;
+    final double welcomeHeight = _expandedHeight - kToolbarHeight;
     final offset = welcomeHeight - shrinkOffset;
 
     double percent = offset / welcomeHeight;
@@ -14,7 +17,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       percent = 0;
     }
     return SizedBox(
-      height: expandedHeight,
+      height: _expandedHeight,
       child: Stack(
         children: [
           Positioned(
@@ -48,7 +51,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
         icon: Icon(Icons.menu),
         splashRadius: kSplashRadius,
         onPressed: () {
-          Scaffold.of(context).openDrawer();
+          onMenuPressed?.call();
         },
       ),
       title: titleVisiable
@@ -65,7 +68,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
           splashRadius: kSplashRadius,
           icon: Icon(Icons.add),
           onPressed: () {
-            print('presssed add!');
+            // onMenuPressed?.call();
           },
         )
       ],
@@ -73,7 +76,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => expandedHeight;
+  double get maxExtent => _expandedHeight;
 
   @override
   double get minExtent => kToolbarHeight;

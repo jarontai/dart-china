@@ -9,4 +9,3 @@ part 'category_selector.dart';
 part 'sliver_header.dart';
 part 'topic_list.dart';
 part 'welcome_block.dart';
-part 'home_drawer.dart';
