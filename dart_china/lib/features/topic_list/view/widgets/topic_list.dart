@@ -103,7 +103,7 @@ class TopicCard extends StatelessWidget {
           TopicStatus(
             slug: topic.categorySlug!,
             view: topic.views,
-            reply: topic.replyCount,
+            posts: topic.postsCount,
             like: topic.likeCount,
           ),
         ],
@@ -117,13 +117,13 @@ class TopicStatus extends StatelessWidget {
     Key? key,
     this.slug = '',
     this.view = 0,
-    this.reply = 0,
+    this.posts = 0,
     this.like = 0,
   }) : super(key: key);
 
   final String slug;
   final int view;
-  final int reply;
+  final int posts;
   final int like;
 
   Text buildType() {
@@ -223,7 +223,7 @@ class TopicStatus extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '$reply',
+                '$posts',
                 style: TextStyle(
                   color: Color(0xFFB0B1BA),
                   fontSize: 13,

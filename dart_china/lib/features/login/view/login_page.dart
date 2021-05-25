@@ -105,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   return '用户名不能为空';
                 }
               },
+              // inputAction: TextInputAction.continueAction,
             ),
             SizedBox(
               height: 15,
@@ -118,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                   return '密码不能为空';
                 }
               },
+              inputAction: TextInputAction.done,
             ),
             SizedBox(height: 45),
             ButtonWidget(

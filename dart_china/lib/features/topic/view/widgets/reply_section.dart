@@ -18,15 +18,38 @@ class ReplySection extends StatefulWidget {
 
 class _ReplySectionState extends State<ReplySection> {
   bool _open = false;
+  bool _empty = true;
   TextEditingController _textEditingController = new TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    _textEditingController.addListener(() {
+      setState(() {
+        _empty = _textEditingController.text.isEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var iconData = Icons.chat;
+    if (_open && !_empty) {
+      iconData = Icons.send;
+    }
+
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
         Container(
-          color: Colors.blue,
+          // color: Colors.blue,
           margin: EdgeInsets.only(
             left: 31.5,
           ),
@@ -36,14 +59,36 @@ class _ReplySectionState extends State<ReplySection> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.red,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         padding: EdgeInsets.only(
-                          left: 10,
+                          left: 3,
                           right: 50,
                         ),
                         child: TextField(
                           controller: _textEditingController,
-                          maxLines: 5,
+                          minLines: 1,
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            fillColor: Colors.grey.shade300,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              gapPadding: 0,
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: BorderSide.none,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              gapPadding: 0,
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: BorderSide(
+                                color: Colors.blue.shade400,
+                                width: 1,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -54,7 +99,7 @@ class _ReplySectionState extends State<ReplySection> {
         FloatingActionButton(
           mini: true,
           backgroundColor: ColorPalette.backgroundColor,
-          child: Icon(Icons.send),
+          child: Icon(iconData),
           onPressed: () {
             if (!widget.canOpen) {
               widget.onReject();

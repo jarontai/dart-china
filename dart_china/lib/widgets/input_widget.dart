@@ -5,11 +5,12 @@ import '../commons.dart';
 class InputWidget extends StatelessWidget {
   const InputWidget({
     Key? key,
+    this.controller,
+    this.validator,
     this.hint = '',
     this.label = '',
     this.obscure = false,
-    this.controller,
-    this.validator,
+    this.inputAction,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -17,6 +18,7 @@ class InputWidget extends StatelessWidget {
   final String hint;
   final String label;
   final bool obscure;
+  final TextInputAction? inputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class InputWidget extends StatelessWidget {
           Container(
             height: 50,
             child: TextFormField(
+              textInputAction: inputAction,
               controller: controller,
               validator: validator,
               obscureText: obscure,
@@ -51,10 +54,10 @@ class InputWidget extends StatelessWidget {
                 ),
                 hintStyle: TextStyle(color: ColorPalette.postTextColor),
                 focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide:
-                        BorderSide(color: Colors.blue.shade400, width: 1)),
-                fillColor: ColorPalette.tagColr,
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(color: Colors.blue.shade400, width: 1),
+                ),
+                fillColor: ColorPalette.tagColor,
                 filled: true,
               ),
             ),
