@@ -231,7 +231,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.2.27"
+    version: "0.2.29"
   dotenv:
     dependency: transitive
     description:
@@ -279,6 +279,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_advanced_drawer:
+    dependency: "direct main"
+    description:
+      name: flutter_advanced_drawer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   flutter_bloc:
     dependency: "direct main"
     description:

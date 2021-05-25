@@ -77,6 +77,7 @@ class _TopicListPageState extends State<TopicListPage> {
       child: SafeArea(
         child: Container(
           child: Scaffold(
+            drawer: HomeDrawer(),
             backgroundColor: Colors.transparent,
             body: RefreshIndicator(
               key: _refreshKey,

@@ -32,14 +32,14 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
           ),
           SizedBox(
             height: kToolbarHeight,
-            child: buildAppBar(percent == 0),
+            child: buildAppBar(context, percent == 0),
           ),
         ],
       ),
     );
   }
 
-  AppBar buildAppBar([bool titleVisiable = false]) {
+  AppBar buildAppBar(BuildContext context, [bool titleVisiable = false]) {
     return AppBar(
       centerTitle: true,
       backgroundColor: titleVisiable ? Color(0xFF4162D2) : Colors.transparent,
@@ -47,7 +47,9 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
       leading: IconButton(
         icon: Icon(Icons.menu),
         splashRadius: kSplashRadius,
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       title: titleVisiable
           ? Text(
