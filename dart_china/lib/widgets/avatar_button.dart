@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class AvatarButton extends StatelessWidget {
   const AvatarButton({
     Key? key,
+    this.size = 24,
     required this.onPressed,
     required this.avatarUrl,
   }) : super(key: key);
 
+  final double size;
   final VoidCallback onPressed;
   final String? avatarUrl;
 
@@ -14,6 +16,7 @@ class AvatarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: IconButton(
+        iconSize: size,
         onPressed: onPressed,
         icon: CircleAvatar(
           backgroundColor: Colors.grey.shade200,
@@ -23,14 +26,14 @@ class AvatarButton extends StatelessWidget {
                 ? Image.network(
                     avatarUrl!,
                     fit: BoxFit.fitWidth,
-                    width: 35,
-                    height: 35,
+                    width: size + 10,
+                    height: size + 10,
                   )
                 : Image.asset(
                     'assets/icon/logo_dart_ios.png',
                     fit: BoxFit.fitWidth,
-                    width: 35,
-                    height: 35,
+                    width: size + 10,
+                    height: size + 10,
                   ),
           ),
         ),
