@@ -36,7 +36,7 @@ class DartChinaApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          initialRoute: TopicListPage.routeName,
+          initialRoute: HomePage.routeName,
           routes: {
             HomePage.routeName: (_) => HomePage(),
             LoginPage.routeName: (_) => LoginPage(),
