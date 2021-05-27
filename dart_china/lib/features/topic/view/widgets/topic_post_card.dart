@@ -1,5 +1,7 @@
 part of 'widgets.dart';
 
+const userAvatar = 'user_avatar';
+
 class TopicPostCard extends StatelessWidget {
   const TopicPostCard({
     Key? key,
@@ -60,6 +62,8 @@ class TopicPostCard extends StatelessWidget {
                 textAlign: WrapAlignment.start,
                 p: TextStyle(
                   color: Colors.grey.shade600,
+                  height: 1.5,
+                  fontSize: 15,
                 ),
                 blockquoteDecoration: BoxDecoration(
                   color: Color(0xFFedf1fa),
@@ -67,25 +71,31 @@ class TopicPostCard extends StatelessWidget {
                 ),
                 // blockquotePadding: EdgeInsets.zero,
               ),
-              imageBuilder: (uri, title, alt) {
-                return CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.transparent,
-                  foregroundColor: Colors.transparent,
-                  child: ClipOval(
-                    child: Image.network(
-                      uri.toString(),
-                      fit: BoxFit.fitWidth,
-                      width: 25,
-                      height: 25,
-                    ),
-                  ),
-                );
-              },
+              imageBuilder: _buildImageBuilder,
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildImageBuilder(Uri uri, String? title, String? alt) {
+    if (uri.path.contains(userAvatar)) {
+      return CircleAvatar(
+        radius: 25,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
+        child: ClipOval(
+          child: Image.network(
+            uri.toString(),
+            fit: BoxFit.fitWidth,
+            width: 25,
+            height: 25,
+          ),
+        ),
+      );
+    } else {
+      return Image.network(uri.toString());
+    }
   }
 }
