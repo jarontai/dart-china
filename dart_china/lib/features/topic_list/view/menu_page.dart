@@ -79,7 +79,6 @@ class _MenuPageState extends State<MenuPage> {
   Widget _buildBody(BuildContext context, int selected) {
     return Container(
       width: 200,
-      // color: Colors.red,
       child: Column(
         children: [
           MenuItem(
@@ -113,10 +112,11 @@ class _MenuPageState extends State<MenuPage> {
 
   Widget _buildFooter() {
     return Container(
+      width: 200,
       child: MenuItem(
         icon: Icons.exit_to_app_outlined,
         text: 'Sign Out',
-        route: '/sign_out',
+        route: '/',
         selected: false,
       ),
     );
@@ -139,9 +139,12 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+    return Container(
+      margin: EdgeInsets.only(bottom: 5),
       child: ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         tileColor: selected ? Color(0xFFa7aec2) : null,
         horizontalTitleGap: 0,
         leading: Icon(
@@ -156,7 +159,11 @@ class MenuItem extends StatelessWidget {
         ),
         onTap: () {
           ZoomDrawer.of(context)?.close();
-          Navigator.of(context).popAndPushNamed(route);
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).popAndPushNamed(route);
+          } else {
+            Navigator.of(context).pushNamed(route);
+          }
         },
       ),
     );
