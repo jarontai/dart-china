@@ -41,8 +41,8 @@ class _ReplySectionState extends State<ReplySection> {
   @override
   Widget build(BuildContext context) {
     var iconData = Icons.chat;
-    if (_open && !_empty) {
-      iconData = Icons.send;
+    if (_open) {
+      iconData = _empty ? Icons.close_rounded : Icons.send;
     }
 
     return Stack(
@@ -51,7 +51,7 @@ class _ReplySectionState extends State<ReplySection> {
         Container(
           // color: Colors.blue,
           margin: EdgeInsets.only(
-            left: 31.5,
+            left: 55.5,
           ),
           child: _open
               ? Row(
@@ -61,7 +61,6 @@ class _ReplySectionState extends State<ReplySection> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10),
                         ),
                         padding: EdgeInsets.only(
                           left: 3,
@@ -73,19 +72,27 @@ class _ReplySectionState extends State<ReplySection> {
                           maxLines: 6,
                           decoration: InputDecoration(
                             isDense: true,
-                            fillColor: Colors.grey.shade300,
+                            fillColor: Color(0xFFd3def4),
                             filled: true,
                             border: OutlineInputBorder(
                               gapPadding: 0,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                              ),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
                               gapPadding: 0,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                              ),
                               borderSide: BorderSide(
                                 color: Colors.blue.shade400,
-                                width: 1,
+                                width: 1.5,
                               ),
                             ),
                           ),
