@@ -92,7 +92,11 @@ class _TopicListPageState extends State<TopicListPage> {
                     pinned: true,
                     delegate: SliverHeader(
                       onMenuPressed: () {
-                        ZoomDrawer.of(context)?.open();
+                        if (ZoomDrawer.of(context)!.isOpen()) {
+                          ZoomDrawer.of(context)?.close();
+                        } else {
+                          ZoomDrawer.of(context)?.open();
+                        }
                       },
                     ),
                   ),
