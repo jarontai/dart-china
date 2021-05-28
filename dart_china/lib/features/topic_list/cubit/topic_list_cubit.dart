@@ -47,11 +47,11 @@ class TopicListCubit extends Cubit<TopicListState> {
 
   _doFetchLatest({bool refresh = false}) async {
     if (state is TopicListInitial) {
-      var topics = await topicRepository.fetchLatest(page: 0);
+      var pageModel = await topicRepository.fetchLatest();
       var categories = await _fetchCategories();
       categories.insert(0, theAllCategory);
       emit(TopicListSuccess(
-        topics: topics,
+        topics: pageModel.data,
         categoryIndex: 0,
         categories: categories,
         loading: false,
@@ -68,14 +68,14 @@ class TopicListCubit extends Cubit<TopicListState> {
         }
 
         var nextPage = refresh ? 0 : current.page + 1;
-        var newTopics = await topicRepository.fetchLatest(
+        var pageModel = await topicRepository.fetchLatest(
             page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
 
         var oldTopics = refresh ? <Topic>[] : List.of(current.topics);
         emit(current.copyWith(
-          topics: oldTopics..addAll(newTopics),
+          topics: oldTopics..addAll(pageModel.data),
           page: nextPage,
-          more: newTopics.length > 0,
+          more: pageModel.hasNext,
           loading: false,
         ));
       }

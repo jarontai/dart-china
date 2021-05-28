@@ -1,16 +1,16 @@
 part of 'repositories.dart';
 
 class TopicRepository extends BaseRepository {
-  Future<List<Topic>> fetchLatest(
+  Future<PageModel<Topic>> fetchLatest(
       {int page = 0, int? categoryId, String? categorySlug}) async {
     var result = <Topic>[];
 
-    var topics = await client.topicList(
+    var pageModel = await client.topicList(
         latest: true,
         page: page,
         categoryId: categoryId,
         categorySlug: categorySlug);
-    for (var topic in topics) {
+    for (var topic in pageModel.data) {
       topic.users?.forEach((user) {
         userMap.putIfAbsent(user.id, () => user);
       });
@@ -26,7 +26,7 @@ class TopicRepository extends BaseRepository {
       ));
     }
 
-    return result;
+    return pageModel.copyWith(data: result);
   }
 
   Future<bool> checkLatest() async {

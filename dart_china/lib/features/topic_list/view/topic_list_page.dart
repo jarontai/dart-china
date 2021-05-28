@@ -116,7 +116,8 @@ class _TopicListPageState extends State<TopicListPage> {
                     backgroundColor: ColorPalette.backgroundColor,
                     child: Icon(Icons.arrow_upward_outlined),
                     onPressed: () {
-                      _scrollToTop();
+                      // _scrollToTop();
+                      _jumpToTop();
                     },
                   )
                 : null,

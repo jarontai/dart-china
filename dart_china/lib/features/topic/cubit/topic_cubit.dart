@@ -49,14 +49,13 @@ class TopicCubit extends Cubit<TopicState> {
       emit(state.copyWith(loading: true));
 
       var page = state.page + 1;
-      var posts =
+      var pageModel =
           await postRepository.fetchTopicPosts(state.topic!, page: page);
-      var more = posts.length > 0;
-      var newPosts = List.of(state.posts)..addAll(posts);
+      var newPosts = List.of(state.posts)..addAll(pageModel.data);
       emit(state.copyWith(
         posts: newPosts,
         page: page,
-        more: more,
+        more: pageModel.hasNext,
         loading: false,
       ));
     }
