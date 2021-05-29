@@ -76,7 +76,7 @@ class CategorySelector extends StatelessWidget {
   }) : super(key: key);
 
   final List<String> names;
-  final DataCallback<int> onSelect;
+  final ValueChanged<int> onSelect;
   final int current;
 
   @override

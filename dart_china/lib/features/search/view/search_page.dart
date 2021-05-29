@@ -1,4 +1,6 @@
+import 'package:dart_china/features/search/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dart_china/widgets/widgets.dart';
 
@@ -24,18 +26,18 @@ class _SearchPageState extends State<SearchPage> {
         ),
         child: Column(
           children: [
-            _buildSearchBar(),
+            _buildSearchBar(context),
             SizedBox(
               height: 10,
             ),
-            _buildSearchResult(),
+            _buildSearchResult(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(BuildContext context) {
     return Container(
       child: Column(
         children: [
@@ -45,25 +47,56 @@ class _SearchPageState extends State<SearchPage> {
               color: Colors.grey.shade500,
             ),
             inputAction: TextInputAction.search,
+            onSubmit: (value) {
+              context.read<SearchCubit>().search(value, refresh: true);
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSearchResult() {
-    return Expanded(
-        child: ListView(
-      children: [
-        SearchItem(
-          avatar: '',
-          title: 'title',
-          body: 'body',
-          time: 'time',
-          category: 'category',
-        ),
-      ],
-    ));
+  Widget _buildSearchResult(BuildContext context) {
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        var theState = state;
+        if (theState is SearchInitial) {
+          return Container();
+        }
+        if (theState is SearchLoading) {
+          return Expanded(
+              child: ListView(
+            children: [
+              SearchItem(
+                avatar: '',
+                title: 'Loading',
+                body: 'body',
+                time: 'time',
+                category: 'category',
+              ),
+            ],
+          ));
+        }
+        if (theState is SearchSuccess) {
+          return Expanded(
+              child: ListView.builder(
+            itemBuilder: (context, index) {
+              var topic = theState.data[index].topic;
+              var post = theState.data[index].post;
+              return SearchItem(
+                avatar: '',
+                title: topic.title,
+                body: post.blurb,
+                time: 'time',
+                category: 'category',
+              );
+            },
+            itemCount: theState.data.length,
+          ));
+        }
+        return Container();
+      },
+    );
   }
 
   AppBar _buildAppBar() {

@@ -3,6 +3,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:flutter_bloc/src/bloc_provider.dart';
 import 'repositories/repositories.dart';
 import 'commons.dart';
 import 'features/features.dart';
@@ -27,6 +28,9 @@ class DartChinaApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TopicCubit(PostRepository(), TopicRepository()),
         ),
+        BlocProvider(
+          create: (context) => SearchCubit(PostRepository()),
+        ),
       ],
       child: DevicePreview(
         enabled: !kReleaseMode,
@@ -36,7 +40,7 @@ class DartChinaApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          initialRoute: Routes.search,
+          initialRoute: Routes.home,
           routes: {
             Routes.home: (_) => HomePage(),
             Routes.login: (_) => LoginPage(),
@@ -47,6 +51,27 @@ class DartChinaApp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<BlocProvider> _buildProviders(BuildContext context) {
+    return [
+      BlocProvider(
+        create: (context) => LoginCubit(AuthRepository()),
+      ),
+      BlocProvider(
+        create: (context) => AppCubit(BlocProvider.of<LoginCubit>(context)),
+      ),
+      BlocProvider(
+        create: (context) =>
+            TopicListCubit(TopicRepository(), CategoryRepository()),
+      ),
+      BlocProvider(
+        create: (context) => TopicCubit(PostRepository(), TopicRepository()),
+      ),
+      BlocProvider(
+        create: (context) => SearchCubit(PostRepository()),
+      ),
+    ];
   }
 
   Route<dynamic>? generateRoutes(RouteSettings settings, BuildContext context) {

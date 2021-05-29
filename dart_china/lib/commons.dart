@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-typedef DataCallback<T> = void Function(T data);
-
 const kSplashRadius = 25.0;
 
 abstract class ColorPalette {

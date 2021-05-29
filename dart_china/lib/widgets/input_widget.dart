@@ -12,11 +12,13 @@ class InputWidget extends StatelessWidget {
     this.obscure = false,
     this.inputAction,
     this.prefix,
+    this.onSubmit,
   }) : super(key: key);
 
   final String hint;
   final String label;
   final bool obscure;
+  final ValueChanged<String>? onSubmit;
   final Widget? prefix;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
@@ -39,6 +41,7 @@ class InputWidget extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+            onFieldSubmitted: onSubmit,
             textAlignVertical: TextAlignVertical.center,
             textInputAction: inputAction,
             controller: controller,

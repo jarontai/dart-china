@@ -10,7 +10,7 @@ class ReplySection extends StatefulWidget {
 
   final bool canOpen;
   final VoidCallback onReject;
-  final DataCallback<String> onReply;
+  final ValueChanged<String> onReply;
 
   @override
   _ReplySectionState createState() => _ReplySectionState();
