@@ -7,8 +7,6 @@ import '../cubit/topic_list_cubit.dart';
 import 'widgets/widgets.dart';
 
 class TopicListPage extends StatefulWidget {
-  static final String routeName = '/topic_list';
-
   @override
   _TopicListPageState createState() => _TopicListPageState();
 }
@@ -90,15 +88,15 @@ class _TopicListPageState extends State<TopicListPage> {
                 slivers: [
                   SliverPersistentHeader(
                     pinned: true,
-                    delegate: SliverHeader(
-                      onMenuPressed: () {
-                        if (ZoomDrawer.of(context)!.isOpen()) {
-                          ZoomDrawer.of(context)?.close();
-                        } else {
-                          ZoomDrawer.of(context)?.open();
-                        }
-                      },
-                    ),
+                    delegate: SliverHeader(onMenuPressed: () {
+                      if (ZoomDrawer.of(context)!.isOpen()) {
+                        ZoomDrawer.of(context)?.close();
+                      } else {
+                        ZoomDrawer.of(context)?.open();
+                      }
+                    }, onSearchPressed: () {
+                      Navigator.of(context).pushNamed(Routes.search);
+                    }),
                   ),
                   SliverPersistentHeader(
                     pinned: true,

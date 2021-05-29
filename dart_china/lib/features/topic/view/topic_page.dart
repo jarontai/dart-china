@@ -9,8 +9,6 @@ import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
 class TopicPage extends StatefulWidget {
-  static final routeName = '/topic';
-
   const TopicPage({
     Key? key,
     required this.topic,
@@ -84,7 +82,7 @@ class _TopicPageState extends State<TopicPage> {
     return ReplySection(
       canOpen: appState.userLogin,
       onReject: () {
-        Navigator.of(context).pushNamed('/login');
+        Navigator.of(context).pushNamed(Routes.login);
       },
       onReply: (text) {
         topicCubit.createTopicPost(text);

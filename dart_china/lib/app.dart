@@ -36,10 +36,11 @@ class DartChinaApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          initialRoute: HomePage.routeName,
+          initialRoute: Routes.home,
           routes: {
-            HomePage.routeName: (_) => HomePage(),
-            LoginPage.routeName: (_) => LoginPage(),
+            Routes.home: (_) => HomePage(),
+            Routes.login: (_) => LoginPage(),
+            Routes.search: (_) => SearchPage(),
           },
           onGenerateRoute: (settings) => generateRoutes(settings, context),
           debugShowCheckedModeBanner: false,
@@ -50,7 +51,7 @@ class DartChinaApp extends StatelessWidget {
 
   Route<dynamic>? generateRoutes(RouteSettings settings, BuildContext context) {
     var routeName = settings.name;
-    if (routeName == TopicPage.routeName) {
+    if (routeName == Routes.topic) {
       final topic = settings.arguments as Topic;
       return MaterialPageRoute(
         builder: (_) => TopicPage(

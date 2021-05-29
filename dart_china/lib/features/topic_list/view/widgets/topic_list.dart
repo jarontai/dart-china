@@ -87,14 +87,14 @@ class TopicCard extends StatelessWidget {
             post: topic.posts?.first,
             onAvatarPressed: () {},
             onTitlePressed: () {
-              Navigator.of(context).pushNamed('/topic', arguments: topic);
+              Navigator.of(context).pushNamed(Routes.topic, arguments: topic);
             },
           ),
           Material(
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed('/topic', arguments: topic);
+                Navigator.of(context).pushNamed(Routes.topic, arguments: topic);
               },
               child: PostBody(content: topic.excerpt!),
             ),

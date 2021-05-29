@@ -1,7 +1,12 @@
 part of 'widgets.dart';
 
 class WelcomeBlock extends StatelessWidget {
-  const WelcomeBlock({Key? key}) : super(key: key);
+  const WelcomeBlock({
+    Key? key,
+    required this.onSearchPressed,
+  }) : super(key: key);
+
+  final VoidCallback onSearchPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +71,7 @@ class WelcomeBlock extends StatelessWidget {
               iconSize: 30,
               color: Colors.grey.shade300,
               icon: Icon(Icons.search),
-              onPressed: () {
-                // TODO:
-                print('pressed search');
-              },
+              onPressed: () => onSearchPressed.call(),
             ),
           )
         ],

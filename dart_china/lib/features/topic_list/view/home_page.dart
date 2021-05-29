@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  static final routeName = '/';
-
   HomePage({Key? key}) : super(key: key);
 
   @override

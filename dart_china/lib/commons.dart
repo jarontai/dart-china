@@ -15,6 +15,14 @@ abstract class ColorPalette {
   static final postTextColor = Color(0xFF8E8E9F);
 }
 
+abstract class Routes {
+  static final home = '/';
+  static final topic = '/topic';
+  static final search = '/search';
+  static final login = '/login';
+  static final register = '/register';
+}
+
 class Debouncer {
   late int millisecond;
   Timer? _timer;

@@ -9,8 +9,6 @@ import '../../../widgets/widgets.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-  static final String routeName = '/login';
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -30,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if (state.isLogin) {
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushNamed(Routes.home);
               }
             },
             builder: (context, state) {

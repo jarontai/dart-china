@@ -1,9 +1,13 @@
 part of 'widgets.dart';
 
 class SliverHeader extends SliverPersistentHeaderDelegate {
-  SliverHeader({this.onMenuPressed});
+  SliverHeader({
+    required this.onMenuPressed,
+    required this.onSearchPressed,
+  });
 
-  final VoidCallback? onMenuPressed;
+  final VoidCallback onMenuPressed;
+  final VoidCallback onSearchPressed;
   final double _expandedHeight = 130;
 
   @override
@@ -29,20 +33,22 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
               child: SizedBox(
                 height: 70,
                 width: double.infinity,
-                child: WelcomeBlock(),
+                child: WelcomeBlock(
+                  onSearchPressed: onSearchPressed,
+                ),
               ),
             ),
           ),
           SizedBox(
             height: kToolbarHeight,
-            child: buildAppBar(context, percent == 0),
+            child: _buildAppBar(context, percent == 0),
           ),
         ],
       ),
     );
   }
 
-  AppBar buildAppBar(BuildContext context, [bool titleVisiable = false]) {
+  AppBar _buildAppBar(BuildContext context, [bool titleVisiable = false]) {
     return AppBar(
       centerTitle: true,
       backgroundColor: titleVisiable ? Color(0xFF4162D2) : Colors.transparent,
@@ -68,7 +74,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
           splashRadius: kSplashRadius,
           icon: Icon(Icons.add),
           onPressed: () {
-            // onMenuPressed?.call();
+            // TODO:
           },
         )
       ],
