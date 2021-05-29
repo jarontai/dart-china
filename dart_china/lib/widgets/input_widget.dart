@@ -11,13 +11,15 @@ class InputWidget extends StatelessWidget {
     this.label = '',
     this.obscure = false,
     this.inputAction,
+    this.prefix,
   }) : super(key: key);
 
-  final TextEditingController? controller;
-  final FormFieldValidator<String>? validator;
   final String hint;
   final String label;
   final bool obscure;
+  final Widget? prefix;
+  final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
   final TextInputAction? inputAction;
 
   @override
@@ -28,38 +30,43 @@ class InputWidget extends StatelessWidget {
         children: [
           Text(
             label,
-            style:
-                TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(
             height: 10,
           ),
-          Container(
-            height: 50,
-            child: TextFormField(
-              textInputAction: inputAction,
-              controller: controller,
-              validator: validator,
-              obscureText: obscure,
-              style: TextStyle(),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                hintText: hint,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                hintStyle: TextStyle(color: ColorPalette.postTextColor),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(color: Colors.blue.shade400, width: 1),
-                ),
-                fillColor: ColorPalette.tagColor,
-                filled: true,
+          TextFormField(
+            textAlignVertical: TextAlignVertical.center,
+            textInputAction: inputAction,
+            controller: controller,
+            validator: validator,
+            obscureText: obscure,
+            style: TextStyle(),
+            decoration: InputDecoration(
+              prefixIcon: prefix,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 0,
               ),
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              hintText: hint,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              hintStyle: TextStyle(color: ColorPalette.postTextColor),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                  color: Colors.blue.shade400,
+                  width: 1,
+                ),
+              ),
+              fillColor: ColorPalette.tagColor,
+              filled: true,
             ),
           ),
         ],

@@ -57,7 +57,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
         icon: Icon(Icons.menu),
         splashRadius: kSplashRadius,
         onPressed: () {
-          onMenuPressed?.call();
+          onMenuPressed.call();
         },
       ),
       title: titleVisiable

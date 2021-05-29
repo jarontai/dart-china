@@ -4,12 +4,12 @@ class AvatarButton extends StatelessWidget {
   const AvatarButton({
     Key? key,
     this.size = 24,
-    required this.onPressed,
+    this.onPressed,
     required this.avatarUrl,
   }) : super(key: key);
 
   final double size;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String? avatarUrl;
 
   @override
