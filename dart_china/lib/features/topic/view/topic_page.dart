@@ -77,7 +77,6 @@ class _TopicPageState extends State<TopicPage> {
   }
 
   Widget _buildPostButton(BuildContext context) {
-    var topicCubit = context.read<TopicCubit>();
     var appState = context.read<AppCubit>().state;
     return ReplySection(
       canOpen: appState.userLogin,
@@ -85,6 +84,7 @@ class _TopicPageState extends State<TopicPage> {
         Navigator.of(context).pushNamed(Routes.login);
       },
       onReply: (text) {
+        var topicCubit = context.read<TopicCubit>();
         topicCubit.createTopicPost(text);
       },
     );
