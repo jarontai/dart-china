@@ -1,10 +1,9 @@
-import 'package:dart_china/features/search/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:dart_china/widgets/widgets.dart';
-
 import '../../../commons.dart';
+import '../../../widgets/widgets.dart';
+import '../cubit/search_cubit.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -68,6 +67,7 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView(
             children: [
               SearchItem(
+                onTap: () {},
                 avatar: '',
                 title: 'Loading',
                 body: 'body',
@@ -84,6 +84,10 @@ class _SearchPageState extends State<SearchPage> {
               var topic = theState.data[index].topic;
               var post = theState.data[index].post;
               return SearchItem(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(Routes.topic, arguments: topic.id);
+                },
                 avatar: '',
                 title: topic.title,
                 body: post.blurb,
@@ -125,6 +129,7 @@ class SearchItem extends StatelessWidget {
     required this.body,
     required this.time,
     required this.category,
+    required this.onTap,
   }) : super(key: key);
 
   final String avatar;
@@ -132,67 +137,73 @@ class SearchItem extends StatelessWidget {
   final String body;
   final String time;
   final String category;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: 10,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
-      ),
-      child: Row(
-        children: [
-          AvatarButton(
-            avatarUrl: avatar,
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    height: 1.2,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  body,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: ColorPalette.postTextColor,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Row(
+    return Card(
+      child: Container(
+        margin: EdgeInsets.only(
+          bottom: 10,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
+        ),
+        child: Row(
+          children: [
+            AvatarButton(
+              avatarUrl: avatar,
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: GestureDetector(
+                onTap: onTap,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      time,
+                      title,
                       style: TextStyle(
-                        color: ColorPalette.postTextColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        height: 1.2,
                       ),
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    SizedBox(height: 5),
                     Text(
-                      category,
+                      body,
                       style: TextStyle(
+                        fontSize: 15,
                         color: ColorPalette.postTextColor,
                       ),
                     ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text(
+                          time,
+                          style: TextStyle(
+                            color: ColorPalette.postTextColor,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          category,
+                          style: TextStyle(
+                            color: ColorPalette.postTextColor,
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          )
-        ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

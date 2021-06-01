@@ -1,19 +1,19 @@
-part of 'app_cubit.dart';
+part of 'global_cubit.dart';
 
-class AppState {
+class GlobalState {
   final bool userLogin;
   final User? user;
 
-  AppState({
+  GlobalState({
     this.userLogin = false,
     this.user,
   });
 
-  AppState copyWith({
+  GlobalState copyWith({
     bool? userLogin,
     User? user,
   }) {
-    return AppState(
+    return GlobalState(
       userLogin: userLogin ?? this.userLogin,
       user: user ?? this.user,
     );

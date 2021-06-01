@@ -36,6 +36,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.6.1"
+  beamer:
+    dependency: "direct main"
+    description:
+      name: beamer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.13.3"
   bloc:
     dependency: "direct main"
     description:
@@ -231,7 +238,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.2.41"
+    version: "0.2.43"
   dotenv:
     dependency: transitive
     description:

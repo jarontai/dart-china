@@ -1,7 +1,8 @@
-import 'package:dart_china/features/features.dart';
-import 'package:dart_china/features/topic_list/view/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
+import '../../features.dart';
+import 'menu_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

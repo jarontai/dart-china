@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import '../../../models/models.dart';
-import '../../login/cubit/login_cubit.dart';
+import '../../auth/cubit/login_cubit.dart';
 
-part 'app_state.dart';
+part 'global_state.dart';
 
-class AppCubit extends Cubit<AppState> {
+class GlobalCubit extends Cubit<GlobalState> {
   final LoginCubit loginCubit;
   StreamSubscription? authSubscription;
 
-  AppCubit(this.loginCubit) : super(AppState()) {
+  GlobalCubit(this.loginCubit) : super(GlobalState()) {
     authSubscription = loginCubit.stream.listen((authState) {
       if (authState.isLogin && authState.user != null) {
         updateLogin(true, authState.user);

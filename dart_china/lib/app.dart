@@ -1,12 +1,12 @@
-import 'package:dart_china/features/topic_list/view/home_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_bloc/src/bloc_provider.dart';
-import 'repositories/repositories.dart';
+
 import 'commons.dart';
 import 'features/features.dart';
+import 'features/topic_list/view/home_page.dart';
+import 'repositories/repositories.dart';
 
 const kReleaseMode = false;
 
@@ -19,7 +19,8 @@ class DartChinaApp extends StatelessWidget {
           create: (context) => LoginCubit(AuthRepository()),
         ),
         BlocProvider(
-          create: (context) => AppCubit(BlocProvider.of<LoginCubit>(context)),
+          create: (context) =>
+              GlobalCubit(BlocProvider.of<LoginCubit>(context)),
         ),
         BlocProvider(
           create: (context) =>
@@ -53,34 +54,34 @@ class DartChinaApp extends StatelessWidget {
     );
   }
 
-  List<BlocProvider> _buildProviders(BuildContext context) {
-    return [
-      BlocProvider(
-        create: (context) => LoginCubit(AuthRepository()),
-      ),
-      BlocProvider(
-        create: (context) => AppCubit(BlocProvider.of<LoginCubit>(context)),
-      ),
-      BlocProvider(
-        create: (context) =>
-            TopicListCubit(TopicRepository(), CategoryRepository()),
-      ),
-      BlocProvider(
-        create: (context) => TopicCubit(PostRepository(), TopicRepository()),
-      ),
-      BlocProvider(
-        create: (context) => SearchCubit(PostRepository()),
-      ),
-    ];
-  }
+  // List<BlocProvider> _buildProviders() {
+  //   return [
+  //     BlocProvider(
+  //       create: (context) => LoginCubit(AuthRepository()),
+  //     ),
+  //     BlocProvider(
+  //       create: (context) => GlobalCubit(BlocProvider.of<LoginCubit>(context)),
+  //     ),
+  //     BlocProvider(
+  //       create: (context) =>
+  //           TopicListCubit(TopicRepository(), CategoryRepository()),
+  //     ),
+  //     BlocProvider(
+  //       create: (context) => TopicCubit(PostRepository(), TopicRepository()),
+  //     ),
+  //     BlocProvider(
+  //       create: (context) => SearchCubit(PostRepository()),
+  //     ),
+  //   ];
+  // }
 
   Route<dynamic>? generateRoutes(RouteSettings settings, BuildContext context) {
     var routeName = settings.name;
     if (routeName == Routes.topic) {
-      final topic = settings.arguments as Topic;
+      final topicId = settings.arguments as int;
       return MaterialPageRoute(
         builder: (_) => TopicPage(
-          topic: topic,
+          topicId: topicId,
         ),
       );
     }

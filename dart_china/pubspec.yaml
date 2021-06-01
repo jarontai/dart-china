@@ -1,5 +1,5 @@
 name: dart_china
-description: The official mobile app for www.dart-china.org.
+description: The official mobile app of dart-china.org.
 publish_to: 'none'
 version: 0.1.0
 
@@ -13,6 +13,7 @@ dependencies:
     git:
       url: git@github.com:jarontai/discourse_api.git
       ref: 92fc4c84afcc1bdce4c732a2063b33f2fc275d7d
+  beamer: ^0.13.3
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   device_preview: ^0.7.1
@@ -20,11 +21,11 @@ dependencies:
   flutter_bloc: ^7.0.0
   flutter_dotenv: 4.0.0-nullsafety.0
   flutter_markdown: ^0.6.1
+  flutter_zoom_drawer: ^2.0.2+3
   fluttertoast: ^8.0.7
   intl: ^0.17.0
   path_provider: ^2.0.1
   shared_preferences: ^2.0.5
-  flutter_zoom_drawer: ^2.0.2+3
 
 dependency_overrides:
   discourse_api:
@@ -35,9 +36,9 @@ dev_dependencies:
     sdk: flutter
   build_runner: null
   flutter_launcher_icons: ^0.9.0
+  flutter_lints: ^1.0.2
   injectable_generator: null
   lints: ^1.0.1
-  flutter_lints: ^1.0.2
 
 flutter_icons:
   android: true

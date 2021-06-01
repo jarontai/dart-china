@@ -1,20 +1,20 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../commons.dart';
 import '../../../widgets/widgets.dart';
-import '../../app/cubit/app_cubit.dart';
+import '../../global/cubit/global_cubit.dart';
 import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
 class TopicPage extends StatefulWidget {
   const TopicPage({
     Key? key,
-    required this.topic,
+    required this.topicId,
   }) : super(key: key);
 
-  final Topic topic;
+  final int topicId;
 
   @override
   _TopicPageState createState() => _TopicPageState();
@@ -26,7 +26,7 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
-    context.read<TopicCubit>().fetchTopic(widget.topic);
+    context.read<TopicCubit>().fetchTopic(widget.topicId);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -77,7 +77,7 @@ class _TopicPageState extends State<TopicPage> {
   }
 
   Widget _buildPostButton(BuildContext context) {
-    var appState = context.read<AppCubit>().state;
+    var appState = context.read<GlobalCubit>().state;
     return ReplySection(
       canOpen: appState.userLogin,
       onReject: () {

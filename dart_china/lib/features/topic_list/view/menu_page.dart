@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import 'package:dart_china/features/app/cubit/app_cubit.dart';
-import 'package:dart_china/widgets/widgets.dart';
+import '../../../widgets/widgets.dart';
+import '../../global/cubit/global_cubit.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((AppCubit b) => b.state.user);
+    final user = context.select((GlobalCubit b) => b.state.user);
 
     return Scaffold(
       backgroundColor: Color(0xFF657599),

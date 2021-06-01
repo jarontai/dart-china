@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../commons.dart';
 import '../../../repositories/repositories.dart';
@@ -20,15 +19,12 @@ class TopicCubit extends Cubit<TopicState> {
 
   final Debouncer _debouncer = Debouncer();
 
-  fetchTopic(Topic topic) async {
+  fetchTopic(int topicId) async {
     emit(state.copyWith(
       status: TopicStatus.initial,
       postSuccess: false,
     ));
-    var theTopic = await topicRepository.findTopic(topic.id);
-    theTopic = theTopic.copyWith(
-      poster: topic.poster,
-    );
+    var theTopic = await topicRepository.findTopic(topicId);
     emit(state.copyWith(
       status: TopicStatus.success,
       topic: theTopic,
