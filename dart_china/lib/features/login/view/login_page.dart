@@ -137,7 +137,9 @@ class _LoginPageState extends State<LoginPage> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 child: Text('注册新账号'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.register);
+                },
               ),
             ),
           ],

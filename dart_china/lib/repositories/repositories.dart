@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:discourse_api/discourse_api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:path_provider/path_provider.dart';
@@ -17,6 +19,15 @@ initRepository() async {
   var siteUrl = dotenv.env['site_url'];
   var cdnUrl = dotenv.env['cdn_url'];
   var dir = await getApplicationDocumentsDirectory();
+
+  // var folder = Directory(dir.path + '/.cookies');
+  // var data = folder.listSync();
+  // data.map((e) {
+  //   if (e is File) {
+  //     print(e);
+  //   }
+  // });
+
   _client =
       DiscourseApiClient.single(siteUrl!, cdnUrl: cdnUrl, cookieDir: dir.path);
   var categories = await _client.categories();

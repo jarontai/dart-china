@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../models/models.dart';
 import '../../login/cubit/login_cubit.dart';
@@ -36,5 +38,15 @@ class GlobalCubit extends Cubit<GlobalState> {
   Future<void> close() {
     authSubscription?.cancel();
     return super.close();
+  }
+
+  signOut() async {
+    var dir = await getApplicationDocumentsDirectory();
+    var folder = Directory(dir.path + '/.cookies');
+    var list = folder.listSync();
+    for (var item in list) {
+      await item.delete(recursive: true);
+    }
+    updateLogin(false, null);
   }
 }

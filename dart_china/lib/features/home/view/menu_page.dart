@@ -40,7 +40,7 @@ class _MenuPageState extends State<MenuPage> {
               SizedBox(height: 150),
               _buildBody(context, selected),
               SizedBox(height: 120),
-              _buildFooter(),
+              _buildFooter(context),
             ],
           ),
         ),
@@ -110,7 +110,7 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(BuildContext context) {
     return Container(
       width: 200,
       child: MenuItem(
@@ -118,6 +118,9 @@ class _MenuPageState extends State<MenuPage> {
         text: 'Sign Out',
         route: '/',
         selected: false,
+        callback: () {
+          context.read<GlobalCubit>().signOut();
+        },
       ),
     );
   }
@@ -126,12 +129,14 @@ class _MenuPageState extends State<MenuPage> {
 class MenuItem extends StatelessWidget {
   const MenuItem({
     Key? key,
+    this.callback,
     required this.icon,
     required this.text,
     required this.route,
     required this.selected,
   }) : super(key: key);
 
+  final VoidCallback? callback;
   final IconData icon;
   final String text;
   final String route;
@@ -158,6 +163,7 @@ class MenuItem extends StatelessWidget {
           ),
         ),
         onTap: () {
+          callback?.call();
           ZoomDrawer.of(context)?.close();
           if (Navigator.of(context).canPop()) {
             Navigator.of(context).popAndPushNamed(route);

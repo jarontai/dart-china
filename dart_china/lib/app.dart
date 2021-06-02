@@ -5,7 +5,6 @@ import 'package:flutter_bloc/src/bloc_provider.dart';
 
 import 'commons.dart';
 import 'features/features.dart';
-import 'features/topic_list/view/home_page.dart';
 import 'repositories/repositories.dart';
 
 const kReleaseMode = false;
@@ -32,6 +31,9 @@ class DartChinaApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchCubit(PostRepository()),
         ),
+        BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
       ],
       child: DevicePreview(
         enabled: !kReleaseMode,
@@ -46,6 +48,7 @@ class DartChinaApp extends StatelessWidget {
             Routes.home: (_) => HomePage(),
             Routes.login: (_) => LoginPage(),
             Routes.search: (_) => SearchPage(),
+            Routes.register: (_) => RegisterPage(),
           },
           onGenerateRoute: (settings) => generateRoutes(settings, context),
           debugShowCheckedModeBanner: false,

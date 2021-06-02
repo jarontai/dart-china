@@ -12,8 +12,10 @@ export 'search/view/search_page.dart';
 export 'topic/cubit/topic_cubit.dart';
 export 'topic/view/topic_page.dart';
 
-export 'topic_list/cubit/topic_list_cubit.dart';
-export 'topic_list/view/topic_list_page.dart';
+export 'home/cubit/topic_list_cubit.dart';
+export 'home/view/topic_list_page.dart';
+export 'home/view/menu_page.dart';
+export 'home/view/home_page.dart';
 
 export 'profile/cubit/profile_cubit.dart';
 export 'profile/view/profile_page.dart';
