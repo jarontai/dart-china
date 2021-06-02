@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import '../../../models/models.dart';
-import '../../auth/cubit/login_cubit.dart';
+import '../../login/cubit/login_cubit.dart';
 
 part 'global_state.dart';
 
