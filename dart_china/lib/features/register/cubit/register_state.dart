@@ -1,10 +1,21 @@
 part of 'register_cubit.dart';
 
-abstract class RegisterState extends Equatable {
-  const RegisterState();
+class RegisterState {
+  final String initialUrl;
+  final String initialData;
 
-  @override
-  List<Object> get props => [];
+  RegisterState({
+    this.initialUrl = '',
+    this.initialData = '',
+  });
+
+  RegisterState copyWith({
+    String? initialUrl,
+    String? initialData,
+  }) {
+    return RegisterState(
+      initialUrl: initialUrl ?? this.initialUrl,
+      initialData: initialData ?? this.initialData,
+    );
+  }
 }
-
-class RegisterInitial extends RegisterState {}

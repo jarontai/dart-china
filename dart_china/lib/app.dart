@@ -32,7 +32,7 @@ class DartChinaApp extends StatelessWidget {
           create: (context) => SearchCubit(PostRepository()),
         ),
         BlocProvider(
-          create: (context) => RegisterCubit(),
+          create: (context) => RegisterCubit(AuthRepository()),
         ),
       ],
       child: DevicePreview(

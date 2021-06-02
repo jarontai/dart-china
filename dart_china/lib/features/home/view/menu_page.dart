@@ -4,6 +4,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../widgets/widgets.dart';
 import '../../global/cubit/global_cubit.dart';
+import '../../login/cubit/login_cubit.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -119,7 +120,7 @@ class _MenuPageState extends State<MenuPage> {
         route: '/',
         selected: false,
         callback: () {
-          context.read<GlobalCubit>().signOut();
+          context.read<LoginCubit>().logout();
         },
       ),
     );

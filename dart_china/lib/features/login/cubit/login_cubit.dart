@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/models.dart';
 import '../../../repositories/repositories.dart';
 
 part 'login_state.dart';
+
+const _kUsername = 'username';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(AuthRepository authRepository)
@@ -17,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
     var login = await _authRepository.checkLogin();
     if (login) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var username = prefs.getString('username');
+      var username = prefs.getString(_kUsername);
       if (username != null && username.isNotEmpty) {
         var user = await _authRepository.userInfo(username);
         emit(state.copyWith(
@@ -42,7 +47,7 @@ class LoginCubit extends Cubit<LoginState> {
     var user = await _authRepository.login(username, password);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', user.username);
+    await prefs.setString(_kUsername, user.username);
 
     emit(state.copyWith(
       loading: false,
@@ -51,8 +56,21 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
-  logout(String username) async {
-    await _authRepository.logout(username);
+  logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var username = prefs.getString(_kUsername);
+    if (username != null) {
+      await _authRepository.logout(username);
+    }
+    prefs.remove(_kUsername);
+
+    var dir = await getApplicationDocumentsDirectory();
+    var folder = Directory(dir.path + '/.cookies');
+    var list = folder.listSync();
+    for (var item in list) {
+      await item.delete(recursive: true);
+    }
+
     emit(state.copyWith(
       isLogin: false,
       user: null,

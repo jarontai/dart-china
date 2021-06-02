@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -24,6 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
+
+    context.read<RegisterCubit>().prepare();
   }
 
   @override
@@ -37,17 +45,23 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: Text('Github Login'),
       ),
-      body: SafeArea(
-        child: Container(
-          child: InAppWebView(
-            key: webViewKey,
-            initialUrlRequest:
-                URLRequest(url: Uri.parse("https://inappwebview.dev/")),
-            initialOptions: options,
-            onWebViewCreated: (controller) =>
-                inAppWebViewController = controller,
-          ),
-        ),
+      body: BlocBuilder<RegisterCubit, RegisterState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: Container(
+              child: InAppWebView(
+                key: webViewKey,
+                initialUrlRequest: URLRequest(
+                    url: Uri.parse(state.initialUrl),
+                    method: 'post',
+                    body: Uint8List.fromList(utf8.encode(state.initialData))),
+                initialOptions: options,
+                onWebViewCreated: (controller) =>
+                    inAppWebViewController = controller,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
