@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
               return Column(
                 children: [
                   _buildHead(),
-                  _buildForm(state.loading),
+                  _buildForm(),
                 ],
               );
             },
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildForm(bool loading) {
+  Widget _buildForm() {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 35,

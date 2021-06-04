@@ -21,6 +21,12 @@ abstract class Routes {
   static final register = '/register';
 }
 
+abstract class RegExps {
+  static final username = RegExp(r"^[a-zA-Z\d-_]+$");
+  static final email = RegExp(
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+}
+
 class Debouncer {
   late int millisecond;
   Timer? _timer;

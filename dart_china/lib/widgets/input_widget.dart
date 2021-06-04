@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../commons.dart';
 
@@ -13,6 +14,7 @@ class InputWidget extends StatelessWidget {
     this.inputAction,
     this.prefix,
     this.onSubmit,
+    this.inputFormatter,
   }) : super(key: key);
 
   final String hint;
@@ -23,6 +25,7 @@ class InputWidget extends StatelessWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final TextInputAction? inputAction;
+  final TextInputFormatter? inputFormatter;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class InputWidget extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+            inputFormatters: inputFormatter != null ? [inputFormatter!] : [],
             autovalidateMode: AutovalidateMode.onUserInteraction,
             onFieldSubmitted: onSubmit,
             textAlignVertical: TextAlignVertical.center,
