@@ -168,6 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (_formKey.currentState!.validate()) {
                   var username = _usernameController.text;
                   var password = _passwordController.text;
+                  var email = _emailController.text;
                   // context.read<RegisterCubit>().login(username, password);
                 } else {}
               },
