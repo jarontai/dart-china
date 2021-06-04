@@ -9,11 +9,11 @@ class RegisterCubit extends Cubit<RegisterState> {
       : _authRepository = authRepository,
         super(RegisterInitial());
 
-  final Debouncer _debouncer = Debouncer();
+  // final Debouncer _debouncer = Debouncer();
 
   final AuthRepository _authRepository;
 
-  Future<bool> isAvailable({String? email, String? username}) async {}
+  // Future<bool> isAvailable({String? email, String? username}) async {}
 
   Future<bool> _isAvailable({String? email, String? username}) async {
     var result1 = true;
