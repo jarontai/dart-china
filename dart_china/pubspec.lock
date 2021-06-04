@@ -238,7 +238,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.2.47"
+    version: "0.2.52"
   dotenv:
     dependency: transitive
     description:
@@ -300,13 +300,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0-nullsafety.0"
-  flutter_inappwebview:
-    dependency: "direct main"
-    description:
-      name: flutter_inappwebview
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "5.3.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

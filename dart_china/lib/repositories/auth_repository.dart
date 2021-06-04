@@ -17,7 +17,15 @@ class AuthRepository extends BaseRepository {
     return await client.userInfo(username);
   }
 
-  Future<List<String>> githubAuthData() async {
-    return await client.oAuthData(provider: 'github');
+  Future<bool> checkUsername(String username) async {
+    return client.checkUsername(username);
+  }
+
+  Future<bool> checkEmail(String email) async {
+    return client.checkEmail(email);
+  }
+
+  Future<bool> register(String email, String username, String password) async {
+    return client.register(email, username, password);
   }
 }

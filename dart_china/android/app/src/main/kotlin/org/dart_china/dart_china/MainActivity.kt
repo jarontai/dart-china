@@ -1,4 +1,4 @@
-package org.dartchina.app
+package org.dartchina.discourse
 
 import io.flutter.embedding.android.FlutterActivity
 

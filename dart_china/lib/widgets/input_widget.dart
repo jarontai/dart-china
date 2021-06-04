@@ -41,6 +41,7 @@ class InputWidget extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onFieldSubmitted: onSubmit,
             textAlignVertical: TextAlignVertical.center,
             textInputAction: inputAction,

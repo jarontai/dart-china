@@ -10,12 +10,15 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final AuthRepository _authRepository;
 
-  Future<void> prepare() async {
-    var list = await _authRepository.githubAuthData();
-    assert(list.length == 2);
-    emit(state.copyWith(
-      initialUrl: list[0],
-      initialData: list[1],
-    ));
+  Future<bool> isAvailable({String? email, String? username}) async {
+    var result1 = true;
+    var result2 = true;
+    if (email != null) {
+      result1 = await _authRepository.checkEmail(email);
+    }
+    if (username != null) {
+      result2 = await _authRepository.checkUsername(username);
+    }
+    return result1 && result2;
   }
 }
