@@ -98,67 +98,60 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
             InputWidget(
+              name: 'email',
               label: '邮箱',
-              controller: _emailController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '邮箱不能为空';
-                }
-                if (!RegExps.email.hasMatch(value)) {
-                  return '邮箱格式错误';
-                }
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return '邮箱不能为空';
+              //   }
+              //   if (!RegExps.email.hasMatch(value)) {
+              //     return '邮箱格式错误';
+              //   }
+              // },
             ),
             SizedBox(
               height: 15,
             ),
             InputWidget(
+              name: 'username',
               label: '用户名',
-              controller: _usernameController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '用户名不能为空';
-                }
-                if (value.length < 3) {
-                  return '用户名小长不能小于3';
-                }
-                if (!RegExps.username.hasMatch(value)) {
-                  return '用户名只能使用数字、字母、下划线';
-                }
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return '用户名不能为空';
+              //   }
+              //   if (value.length < 3) {
+              //     return '用户名小长不能小于3';
+              //   }
+              //   if (!RegExps.username.hasMatch(value)) {
+              //     return '用户名只能使用数字、字母、下划线';
+              //   }
+              // },
             ),
             SizedBox(
               height: 15,
             ),
             InputWidget(
+              name: 'password',
               label: '密码',
               obscure: true,
-              controller: _passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '密码不能为空';
-                }
-                if (value.length < 10) {
-                  return '密码长度不能小于10';
-                }
-              },
+              // controller: _passwordController,
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return '密码不能为空';
+              //   }
+              //   if (value.length < 10) {
+              //     return '密码长度不能小于10';
+              //   }
+              // },
               inputAction: TextInputAction.done,
             ),
             SizedBox(
               height: 15,
             ),
             InputWidget(
+              name: 'password',
               label: '密码确认',
               obscure: true,
-              controller: _passwordConfirmController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '密码不能为空';
-                }
-                if (value != _passwordController.value) {
-                  return '密码不一致';
-                }
-              },
               inputAction: TextInputAction.done,
             ),
             SizedBox(height: 45),

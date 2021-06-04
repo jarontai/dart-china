@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../commons.dart';
 import '../../../widgets/button_widget.dart';
@@ -14,9 +15,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final form = FormGroup({
+    'username': FormControl<String>(validators: [Validators.required]),
+    'password': FormControl<String>(validators: [Validators.required]),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,44 +90,39 @@ class _LoginPageState extends State<LoginPage> {
           topLeft: Radius.circular(20),
         ),
       ),
-      child: Form(
-        key: _formKey,
+      child: ReactiveForm(
+        formGroup: this.form,
         child: Column(
           children: [
             SizedBox(
               height: 20,
             ),
             InputWidget(
+              name: 'username',
               label: '用户名',
-              controller: _usernameController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '用户名不能为空';
-                }
+              messages: {
+                ValidationMessage.required: '用户名不能为空',
               },
-              // inputAction: TextInputAction.continueAction,
             ),
             SizedBox(
               height: 15,
             ),
             InputWidget(
+              name: 'password',
               label: '密码',
-              obscure: true,
-              controller: _passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '密码不能为空';
-                }
+              messages: {
+                ValidationMessage.required: '密码不能为空',
               },
+              obscure: true,
               inputAction: TextInputAction.done,
             ),
             SizedBox(height: 45),
             ButtonWidget(
               text: '登录',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  var username = _usernameController.text;
-                  var password = _passwordController.text;
+                if (form.valid) {
+                  var username = form.control('username').value;
+                  var password = form.control('password').value;
                   context.read<LoginCubit>().login(username, password);
                 } else {}
               },

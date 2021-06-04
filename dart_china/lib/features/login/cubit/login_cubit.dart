@@ -45,15 +45,22 @@ class LoginCubit extends Cubit<LoginState> {
       user: null,
     ));
     var user = await _authRepository.login(username, password);
+    if (user != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_kUsername, user.username);
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_kUsername, user.username);
-
-    emit(state.copyWith(
-      loading: false,
-      isLogin: true,
-      user: user,
-    ));
+      emit(state.copyWith(
+        loading: false,
+        isLogin: true,
+        user: user,
+      ));
+    } else {
+      emit(state.copyWith(
+        loading: false,
+        isLogin: false,
+        user: null,
+      ));
+    }
   }
 
   logout() async {

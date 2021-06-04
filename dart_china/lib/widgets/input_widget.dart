@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../commons.dart';
 
 class InputWidget extends StatelessWidget {
   const InputWidget({
     Key? key,
-    this.controller,
-    this.validator,
+    required this.name,
     this.hint = '',
     this.label = '',
     this.obscure = false,
-    this.inputAction,
+    this.messages,
     this.prefix,
-    this.onSubmit,
+    this.inputAction,
     this.inputFormatter,
+    this.onEditComplete,
   }) : super(key: key);
 
+  final String name;
   final String hint;
   final String label;
   final bool obscure;
-  final ValueChanged<String>? onSubmit;
+  final Map<String, String>? messages;
+  final VoidCallback? onEditComplete;
   final Widget? prefix;
-  final TextEditingController? controller;
-  final FormFieldValidator<String>? validator;
   final TextInputAction? inputAction;
   final TextInputFormatter? inputFormatter;
 
@@ -43,14 +44,15 @@ class InputWidget extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          TextFormField(
+          ReactiveTextField(
+            onEditingComplete: onEditComplete,
+            validationMessages: (_) {
+              return messages ?? {};
+            },
+            formControlName: name,
             inputFormatters: inputFormatter != null ? [inputFormatter!] : [],
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onFieldSubmitted: onSubmit,
             textAlignVertical: TextAlignVertical.center,
             textInputAction: inputAction,
-            controller: controller,
-            validator: validator,
             obscureText: obscure,
             style: TextStyle(),
             decoration: InputDecoration(

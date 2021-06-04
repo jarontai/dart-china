@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../commons.dart';
 import '../../../widgets/widgets.dart';
@@ -13,6 +14,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final form = FormGroup({
+    'search': FormControl<String>(),
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,19 +43,24 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _buildSearchBar(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          InputWidget(
-            prefix: Icon(
-              Icons.search,
-              color: Colors.grey.shade500,
+      child: ReactiveForm(
+        formGroup: form,
+        child: Column(
+          children: [
+            InputWidget(
+              name: 'search',
+              prefix: Icon(
+                Icons.search,
+                color: Colors.grey.shade500,
+              ),
+              inputAction: TextInputAction.search,
+              onEditComplete: () {
+                var value = form.control('search').value;
+                context.read<SearchCubit>().search(value, refresh: true);
+              },
             ),
-            inputAction: TextInputAction.search,
-            onSubmit: (value) {
-              context.read<SearchCubit>().search(value, refresh: true);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
