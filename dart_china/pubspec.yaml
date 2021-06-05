@@ -27,6 +27,7 @@ dependencies:
   path_provider: ^2.0.1
   reactive_forms: ^10.4.1
   result_type: ^0.1.0
+  sentry: ^5.0.0
   shared_preferences: ^2.0.5
 
 dependency_overrides:

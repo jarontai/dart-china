@@ -11,6 +11,8 @@ class InputWidget extends StatelessWidget {
     this.hint = '',
     this.label = '',
     this.obscure = false,
+    this.email = false,
+    this.autofocus = false,
     this.messages,
     this.prefix,
     this.inputAction,
@@ -22,6 +24,8 @@ class InputWidget extends StatelessWidget {
   final String hint;
   final String label;
   final bool obscure;
+  final bool email;
+  final bool autofocus;
   final Map<String, String>? messages;
   final VoidCallback? onEditComplete;
   final Widget? prefix;
@@ -45,6 +49,8 @@ class InputWidget extends StatelessWidget {
             height: 10,
           ),
           ReactiveTextField(
+            autofocus: autofocus,
+            keyboardType: email ? TextInputType.emailAddress : null,
             onEditingComplete: onEditComplete,
             validationMessages: (_) {
               return messages ?? {};

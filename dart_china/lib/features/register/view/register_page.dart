@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../commons.dart';
 import '../../../widgets/button_widget.dart';
@@ -14,11 +16,70 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _passwordConfirmController = TextEditingController();
+  late FormGroup form;
+
+  @override
+  void initState() {
+    super.initState();
+
+    form = FormGroup({
+      'email': FormControl<String>(validators: [
+        Validators.required,
+        Validators.email,
+      ], asyncValidators: [
+        _checkEmail
+      ]),
+      'username': FormControl<String>(
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern(RegExps.username, validationMessage: '只能包含字母和数字')
+        ],
+        asyncValidators: [_checkUsername],
+      ),
+      'password': FormControl<String>(
+        validators: [Validators.required, Validators.minLength(10)],
+      ),
+      'passwordConfirm': FormControl<String>(validators: []),
+    }, validators: [
+      _checkMustMatch(),
+    ]);
+  }
+
+  ValidatorFunction _checkMustMatch(
+      {String name = 'password', String confirmName = 'passwordConfirm'}) {
+    return (AbstractControl<dynamic> control) {
+      final form = control as FormGroup;
+
+      final formControl = form.control(name);
+      final matchingFormControl = form.control(confirmName);
+
+      if (formControl.value != matchingFormControl.value) {
+        matchingFormControl.setErrors({'mustMatch': true});
+      } else {
+        matchingFormControl.removeError('mustMatch');
+      }
+
+      return null;
+    };
+  }
+
+  Future<Map<String, dynamic>> _checkEmail(
+      AbstractControl<dynamic> control) async {
+    final error = {'available': false};
+    final available =
+        await context.read<RegisterCubit>().isAvailable(email: control.value);
+    return available ? {} : error;
+  }
+
+  Future<Map<String, dynamic>> _checkUsername(
+      AbstractControl<dynamic> control) async {
+    final error = {'available': false};
+    final available = await context
+        .read<RegisterCubit>()
+        .isAvailable(username: control.value);
+    return available ? {} : error;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +90,16 @@ class _RegisterPageState extends State<RegisterPage> {
           color: ColorPalette.backgroundColor,
           child: BlocConsumer<RegisterCubit, RegisterState>(
             listener: (context, state) {
-              // if (state.isLogin) {
-              //   Navigator.of(context).pushNamed(Routes.home);
-              // }
+              if (state is RegisterSuccess) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                Fluttertoast.showToast(
+                    msg: '注册成功', gravity: ToastGravity.CENTER);
+                Navigator.of(context).pushNamed(Routes.home);
+              } else if (state is RegisterFail) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                Fluttertoast.showToast(
+                    msg: '注册失败', gravity: ToastGravity.CENTER);
+              }
             },
             builder: (context, state) {
               return Column(
@@ -90,24 +158,23 @@ class _RegisterPageState extends State<RegisterPage> {
           topLeft: Radius.circular(20),
         ),
       ),
-      child: Form(
-        key: _formKey,
+      child: ReactiveForm(
+        formGroup: form,
         child: Column(
           children: [
             SizedBox(
               height: 20,
             ),
             InputWidget(
+              autofocus: true,
+              email: true,
               name: 'email',
               label: '邮箱',
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return '邮箱不能为空';
-              //   }
-              //   if (!RegExps.email.hasMatch(value)) {
-              //     return '邮箱格式错误';
-              //   }
-              // },
+              messages: {
+                'required': '邮箱不能为空',
+                'email': '请正确填写邮箱',
+                'available': '邮箱不可用',
+              },
             ),
             SizedBox(
               height: 15,
@@ -115,17 +182,13 @@ class _RegisterPageState extends State<RegisterPage> {
             InputWidget(
               name: 'username',
               label: '用户名',
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return '用户名不能为空';
-              //   }
-              //   if (value.length < 3) {
-              //     return '用户名小长不能小于3';
-              //   }
-              //   if (!RegExps.username.hasMatch(value)) {
-              //     return '用户名只能使用数字、字母、下划线';
-              //   }
-              // },
+              hint: '只能包含数字和字母',
+              messages: {
+                'required': '用户名不能为空',
+                'minLength': '最小长度为3',
+                'available': '用户名不可用',
+                'pattern': '用户名只能包含数字和字母'
+              },
             ),
             SizedBox(
               height: 15,
@@ -133,24 +196,23 @@ class _RegisterPageState extends State<RegisterPage> {
             InputWidget(
               name: 'password',
               label: '密码',
+              messages: {
+                'required': '密码不能为空',
+                'minLength': '最小长度为10',
+              },
               obscure: true,
-              // controller: _passwordController,
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return '密码不能为空';
-              //   }
-              //   if (value.length < 10) {
-              //     return '密码长度不能小于10';
-              //   }
-              // },
               inputAction: TextInputAction.done,
             ),
             SizedBox(
               height: 15,
             ),
             InputWidget(
-              name: 'password',
+              name: 'passwordConfirm',
               label: '密码确认',
+              hint: '请重复输入一次密码',
+              messages: {
+                'mustMatch': '密码与确认不一致',
+              },
               obscure: true,
               inputAction: TextInputAction.done,
             ),
@@ -158,12 +220,14 @@ class _RegisterPageState extends State<RegisterPage> {
             ButtonWidget(
               text: '注册',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  var username = _usernameController.text;
-                  var password = _passwordController.text;
-                  var email = _emailController.text;
-                  // context.read<RegisterCubit>().login(username, password);
-                } else {}
+                if (form.valid) {
+                  var email = form.control('email').value;
+                  var username = form.control('username').value;
+                  var password = form.control('password').value;
+                  context
+                      .read<RegisterCubit>()
+                      .register(email, username, password);
+                }
               },
             ),
           ],

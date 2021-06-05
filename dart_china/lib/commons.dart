@@ -22,7 +22,7 @@ abstract class Routes {
 }
 
 abstract class RegExps {
-  static final username = RegExp(r"^[a-zA-Z\d-_]+$");
+  static final username = RegExp(r"^[a-zA-Z0-9]*$");
   static final email = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 }

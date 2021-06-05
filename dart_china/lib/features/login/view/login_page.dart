@@ -104,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             InputWidget(
+              // autofocus: true,
               name: 'username',
               label: '用户名',
               messages: {
