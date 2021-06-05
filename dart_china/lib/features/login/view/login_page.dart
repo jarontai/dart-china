@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../commons.dart';
@@ -29,6 +30,11 @@ class _LoginPageState extends State<LoginPage> {
           color: ColorPalette.backgroundColor,
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
+              if ((state.isLogin || state.fail) && state.message.isNotEmpty) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                Fluttertoast.showToast(
+                    msg: state.message, gravity: ToastGravity.CENTER);
+              }
               if (state.isLogin) {
                 Navigator.of(context).pushNamed(Routes.home);
               }

@@ -1,6 +1,7 @@
 import 'package:discourse_api/discourse_api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
 import 'package:path_provider/path_provider.dart';
+import 'package:result_type/result_type.dart';
 
 part 'auth_repository.dart';
 part 'post_repository.dart';

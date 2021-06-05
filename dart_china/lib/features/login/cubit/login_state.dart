@@ -5,12 +5,16 @@ class LoginState {
   final bool loading;
   final User? user;
   final String? returnRoute;
+  final bool fail;
+  final String message;
 
   LoginState({
     this.isLogin = false,
     this.loading = false,
     this.user,
     this.returnRoute,
+    this.fail = false,
+    this.message = '',
   });
 
   LoginState copyWith({
@@ -18,12 +22,16 @@ class LoginState {
     bool? loading,
     User? user,
     String? returnRoute,
+    bool? fail,
+    String? message,
   }) {
     return LoginState(
       isLogin: isLogin ?? this.isLogin,
       loading: loading ?? this.loading,
       user: user ?? this.user,
       returnRoute: returnRoute ?? this.returnRoute,
+      fail: fail ?? this.fail,
+      message: message ?? this.message,
     );
   }
 }

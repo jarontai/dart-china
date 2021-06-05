@@ -238,7 +238,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.2.52"
+    version: "0.2.55"
   dotenv:
     dependency: transitive
     description:
@@ -672,6 +672,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "10.4.1"
+  result_type:
+    dependency: "direct main"
+    description:
+      name: result_type
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
