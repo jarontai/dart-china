@@ -55,13 +55,15 @@ class _MenuPageState extends State<MenuPage> {
             size: 30,
             avatarUrl: userLogin ? user?.avatar : null,
             onPressed: () {
+              ZoomDrawer.of(context)?.close();
               if (!userLogin) {
-                ZoomDrawer.of(context)?.close();
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).popAndPushNamed(Routes.login);
                 } else {
                   Navigator.of(context).pushNamed(Routes.login);
                 }
+              } else {
+                Navigator.of(context).pushNamed(Routes.profile);
               }
             },
           ),
@@ -92,25 +94,24 @@ class _MenuPageState extends State<MenuPage> {
           MenuItem(
             icon: Icons.home_outlined,
             text: '首页',
-            route: '/',
             selected: selected == 0,
           ),
           MenuItem(
             icon: Icons.search_outlined,
             text: '搜索',
-            route: '/search',
+            route: Routes.search,
             selected: selected == 1,
           ),
           MenuItem(
             icon: Icons.notifications_outlined,
             text: '消息',
-            route: '/',
+            route: Routes.message,
             selected: selected == 2,
           ),
           MenuItem(
             icon: Icons.person_outlined,
             text: '我的',
-            route: '/profile',
+            route: Routes.profile,
             selected: selected == 3,
           ),
         ],
@@ -146,7 +147,7 @@ class MenuItem extends StatelessWidget {
     this.callback,
     required this.icon,
     required this.text,
-    required this.route,
+    this.route,
     required this.selected,
     this.canRoute = true,
   }) : super(key: key);
@@ -154,7 +155,7 @@ class MenuItem extends StatelessWidget {
   final VoidCallback? callback;
   final IconData icon;
   final String text;
-  final String route;
+  final String? route;
   final bool selected;
   final bool canRoute;
 
@@ -182,10 +183,10 @@ class MenuItem extends StatelessWidget {
           ZoomDrawer.of(context)?.close();
           if (canRoute) {
             callback?.call();
-            if (Navigator.of(context).canPop()) {
-              Navigator.of(context).popAndPushNamed(route);
-            } else {
-              Navigator.of(context).pushNamed(route);
+
+            if (route != null) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  route!, ModalRoute.withName(Routes.home));
             }
           }
         },
