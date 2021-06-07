@@ -19,6 +19,8 @@ abstract class Routes {
   static final search = '/search';
   static final login = '/login';
   static final register = '/register';
+  static final profile = '/profile';
+  static final message = '/message';
 }
 
 abstract class RegExps {

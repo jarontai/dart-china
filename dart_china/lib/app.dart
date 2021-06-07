@@ -87,6 +87,16 @@ class DartChinaApp extends StatelessWidget {
           topicId: topicId,
         ),
       );
+    } else if (routeName == Routes.profile) {
+      var userId;
+      if (settings.arguments != null) {
+        userId = settings.arguments as int;
+      }
+      return MaterialPageRoute(
+        builder: (_) => ProfilePage(
+          userId: userId,
+        ),
+      );
     }
   }
 }
