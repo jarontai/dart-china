@@ -77,6 +77,8 @@ class TopicPostCard extends StatelessWidget {
                   var can = await urlLauncher.canLaunch(href);
                   if (can) {
                     await urlLauncher.launch(href);
+                  } else {
+                    // TODO: ?
                   }
                 }
               },

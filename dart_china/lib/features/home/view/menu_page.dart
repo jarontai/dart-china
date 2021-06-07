@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
+import '../../../commons.dart';
 import '../../../widgets/widgets.dart';
 import '../../global/cubit/global_cubit.dart';
 import '../../login/cubit/login_cubit.dart';
@@ -18,8 +19,6 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((GlobalCubit b) => b.state.user);
-
     return Scaffold(
       backgroundColor: Color(0xFF657599),
       body: SafeArea(
@@ -33,11 +32,7 @@ class _MenuPageState extends State<MenuPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30),
-              _buildHeader(
-                avatar: user?.avatar,
-                username: user?.username,
-                name: user?.name,
-              ),
+              _buildHeader(context),
               SizedBox(height: 150),
               _buildBody(context, selected),
               SizedBox(height: 120),
@@ -49,14 +44,26 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Widget _buildHeader({String? avatar, String? username, String? name}) {
+  Widget _buildHeader(BuildContext context) {
+    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
+    final user = context.select((GlobalCubit b) => b.state.user);
+
     return Container(
       child: Row(
         children: [
           AvatarButton(
             size: 30,
-            avatarUrl: avatar ?? '',
-            onPressed: () {},
+            avatarUrl: userLogin ? user?.avatar : null,
+            onPressed: () {
+              if (!userLogin) {
+                ZoomDrawer.of(context)?.close();
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).popAndPushNamed(Routes.login);
+                } else {
+                  Navigator.of(context).pushNamed(Routes.login);
+                }
+              }
+            },
           ),
           SizedBox(
             width: 6,
@@ -64,7 +71,7 @@ class _MenuPageState extends State<MenuPage> {
           Column(
             children: [
               Text(
-                username ?? '-',
+                userLogin ? user?.username ?? '' : '',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -112,20 +119,26 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildFooter(BuildContext context) {
-    return Container(
-      width: 200,
-      child: MenuItem(
-        icon: Icons.exit_to_app_outlined,
-        text: '注销',
-        route: '/',
-        selected: false,
-        callback: () {
-          context.read<LoginCubit>().logout();
-        },
-      ),
-    );
+    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
+
+    return userLogin
+        ? Container(
+            width: 200,
+            child: MenuItem(
+              icon: Icons.exit_to_app_outlined,
+              text: '注销',
+              route: '/',
+              selected: false,
+              callback: () {
+                context.read<LoginCubit>().logout();
+              },
+            ),
+          )
+        : SizedBox.shrink();
   }
 }
+
+typedef BoolCallback = bool Function();
 
 class MenuItem extends StatelessWidget {
   const MenuItem({
@@ -135,6 +148,7 @@ class MenuItem extends StatelessWidget {
     required this.text,
     required this.route,
     required this.selected,
+    this.canRoute = true,
   }) : super(key: key);
 
   final VoidCallback? callback;
@@ -142,6 +156,7 @@ class MenuItem extends StatelessWidget {
   final String text;
   final String route;
   final bool selected;
+  final bool canRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -164,12 +179,14 @@ class MenuItem extends StatelessWidget {
           ),
         ),
         onTap: () {
-          callback?.call();
           ZoomDrawer.of(context)?.close();
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).popAndPushNamed(route);
-          } else {
-            Navigator.of(context).pushNamed(route);
+          if (canRoute) {
+            callback?.call();
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).popAndPushNamed(route);
+            } else {
+              Navigator.of(context).pushNamed(route);
+            }
           }
         },
       ),

@@ -42,7 +42,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(
       loading: true,
       isLogin: false,
-      user: null,
       fail: false,
     ));
     var result = await _authRepository.login(username, password);
@@ -61,7 +60,6 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(
         loading: false,
         isLogin: false,
-        user: null,
         fail: true,
         message: '登录失败',
       ));
@@ -85,7 +83,6 @@ class LoginCubit extends Cubit<LoginState> {
 
     emit(state.copyWith(
       isLogin: false,
-      user: null,
     ));
   }
 }

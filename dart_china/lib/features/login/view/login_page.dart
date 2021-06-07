@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                     msg: state.message, gravity: ToastGravity.CENTER);
               }
               if (state.isLogin) {
-                Navigator.of(context).pushNamed(Routes.home);
+                Navigator.of(context).popAndPushNamed(Routes.home);
               }
             },
             builder: (context, state) {

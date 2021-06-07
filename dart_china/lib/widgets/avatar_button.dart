@@ -1,3 +1,4 @@
+import 'package:dart_china/commons.dart';
 import 'package:flutter/material.dart';
 
 class AvatarButton extends StatelessWidget {
@@ -29,11 +30,9 @@ class AvatarButton extends StatelessWidget {
                     width: size + 10,
                     height: size + 10,
                   )
-                : Image.asset(
-                    'assets/icon/logo_dart_ios.png',
-                    fit: BoxFit.fitWidth,
-                    width: size + 10,
-                    height: size + 10,
+                : Icon(
+                    Icons.person,
+                    color: ColorPalette.postTextColor,
                   ),
           ),
         ),
