@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     return ZoomDrawer(
       mainScreen: TopicListPage(),
       menuScreen: MenuPage(),
-      slideWidth: 250,
+      slideWidth: 235,
     );
   }
 }

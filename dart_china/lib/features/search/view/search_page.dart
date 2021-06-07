@@ -49,12 +49,14 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             InputWidget(
               name: 'search',
+              hint: '请输入关键字',
               prefix: Icon(
                 Icons.search,
                 color: Colors.grey.shade500,
               ),
-              inputAction: TextInputAction.search,
+              inputAction: TextInputAction.done,
               onEditComplete: () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 var value = form.control('search').value;
                 context.read<SearchCubit>().search(value, refresh: true);
               },

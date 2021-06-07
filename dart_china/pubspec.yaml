@@ -12,7 +12,6 @@ dependencies:
   discourse_api:
     git:
       url: git@github.com:jarontai/discourse_api.git
-      ref: 92fc4c84afcc1bdce4c732a2063b33f2fc275d7d
   beamer: ^0.13.3
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
@@ -29,10 +28,6 @@ dependencies:
   result_type: ^0.1.0
   sentry: ^5.0.0
   shared_preferences: ^2.0.5
-
-dependency_overrides:
-  discourse_api:
-    path: ../../discourse_api
 
 dev_dependencies:
   flutter_test:

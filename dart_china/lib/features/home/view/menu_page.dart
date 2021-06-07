@@ -79,31 +79,31 @@ class _MenuPageState extends State<MenuPage> {
 
   Widget _buildBody(BuildContext context, int selected) {
     return Container(
-      width: 200,
+      width: 180,
       child: Column(
         children: [
           MenuItem(
             icon: Icons.home_outlined,
-            text: 'Home',
+            text: '首页',
             route: '/',
             selected: selected == 0,
           ),
           MenuItem(
-            icon: Icons.question_answer_outlined,
-            text: 'Activities',
-            route: '/',
+            icon: Icons.search_outlined,
+            text: '搜索',
+            route: '/search',
             selected: selected == 1,
           ),
           MenuItem(
-            icon: Icons.person_outlined,
-            text: 'Profile',
+            icon: Icons.notifications_outlined,
+            text: '消息',
             route: '/',
             selected: selected == 2,
           ),
           MenuItem(
-            icon: Icons.settings_outlined,
-            text: 'Settings',
-            route: '/',
+            icon: Icons.person_outlined,
+            text: '我的',
+            route: '/profile',
             selected: selected == 3,
           ),
         ],
@@ -116,7 +116,7 @@ class _MenuPageState extends State<MenuPage> {
       width: 200,
       child: MenuItem(
         icon: Icons.exit_to_app_outlined,
-        text: 'Sign Out',
+        text: '注销',
         route: '/',
         selected: false,
         callback: () {

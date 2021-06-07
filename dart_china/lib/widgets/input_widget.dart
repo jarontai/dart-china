@@ -18,6 +18,7 @@ class InputWidget extends StatelessWidget {
     this.inputAction,
     this.inputFormatter,
     this.onEditComplete,
+    this.focusNode,
   }) : super(key: key);
 
   final String name;
@@ -28,6 +29,7 @@ class InputWidget extends StatelessWidget {
   final bool autofocus;
   final Map<String, String>? messages;
   final VoidCallback? onEditComplete;
+  final FocusNode? focusNode;
   final Widget? prefix;
   final TextInputAction? inputAction;
   final TextInputFormatter? inputFormatter;
@@ -49,6 +51,7 @@ class InputWidget extends StatelessWidget {
             height: 10,
           ),
           ReactiveTextField(
+            focusNode: focusNode,
             autofocus: autofocus,
             keyboardType: email ? TextInputType.emailAddress : null,
             onEditingComplete: onEditComplete,

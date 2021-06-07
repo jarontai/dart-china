@@ -1,7 +1,7 @@
 part of 'widgets.dart';
 
-class SliverHeader extends SliverPersistentHeaderDelegate {
-  SliverHeader({
+class HomeSliverHeader extends SliverPersistentHeaderDelegate {
+  HomeSliverHeader({
     required this.onMenuPressed,
     required this.onSearchPressed,
   });
@@ -71,11 +71,10 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
           : null,
       actions: [
         IconButton(
+          iconSize: 26,
           splashRadius: kSplashRadius,
-          icon: Icon(Icons.add),
-          onPressed: () {
-            // TODO:
-          },
+          icon: Icon(Icons.search_outlined),
+          onPressed: onSearchPressed,
         )
       ],
     );

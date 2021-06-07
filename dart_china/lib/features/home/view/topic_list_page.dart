@@ -13,7 +13,7 @@ class TopicListPage extends StatefulWidget {
 
 class _TopicListPageState extends State<TopicListPage> {
   late ScrollController _scrollController;
-  bool scrollToTop = false;
+  bool showToTop = false;
   late GlobalKey<RefreshIndicatorState> _refreshKey;
 
   @override
@@ -33,12 +33,12 @@ class _TopicListPageState extends State<TopicListPage> {
         }
 
         var shouldScrollTop = false;
-        if (_scrollController.offset >= (maxExtent * 0.1) &&
+        if (_scrollController.offset >= (100) &&
             !_scrollController.position.outOfRange) {
           shouldScrollTop = true;
         }
         setState(() {
-          scrollToTop = shouldScrollTop;
+          showToTop = shouldScrollTop;
         });
       }
     });
@@ -50,18 +50,18 @@ class _TopicListPageState extends State<TopicListPage> {
     _scrollController.dispose();
   }
 
-  _scrollToTop() async {
-    var time = 500;
-    var state = context.read<TopicListCubit>().state;
-    if (state is TopicListSuccess) {
-      time += state.page * 400;
-    }
-    await _scrollController.animateTo(
-      1,
-      duration: Duration(milliseconds: time),
-      curve: Curves.easeOut,
-    );
-  }
+  // _scrollToTop() async {
+  //   var time = 500;
+  //   var state = context.read<TopicListCubit>().state;
+  //   if (state is TopicListSuccess) {
+  //     time += state.page * 400;
+  //   }
+  //   await _scrollController.animateTo(
+  //     1,
+  //     duration: Duration(milliseconds: time),
+  //     curve: Curves.easeOut,
+  //   );
+  // }
 
   _jumpToTop() {
     _scrollController.jumpTo(1);
@@ -88,15 +88,18 @@ class _TopicListPageState extends State<TopicListPage> {
                 slivers: [
                   SliverPersistentHeader(
                     pinned: true,
-                    delegate: SliverHeader(onMenuPressed: () {
-                      if (ZoomDrawer.of(context)!.isOpen()) {
-                        ZoomDrawer.of(context)?.close();
-                      } else {
-                        ZoomDrawer.of(context)?.open();
-                      }
-                    }, onSearchPressed: () {
-                      Navigator.of(context).pushNamed(Routes.search);
-                    }),
+                    delegate: HomeSliverHeader(
+                      onMenuPressed: () {
+                        if (ZoomDrawer.of(context)!.isOpen()) {
+                          ZoomDrawer.of(context)?.close();
+                        } else {
+                          ZoomDrawer.of(context)?.open();
+                        }
+                      },
+                      onSearchPressed: () {
+                        Navigator.of(context).pushNamed(Routes.search);
+                      },
+                    ),
                   ),
                   SliverPersistentHeader(
                     pinned: true,
@@ -108,7 +111,7 @@ class _TopicListPageState extends State<TopicListPage> {
                 ],
               ),
             ),
-            floatingActionButton: scrollToTop
+            floatingActionButton: showToTop
                 ? FloatingActionButton(
                     mini: true,
                     backgroundColor: ColorPalette.backgroundColor,
