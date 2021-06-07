@@ -25,8 +25,10 @@ main(List<String> args) async {
     final version = doc['version'];
     if (version != null) {
       final process = await Process.start(
-          'flutter', ['build', 'apk', '--split-per-abi'],
-          workingDirectory: dir.path);
+        'flutter',
+        ['build', 'apk', '--split-per-abi'],
+        workingDirectory: dir.path,
+      );
       process.stdout.listen((event) {
         print(utf8.decode(event));
       }, onDone: () async {

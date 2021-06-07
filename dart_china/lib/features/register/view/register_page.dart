@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../../commons.dart';
+import '../../../common.dart';
 import '../../../widgets/button_widget.dart';
 import '../../../widgets/widgets.dart';
 import '../cubit/register_cubit.dart';

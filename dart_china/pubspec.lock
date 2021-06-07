@@ -36,13 +36,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.6.1"
-  beamer:
-    dependency: "direct main"
-    description:
-      name: beamer
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.13.3"
   bloc:
     dependency: "direct main"
     description:
@@ -316,13 +309,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.1"
-  flutter_dotenv:
-    dependency: "direct main"
-    description:
-      name: flutter_dotenv
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "5.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

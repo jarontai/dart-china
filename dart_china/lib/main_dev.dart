@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app.dart';
+import 'config.dart';
 import 'repositories/repositories.dart';
 
 class CubitObserver extends BlocObserver {
@@ -14,15 +13,13 @@ class CubitObserver extends BlocObserver {
   }
 }
 
-setup() async {
-  Bloc.observer = CubitObserver();
-  await initRepository();
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await setup();
+  Bloc.observer = CubitObserver();
 
-  runApp(DartChinaApp());
+  final config = Config.dev();
+  await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
+
+  runApp(ConfigWidget(config: config, child: DartChinaApp()));
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dart_china/commons.dart';
 import 'package:flutter/material.dart';
+
+import '../common.dart';
 
 class AvatarButton extends StatelessWidget {
   const AvatarButton({
