@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_china/commons.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +25,8 @@ class AvatarButton extends StatelessWidget {
           radius: 25,
           child: ClipOval(
             child: avatarUrl != null && avatarUrl!.isNotEmpty
-                ? Image.network(
-                    avatarUrl!,
+                ? CachedNetworkImage(
+                    imageUrl: avatarUrl!,
                     fit: BoxFit.fitWidth,
                     width: size + 10,
                     height: size + 10,

@@ -20,19 +20,6 @@ class TopicPostHeader extends StatelessWidget {
   final VoidCallback onAvatarPressed;
   final VoidCallback onTitlePressed;
 
-  String _buildCreatedAt(DateTime dateTime) {
-    DateTime now = DateTime.now();
-    var diff = now.difference(dateTime);
-    var minutes = diff.inMinutes;
-    if (minutes >= 1440) {
-      return '${diff.inDays} 天前';
-    } else if (minutes >= 60 && minutes < 1440) {
-      return '${diff.inHours} 小时前';
-    } else {
-      return '$minutes 分钟前';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var pin = topicHead ? topic.pinnedGlobally : false;
@@ -108,5 +95,18 @@ class TopicPostHeader extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _buildCreatedAt(DateTime dateTime) {
+    DateTime now = DateTime.now();
+    var diff = now.difference(dateTime);
+    var minutes = diff.inMinutes;
+    if (minutes >= 1440) {
+      return '${diff.inDays} 天前';
+    } else if (minutes >= 60 && minutes < 1440) {
+      return '${diff.inHours} 小时前';
+    } else {
+      return '$minutes 分钟前';
+    }
   }
 }
