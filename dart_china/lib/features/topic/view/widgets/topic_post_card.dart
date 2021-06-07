@@ -96,8 +96,8 @@ class TopicPostCard extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.transparent,
         child: ClipOval(
-          child: Image.network(
-            uri.toString(),
+          child: CachedNetworkImage(
+            imageUrl: uri.toString(),
             fit: BoxFit.fitWidth,
             width: 25,
             height: 25,
