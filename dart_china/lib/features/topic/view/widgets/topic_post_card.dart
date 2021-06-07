@@ -72,6 +72,14 @@ class TopicPostCard extends StatelessWidget {
                 // blockquotePadding: EdgeInsets.zero,
               ),
               imageBuilder: _buildImageBuilder,
+              onTapLink: (text, href, title) async {
+                if (href != null && href.startsWith('http')) {
+                  var can = await urlLauncher.canLaunch(href);
+                  if (can) {
+                    await urlLauncher.launch(href);
+                  }
+                }
+              },
             ),
           ),
         ],
