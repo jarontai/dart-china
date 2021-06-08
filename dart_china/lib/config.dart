@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 const development = 'development';
 const production = 'production';
 
-class Config {
-  Config.dev()
+class AppConfig {
+  AppConfig.dev()
       : appName = 'Dart China DEV',
         flavorName = development,
         apiBaseUrl = '',
         siteUrl = 'https://www.dart-china.org',
         cdnUrl = 'https://cdn.dart-china.org';
 
-  Config.prod()
+  AppConfig.prod()
       : appName = 'Dart China',
         flavorName = production,
         apiBaseUrl = '',
@@ -33,16 +33,16 @@ class Config {
   }
 }
 
-class ConfigWidget extends InheritedWidget {
-  ConfigWidget({
+class AppConfigScope extends InheritedWidget {
+  AppConfigScope({
     required this.config,
     required Widget child,
   }) : super(child: child);
 
-  final Config config;
+  final AppConfig config;
 
-  static ConfigWidget of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ConfigWidget>()!;
+  static AppConfigScope of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<AppConfigScope>()!;
   }
 
   @override

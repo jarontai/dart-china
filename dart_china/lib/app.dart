@@ -11,7 +11,7 @@ import 'repositories/repositories.dart';
 class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isProduction = ConfigWidget.of(context).config.isProduction;
+    final isProduction = AppConfigScope.of(context).config.isProduction;
 
     return MultiBlocProvider(
       providers: [

@@ -22,8 +22,11 @@ void main() async {
 
   Bloc.observer = CubitObserver();
 
-  final config = Config.prod();
+  final config = AppConfig.prod();
   await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
 
-  runApp(ConfigWidget(config: config, child: DartChinaApp()));
+  runApp(AppConfigScope(
+    config: config,
+    child: DartChinaApp(),
+  ));
 }
