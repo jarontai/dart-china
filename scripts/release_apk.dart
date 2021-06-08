@@ -24,9 +24,14 @@ main(List<String> args) async {
     final doc = loadYaml(yaml);
     final version = doc['version'];
     if (version != null) {
+      final apkFile = File(path.join(dir.path, apkPath));
+      if (apkFile.existsSync()) {
+        apkFile.deleteSync();
+      }
+
       final process = await Process.start(
         'flutter',
-        ['build', 'apk', '--split-per-abi'],
+        ['build', 'apk', '--target=lib/main_prod.dart', '--split-per-abi'],
         workingDirectory: dir.path,
       );
       process.stdout.listen((event) {
@@ -36,7 +41,7 @@ main(List<String> args) async {
         if (apkFile.existsSync()) {
           final finalApk =
               apkFile.path.replaceAll('app-', '$appName-$version-');
-          await apkFile.copySync(finalApk);
+          apkFile.copySync(finalApk);
           print('Finish build: $finalApk');
         }
       });
