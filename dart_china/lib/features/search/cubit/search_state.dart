@@ -9,42 +9,32 @@ abstract class SearchState extends Equatable {
 
 class SearchInitial extends SearchState {}
 
-class SearchLoading extends SearchState {
-  final List<SearchResult> data;
-
-  SearchLoading({
-    required this.data,
-  });
-
-  SearchLoading copyWith({
-    List<SearchResult>? data,
-  }) {
-    return SearchLoading(
-      data: data ?? this.data,
-    );
-  }
-}
+class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
   final List<SearchResult> data;
   final int page;
   final bool more;
+  final bool loading;
 
   SearchSuccess({
     required this.data,
     required this.page,
     required this.more,
+    this.loading = false,
   });
 
   SearchSuccess copyWith({
     List<SearchResult>? data,
     int? page,
     bool? more,
+    bool? loading,
   }) {
     return SearchSuccess(
       data: data ?? this.data,
       page: page ?? this.page,
       more: more ?? this.more,
+      loading: loading ?? this.loading,
     );
   }
 }

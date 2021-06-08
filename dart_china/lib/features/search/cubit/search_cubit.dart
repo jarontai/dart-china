@@ -13,21 +13,32 @@ class SearchCubit extends Cubit<SearchState> {
 
   final PostRepository _postRepository;
 
+  void init() {
+    emit(SearchInitial());
+  }
+
   void search(String data, {bool refresh = false}) async {
-    var page = 1;
-    var oldPosts = <SearchResult>[];
-    var currentState = state;
-    if (!refresh && currentState is SearchSuccess) {
-      oldPosts = currentState.data;
-      page = currentState.page + 1;
+    if (refresh) {
+      emit(SearchInitial());
     }
 
-    emit(SearchLoading(data: oldPosts));
+    var page = 1;
+    var oldPosts = <SearchResult>[];
+    var theState = state;
+    if (theState is SearchInitial) {
+      emit(SearchLoading());
+    } else if (theState is SearchSuccess) {
+      oldPosts = theState.data;
+      page = theState.page + 1;
+      emit(theState.copyWith(loading: true));
+    }
+
     var pageModel = await _postRepository.search(data, page: page);
     emit(SearchSuccess(
       data: oldPosts..addAll(pageModel.data),
       more: pageModel.hasNext,
       page: pageModel.page,
+      loading: false,
     ));
   }
 }

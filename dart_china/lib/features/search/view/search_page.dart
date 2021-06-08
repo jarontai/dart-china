@@ -19,6 +19,13 @@ class _SearchPageState extends State<SearchPage> {
   });
 
   @override
+  void initState() {
+    super.initState();
+
+    context.read<SearchCubit>().init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,23 +78,8 @@ class _SearchPageState extends State<SearchPage> {
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         var theState = state;
-        if (theState is SearchInitial) {
-          return Container();
-        }
         if (theState is SearchLoading) {
-          return Expanded(
-              child: ListView(
-            children: [
-              SearchItem(
-                onTap: () {},
-                avatar: '',
-                title: 'Loading',
-                body: 'body',
-                time: 'time',
-                category: 'category',
-              ),
-            ],
-          ));
+          return ListLoader();
         }
         if (theState is SearchSuccess) {
           return Expanded(
@@ -100,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                   Navigator.of(context)
                       .pushNamed(Routes.topic, arguments: topic.id);
                 },
-                avatar: '',
+                avatar: post.avatar ?? '',
                 title: topic.title,
                 body: post.blurb,
                 time: 'time',

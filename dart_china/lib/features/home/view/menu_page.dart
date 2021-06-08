@@ -22,22 +22,26 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       backgroundColor: Color(0xFF657599),
       body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          padding: EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30),
-              _buildHeader(context),
-              SizedBox(height: 150),
-              _buildBody(context, selected),
-              SizedBox(height: 120),
-              _buildFooter(context),
-            ],
+        child: InkWell(
+          onTap: () {
+            ZoomDrawer.of(context)?.close();
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30),
+                _buildHeader(context),
+                SizedBox(height: 150),
+                _buildBody(context, selected),
+                SizedBox(height: 120),
+                _buildFooter(context),
+              ],
+            ),
           ),
         ),
       ),
