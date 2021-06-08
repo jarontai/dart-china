@@ -23,18 +23,23 @@ class SearchCubit extends Cubit<SearchState> {
     }
 
     var page = 1;
+    var oldSlugs = <String>[];
     var oldPosts = <SearchResult>[];
     var theState = state;
     if (theState is SearchInitial) {
       emit(SearchLoading());
     } else if (theState is SearchSuccess) {
       oldPosts = theState.data;
+      oldSlugs = theState.slugs;
       page = theState.page + 1;
       emit(theState.copyWith(loading: true));
     }
 
     var pageModel = await _postRepository.search(data, page: page);
+    var slugs =
+        pageModel.data.map((e) => categorySlugMap[e.topic.categoryId] ?? '');
     emit(SearchSuccess(
+      slugs: oldSlugs..addAll(slugs),
       data: oldPosts..addAll(pageModel.data),
       more: pageModel.hasNext,
       page: pageModel.page,

@@ -3,6 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 const kSplashRadius = 25.0;
+const kEnableCategories = ['share', 'question', 'meta'];
+
+const CategoryNameMap = {
+  'share': '分享',
+  'question': '问答',
+  'meta': '站务',
+  'all': '全部',
+};
+
+const CategoryColorMap = {
+  'share': Color(0xFF40a37e),
+  'question': Color(0xFFd9a01c),
+  'meta': Color(0xFFa19b8f),
+};
 
 abstract class ColorPalette {
   static final backgroundColor = Color(0xFF3978f8);

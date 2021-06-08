@@ -1,33 +1,35 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dart_china/repositories/repositories.dart';
 
+import '../../../common.dart';
 import '../../../models/models.dart';
 import '../../login/cubit/login_cubit.dart';
 
 part 'global_state.dart';
 
 class GlobalCubit extends Cubit<GlobalState> {
-  final LoginCubit loginCubit;
-  StreamSubscription? authSubscription;
-
   GlobalCubit(this.loginCubit) : super(GlobalState()) {
     authSubscription = loginCubit.stream.listen((authState) {
       if (authState.isLogin && authState.user != null) {
-        updateLogin(true, authState.user);
+        _updateLogin(true, authState.user);
       } else {
-        updateLogin(false, null);
+        _updateLogin(false, null);
       }
     });
 
     checkLogin();
   }
 
+  final LoginCubit loginCubit;
+  StreamSubscription? authSubscription;
+
   checkLogin() async {
     await loginCubit.check();
   }
 
-  updateLogin(bool status, User? user) {
+  _updateLogin(bool status, User? user) {
     print('App state login change: $status');
     emit(state.copyWith(userLogin: status, user: user));
   }

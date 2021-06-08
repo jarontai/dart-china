@@ -20,7 +20,6 @@ final theAllCategory = Category(
   topicCount: 0,
   description: 'all',
 );
-const kEnableCategories = ['share', 'question', 'meta'];
 
 class TopicListCubit extends Cubit<TopicListState> {
   TopicListCubit(
@@ -46,7 +45,8 @@ class TopicListCubit extends Cubit<TopicListState> {
   }
 
   _doFetchLatest({bool refresh = false}) async {
-    if (state is TopicListInitial) {
+    var myState = state;
+    if (myState is TopicListInitial) {
       var pageModel = await topicRepository.fetchLatest();
       var categories = await _fetchCategories();
       categories.insert(0, theAllCategory);
@@ -56,23 +56,22 @@ class TopicListCubit extends Cubit<TopicListState> {
         categories: categories,
         loading: false,
       ));
-    } else if (state is TopicListSuccess) {
-      var current = state as TopicListSuccess;
-      if (current.more || refresh) {
+    } else if (myState is TopicListSuccess) {
+      if (myState.more || refresh) {
         var categoryId;
         var categorySlug;
-        var cat = current.categories[current.categoryIndex];
+        var cat = myState.categories[myState.categoryIndex];
         if (cat.slug != kDefaultCategorySlug) {
           categoryId = cat.id;
           categorySlug = cat.slug;
         }
 
-        var nextPage = refresh ? 0 : current.page + 1;
+        var nextPage = refresh ? 0 : myState.page + 1;
         var pageModel = await topicRepository.fetchLatest(
             page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
 
-        var oldTopics = refresh ? <Topic>[] : List.of(current.topics);
-        emit(current.copyWith(
+        var oldTopics = refresh ? <Topic>[] : List.of(myState.topics);
+        emit(myState.copyWith(
           topics: oldTopics..addAll(pageModel.data),
           page: nextPage,
           more: pageModel.hasNext,
@@ -92,15 +91,15 @@ class TopicListCubit extends Cubit<TopicListState> {
   }
 
   changeCategory(int index) async {
-    if (state is TopicListSuccess) {
-      var current = state as TopicListSuccess;
-      if (index == current.categoryIndex) {
+    var myState = state;
+    if (myState is TopicListSuccess) {
+      if (index == myState.categoryIndex) {
         return;
       }
 
-      var categories = current.categories;
+      var categories = myState.categories;
       if (index < categories.length) {
-        emit(current.copyWith(
+        emit(myState.copyWith(
           categoryIndex: index,
           loading: true,
         ));

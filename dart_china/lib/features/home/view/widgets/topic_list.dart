@@ -129,23 +129,8 @@ class TopicStatus extends StatelessWidget {
   final int like;
 
   Text buildType() {
-    var type = '其他';
-    switch (slug) {
-      case 'share':
-        type = '分享';
-        break;
-      case 'question':
-        type = '问答';
-
-        break;
-      case 'meta':
-        type = '站务';
-
-        break;
-    }
-
     return Text(
-      type,
+      CategoryNameMap[slug] ?? '其他',
       style: TextStyle(
         fontSize: 11,
         color: Colors.grey.shade500,
@@ -156,20 +141,7 @@ class TopicStatus extends StatelessWidget {
 
   Color buildColor() {
     var color = Color(0xFFB0B1BA);
-    switch (slug) {
-      case 'share':
-        color = Color(0xFF40a37e);
-        break;
-      case 'question':
-        color = Color(0xFFd9a01c);
-
-        break;
-      case 'meta':
-        color = Color(0xFFa19b8f);
-
-        break;
-    }
-    return color;
+    return CategoryColorMap[slug] ?? color;
   }
 
   @override
