@@ -18,11 +18,25 @@ class _SearchPageState extends State<SearchPage> {
     'search': FormControl<String>(),
   });
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
 
     context.read<SearchCubit>().init();
+
+    _scrollController.addListener(() {
+      if (!_scrollController.hasClients) return;
+
+      var maxScroll = _scrollController.position.maxScrollExtent;
+      print('${_scrollController.offset} ${maxScroll * 0.9}');
+      if (_scrollController.offset >= (maxScroll * 0.9)) {
+        var value = form.control('search').value;
+        context.read<SearchCubit>().search(value, refresh: false);
+        print('wtf');
+      }
+    });
   }
 
   @override
@@ -82,9 +96,21 @@ class _SearchPageState extends State<SearchPage> {
           return ListLoader();
         }
         if (theState is SearchSuccess) {
+          var loading = theState.loading;
+          var dataCount = theState.data.length;
+          var itemCount = dataCount;
+          if (loading) {
+            itemCount++;
+          }
+
           return Expanded(
               child: ListView.builder(
+            controller: _scrollController,
             itemBuilder: (context, index) {
+              if (loading && index == dataCount) {
+                return ListLoader();
+              }
+
               var topic = theState.data[index].topic;
               var post = theState.data[index].post;
               var slug = theState.slugs[index];
@@ -102,7 +128,7 @@ class _SearchPageState extends State<SearchPage> {
                 slug: slug,
               );
             },
-            itemCount: theState.data.length,
+            itemCount: itemCount,
           ));
         }
         return Container();

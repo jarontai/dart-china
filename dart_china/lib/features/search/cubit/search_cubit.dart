@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../common.dart';
 import '../../../repositories/repositories.dart';
 
 part 'search_state.dart';
@@ -12,12 +13,19 @@ class SearchCubit extends Cubit<SearchState> {
   ) : super(SearchInitial());
 
   final PostRepository _postRepository;
+  final Debouncer _debouncer = Debouncer();
 
   void init() {
     emit(SearchInitial());
   }
 
-  void search(String data, {bool refresh = false}) async {
+  void search(String text, {bool refresh = false}) async {
+    _debouncer.run(() async {
+      _doSearch(text, refresh: refresh);
+    });
+  }
+
+  void _doSearch(String text, {bool refresh = false}) async {
     if (refresh) {
       emit(SearchInitial());
     }
@@ -29,18 +37,22 @@ class SearchCubit extends Cubit<SearchState> {
     if (theState is SearchInitial) {
       emit(SearchLoading());
     } else if (theState is SearchSuccess) {
+      if (!theState.more || theState.loading) {
+        return;
+      }
+      emit(theState.copyWith(loading: true));
+
       oldPosts = theState.data;
       oldSlugs = theState.slugs;
       page = theState.page + 1;
-      emit(theState.copyWith(loading: true));
     }
 
-    var pageModel = await _postRepository.search(data, page: page);
+    var pageModel = await _postRepository.search(text, page: page);
     var slugs =
         pageModel.data.map((e) => categorySlugMap[e.topic.categoryId] ?? '');
     emit(SearchSuccess(
-      slugs: oldSlugs..addAll(slugs),
-      data: oldPosts..addAll(pageModel.data),
+      slugs: List.of(oldSlugs..addAll(slugs)),
+      data: List.of(oldPosts..addAll(pageModel.data)),
       more: pageModel.hasNext,
       page: pageModel.page,
       loading: false,

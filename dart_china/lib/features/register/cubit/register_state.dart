@@ -1,8 +1,6 @@
 part of 'register_cubit.dart';
 
-abstract class RegisterState {
-  const RegisterState();
-}
+abstract class RegisterState {}
 
 class RegisterInitial extends RegisterState {}
 

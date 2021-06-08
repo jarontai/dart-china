@@ -12,9 +12,10 @@ class TopicListPage extends StatefulWidget {
 }
 
 class _TopicListPageState extends State<TopicListPage> {
-  late ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey<RefreshIndicatorState> _refreshKey =
+      GlobalKey<RefreshIndicatorState>();
   bool showToTop = false;
-  late GlobalKey<RefreshIndicatorState> _refreshKey;
 
   @override
   void initState() {
@@ -22,8 +23,6 @@ class _TopicListPageState extends State<TopicListPage> {
 
     context.read<TopicListCubit>().fetchLatest();
 
-    _refreshKey = GlobalKey<RefreshIndicatorState>();
-    _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.hasClients) {
         var maxExtent = _scrollController.position.maxScrollExtent;
