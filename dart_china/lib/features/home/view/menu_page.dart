@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../common.dart';
@@ -131,11 +132,12 @@ class _MenuPageState extends State<MenuPage> {
             width: 200,
             child: MenuItem(
               icon: Icons.exit_to_app_outlined,
-              text: '注销',
+              text: '登出',
               route: '/',
               selected: false,
               callback: () {
                 context.read<LoginCubit>().logout();
+                EasyLoading.showToast(Messages.logoutSuccess);
               },
             ),
           )

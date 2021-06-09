@@ -90,13 +90,16 @@ class _RegisterPageState extends State<RegisterPage> {
           color: ColorPalette.backgroundColor,
           child: BlocConsumer<RegisterCubit, RegisterState>(
             listener: (context, state) {
-              if (state is RegisterSuccess) {
+              if (state is RegisterPending) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                EasyLoading.showToast('注册成功');
+                EasyLoading.show();
+              } else if (state is RegisterSuccess) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                EasyLoading.showToast(Messages.registerSuccess);
                 Navigator.of(context).pushNamed(Routes.home);
               } else if (state is RegisterFail) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                EasyLoading.showToast('注册失败');
+                EasyLoading.showToast(Messages.registerFail);
               }
             },
             builder: (context, state) {
