@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'config.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ void main() async {
 
   final config = AppConfig.prod();
   await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
+
+  EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.circle;
 
   runApp(AppConfigScope(
     config: config,

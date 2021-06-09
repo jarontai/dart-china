@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
@@ -55,8 +55,7 @@ class _TopicPageState extends State<TopicPage> {
       body: BlocConsumer<TopicCubit, TopicState>(
         listener: (context, state) {
           if (state.postSuccess) {
-            Fluttertoast.showToast(
-                msg: '帖子发布成功', backgroundColor: ColorPalette.backgroundColor);
+            EasyLoading.showToast('帖子发布成功');
           }
         },
         builder: (context, state) {

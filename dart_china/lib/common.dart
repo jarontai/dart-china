@@ -18,6 +18,10 @@ const CategoryColorMap = {
   'meta': Color(0xFFa19b8f),
 };
 
+abstract class Messages {
+  static final loginSuccess = '登录成功！';
+}
+
 abstract class ColorPalette {
   static final backgroundColor = Color(0xFF3978f8);
   static final tagColor = Color(0xFFf2f6fa);

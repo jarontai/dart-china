@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../common.dart';
@@ -30,12 +30,16 @@ class _LoginPageState extends State<LoginPage> {
           color: ColorPalette.backgroundColor,
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
-              if ((state.isLogin || state.fail) && state.message.isNotEmpty) {
+              if ((state.isLogin || state.fail) &&
+                  state.errorMessage.isNotEmpty) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                Fluttertoast.showToast(
-                    msg: state.message, gravity: ToastGravity.CENTER);
+                EasyLoading.showToast(state.errorMessage);
               }
-              if (state.isLogin) {
+              if (state.loading) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                EasyLoading.show();
+              } else if (state.isLogin) {
+                EasyLoading.showToast(Messages.loginSuccess);
                 Navigator.of(context).popAndPushNamed(Routes.home);
               }
             },

@@ -6,7 +6,7 @@ class LoginState {
   final User? user;
   final String? returnRoute;
   final bool fail;
-  final String message;
+  final String errorMessage;
 
   LoginState({
     this.isLogin = false,
@@ -14,7 +14,7 @@ class LoginState {
     this.user,
     this.returnRoute,
     this.fail = false,
-    this.message = '',
+    this.errorMessage = '',
   });
 
   LoginState copyWith({
@@ -23,7 +23,7 @@ class LoginState {
     User? user,
     String? returnRoute,
     bool? fail,
-    String? message,
+    String? errorMessage,
   }) {
     return LoginState(
       isLogin: isLogin ?? this.isLogin,
@@ -31,7 +31,7 @@ class LoginState {
       user: user ?? this.user,
       returnRoute: returnRoute ?? this.returnRoute,
       fail: fail ?? this.fail,
-      message: message ?? this.message,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

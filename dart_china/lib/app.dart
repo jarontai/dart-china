@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'config.dart';
 import 'common.dart';
@@ -37,16 +38,25 @@ class DartChinaApp extends StatelessWidget {
         ),
       ],
       child: isProduction
-          ? Builder(builder: _buildApp)
+          ? Builder(builder: (context) {
+              return _buildApp(context, true);
+            })
           : DevicePreview(
-              builder: _buildApp,
+              builder: (context) {
+                return _buildApp(context, false);
+              },
             ),
     );
   }
 
-  Widget _buildApp(BuildContext context) {
+  Widget _buildApp(BuildContext context, bool production) {
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
+      builder: EasyLoading.init(builder: (context, child) {
+        if (!production) {
+          child = DevicePreview.appBuilder(context, child);
+        }
+        return child!;
+      }),
       title: 'Dart China',
       theme: ThemeData(
         primarySwatch: Colors.blue,

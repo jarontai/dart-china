@@ -12,7 +12,7 @@ part 'global_state.dart';
 class GlobalCubit extends Cubit<GlobalState> {
   GlobalCubit(this.loginCubit) : super(GlobalState()) {
     authSubscription = loginCubit.stream.listen((authState) {
-      if (authState.isLogin && authState.user != null) {
+      if (authState.isLogin) {
         _updateLogin(true, authState.user);
       } else {
         _updateLogin(false, null);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../common.dart';
@@ -92,13 +92,11 @@ class _RegisterPageState extends State<RegisterPage> {
             listener: (context, state) {
               if (state is RegisterSuccess) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                Fluttertoast.showToast(
-                    msg: '注册成功', gravity: ToastGravity.CENTER);
+                EasyLoading.showToast('注册成功');
                 Navigator.of(context).pushNamed(Routes.home);
               } else if (state is RegisterFail) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                Fluttertoast.showToast(
-                    msg: '注册失败', gravity: ToastGravity.CENTER);
+                EasyLoading.showToast('注册失败');
               }
             },
             builder: (context, state) {

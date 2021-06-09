@@ -54,14 +54,14 @@ class LoginCubit extends Cubit<LoginState> {
         isLogin: true,
         user: value,
         fail: false,
-        message: '登录成功',
+        errorMessage: '',
       ));
     }, (value) {
       emit(state.copyWith(
         loading: false,
         isLogin: false,
         fail: true,
-        message: '登录失败',
+        errorMessage: '登录失败',
       ));
     });
   }
