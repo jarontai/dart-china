@@ -1,3 +1,5 @@
+import 'package:dart_china/common.dart';
+import 'package:dart_china/features/profile/view/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -11,10 +13,14 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: ColorPalette.backgroundColor,
+      appBar: AppBar(
+        backgroundColor: ColorPalette.backgroundColor,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
-          children: [Text('profile')],
+          children: [ProfileCard()],
         ),
       ),
     );

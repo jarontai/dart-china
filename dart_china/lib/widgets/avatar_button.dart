@@ -6,7 +6,7 @@ import '../common.dart';
 class AvatarButton extends StatelessWidget {
   const AvatarButton({
     Key? key,
-    this.size = 24,
+    this.size = 35,
     this.onPressed,
     required this.avatarUrl,
   }) : super(key: key);
@@ -17,26 +17,23 @@ class AvatarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: IconButton(
-        iconSize: size,
-        onPressed: onPressed,
-        icon: CircleAvatar(
-          backgroundColor: Colors.grey.shade200,
-          radius: 25,
-          child: ClipOval(
-            child: avatarUrl != null && avatarUrl!.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: avatarUrl!,
-                    fit: BoxFit.fitWidth,
-                    width: size + 10,
-                    height: size + 10,
-                  )
-                : Icon(
-                    Icons.person,
-                    color: ColorPalette.postTextColor,
-                  ),
-          ),
+    return IconButton(
+      iconSize: size,
+      onPressed: onPressed,
+      icon: CircleAvatar(
+        radius: size / 2,
+        backgroundColor: Colors.grey.shade200,
+        child: ClipOval(
+          child: avatarUrl != null && avatarUrl!.isNotEmpty
+              ? CachedNetworkImage(
+                  imageUrl: avatarUrl!,
+                  fit: BoxFit.fitWidth,
+                )
+              : Icon(
+                  Icons.person,
+                  size: size * 0.6,
+                  color: ColorPalette.postTextColor,
+                ),
         ),
       ),
     );

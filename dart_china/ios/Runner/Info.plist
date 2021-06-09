@@ -45,6 +45,12 @@
 	<array>
 		<string>https</string>
 		<string>http</string>
-	</array>	
+	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>User can update profile image from library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>User can update profile image from camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>User can update profile image from camera</string>
 </dict>
 </plist>

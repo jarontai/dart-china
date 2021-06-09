@@ -75,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
                 Icons.search,
                 color: Colors.grey.shade500,
               ),
-              inputAction: TextInputAction.done,
+              inputAction: TextInputAction.search,
               onEditComplete: () {
                 FocusManager.instance.primaryFocus?.unfocus();
                 var value = form.control('search').value;

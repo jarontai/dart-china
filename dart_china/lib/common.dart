@@ -19,10 +19,10 @@ const CategoryColorMap = {
 };
 
 abstract class Messages {
-  static final loginSuccess = '登录成功！';
-  static final registerSuccess = '注册成功！';
-  static final registerFail = '注册失败！';
-  static final logoutSuccess = '登出成功！';
+  static final loginSuccess = '登录成功';
+  static final registerSuccess = '注册成功';
+  static final registerFail = '注册失败';
+  static final logoutSuccess = '登出成功';
 }
 
 abstract class ColorPalette {
