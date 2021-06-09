@@ -36,6 +36,9 @@ class DartChinaApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterCubit(AuthRepository()),
         ),
+        BlocProvider(
+          create: (context) => ProfileCubit(AuthRepository()),
+        ),
       ],
       child: isProduction
           ? Builder(builder: (context) {

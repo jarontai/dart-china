@@ -3,7 +3,12 @@ part of 'widgets.dart';
 typedef ImagePickCallback = Function(PickedFile file);
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key}) : super(key: key);
+  const ProfileCard({
+    Key? key,
+    this.onPickAvatar,
+  }) : super(key: key);
+
+  final ImagePickCallback? onPickAvatar;
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +17,7 @@ class ProfileCard extends StatelessWidget {
         children: [
           EditableAvatar(
             avatar: '',
-            onPickAvatar: (file) {
-              print('on pick file: ${file}');
-            },
+            onPickAvatar: onPickAvatar,
           ),
         ],
       ),

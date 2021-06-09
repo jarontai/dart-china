@@ -40,4 +40,12 @@ class AuthRepository extends BaseRepository {
   Future<bool> register(String email, String username, String password) async {
     return client.register(email, username, password);
   }
+
+  Future<int?> uploadAvatar(int userId, List<int> bytes) async {
+    return client.uploads(userId, bytes);
+  }
+
+  Future<bool> updateAvatar(String username, int uploadId) async {
+    return client.updateAvatar(username, uploadId);
+  }
 }
