@@ -130,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
             ButtonWidget(
               text: '登录',
               onPressed: () {
+                form.markAllAsTouched();
                 if (form.valid) {
                   var username = form.control('username').value;
                   var password = form.control('password').value;
