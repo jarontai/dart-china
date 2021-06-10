@@ -69,7 +69,8 @@ class _MenuPageState extends State<MenuPage> {
                   Navigator.of(context).pushNamed(Routes.login);
                 }
               } else {
-                Navigator.of(context).pushNamed(Routes.profile);
+                Navigator.of(context)
+                    .pushNamed(Routes.profile, arguments: user!.username);
               }
             },
           ),
@@ -93,6 +94,11 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildBody(BuildContext context, int selected) {
+    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
+    final user = context.select((GlobalCubit b) => b.state.user);
+
+    // TODO:
+
     return Container(
       width: 180,
       child: Column(

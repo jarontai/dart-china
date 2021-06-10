@@ -29,6 +29,10 @@ class AuthRepository extends BaseRepository {
     return client.userInfo(username);
   }
 
+  Future<User> userProfile(String username) async {
+    return client.userInfo(username, withSummary: true, withActions: true);
+  }
+
   Future<bool> checkUsername(String username) async {
     return client.checkUsername(username);
   }
@@ -47,5 +51,9 @@ class AuthRepository extends BaseRepository {
 
   Future<bool> updateAvatar(String username, int uploadId) async {
     return client.updateAvatar(username, uploadId);
+  }
+
+  Future<bool> updateBio(String username, String bio) async {
+    return client.updateUserInfo(username, bio: bio);
   }
 }

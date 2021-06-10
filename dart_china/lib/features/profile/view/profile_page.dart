@@ -1,16 +1,29 @@
 import 'package:dart_china/common.dart';
 import 'package:dart_china/features/profile/cubit/profile_cubit.dart';
 import 'package:dart_china/features/profile/view/widgets/widgets.dart';
+import 'package:dart_china/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({
     Key? key,
-    required this.userId,
+    required this.username,
   }) : super(key: key);
 
-  final int? userId;
+  final String username;
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ProfileCubit>().init(widget.username);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,34 +37,48 @@ class ProfilePage extends StatelessWidget {
         ),
         body: Container(
           padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-              _buildHead(context),
-              _buildBody(context),
-            ],
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              final myState = state;
+              User? user;
+              if (myState is ProfileSuccess) {
+                user = myState.user;
+              }
+
+              return Column(
+                children: [
+                  _buildHead(context, user),
+                  _buildBody(context, user),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget _buildHead(BuildContext context) {
+  Widget _buildHead(BuildContext context, User? user) {
     return Container(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           EditableAvatar(
-            avatar: '',
+            avatar: user?.avatar ?? '',
             onPickAvatar: (file) {
-              context.read<ProfileCubit>().updateAvatar(2, 'jarontai', file);
+              if (user != null) {
+                context
+                    .read<ProfileCubit>()
+                    .updateAvatar(user.id, user.username, file);
+              }
             },
           ),
           SizedBox(
             height: 5,
           ),
           Text(
-            'Jaron Tai',
+            user?.username ?? '',
             style: TextStyle(
               fontSize: 20,
               color: Colors.white,
@@ -69,14 +96,14 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, User? user) {
     return Column(
       children: [
         Container(
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(vertical: 20),
           child: Text(
-            'Woooooj, odddddddd,dd,d,,d,d,d,d,d,d,d,f,f,f,f,f,f,f',
+            user?.bio ?? '',
             style: TextStyle(
               color: Colors.grey.shade100,
               fontSize: 16,
@@ -113,7 +140,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 25,
+          height: 20,
         ),
         Container(
           height: 70,
