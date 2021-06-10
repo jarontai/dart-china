@@ -40,7 +40,9 @@ class _RegisterPageState extends State<RegisterPage> {
       'password': FormControl<String>(
         validators: [Validators.required, Validators.minLength(10)],
       ),
-      'passwordConfirm': FormControl<String>(validators: []),
+      'passwordConfirm': FormControl<String>(validators: [
+        Validators.required,
+      ]),
     }, validators: [
       _checkMustMatch(),
     ]);
@@ -214,6 +216,7 @@ class _RegisterPageState extends State<RegisterPage> {
               label: '密码确认',
               hint: '请重复输入一次密码',
               messages: {
+                'required': '密码确认不能为空',
                 'mustMatch': '密码与确认不一致',
               },
               obscure: true,
@@ -223,6 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ButtonWidget(
               text: '注册',
               onPressed: () {
+                form.markAllAsTouched();
                 if (form.valid) {
                   var email = form.control('email').value;
                   var username = form.control('username').value;

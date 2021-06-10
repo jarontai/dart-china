@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          color: ColorPalette.backgroundColor,
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if ((state.isLogin || state.fail) &&
@@ -144,7 +143,10 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               alignment: Alignment.centerRight,
               child: TextButton(
-                child: Text('注册新账号'),
+                child: Text(
+                  '注册新账号',
+                  style: TextStyle(fontSize: 15),
+                ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(Routes.register);
                 },
