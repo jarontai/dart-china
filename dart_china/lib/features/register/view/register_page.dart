@@ -171,6 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
               email: true,
               name: 'email',
               label: '邮箱',
+              hint: '绝不会被公开展示',
               messages: {
                 'required': '邮箱不能为空',
                 'email': '请正确填写邮箱',
@@ -183,7 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
             InputWidget(
               name: 'username',
               label: '用户名',
-              hint: '只能包含数字和字母',
+              hint: '独一无二，只包含数字和字母',
               messages: {
                 'required': '用户名不能为空',
                 'minLength': '最小长度为3',
@@ -197,6 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
             InputWidget(
               name: 'password',
               label: '密码',
+              hint: '至少10位，非简单密码',
               messages: {
                 'required': '密码不能为空',
                 'minLength': '最小长度为10',

@@ -15,17 +15,20 @@ class CubitObserver extends BlocObserver {
   }
 }
 
+setup() {}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.ring;
 
   Bloc.observer = CubitObserver();
 
   final config = AppConfig.dev();
   await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
-
-  EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.ring;
 
   runApp(AppConfigScope(
     config: config,
