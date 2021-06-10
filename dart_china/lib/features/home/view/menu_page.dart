@@ -20,10 +20,11 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF657599),
-      body: SafeArea(
-        child: InkWell(
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: Color(0xFF657599),
+        body: InkWell(
           onTap: () {
             ZoomDrawer.of(context)?.close();
           },

@@ -18,6 +18,7 @@ class AvatarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      padding: EdgeInsets.only(right: 8),
       iconSize: size,
       onPressed: onPressed,
       icon: CircleAvatar(

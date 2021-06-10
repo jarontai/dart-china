@@ -48,29 +48,32 @@ class _TopicPageState extends State<TopicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorPalette.topicBgColor,
-      appBar: _buildAppBar(),
-      floatingActionButton: _buildPostButton(context),
-      body: BlocConsumer<TopicCubit, TopicState>(
-        listener: (context, state) {
-          if (state.postSuccess) {
-            EasyLoading.showToast('帖子发布成功');
-          }
-        },
-        builder: (context, state) {
-          if (state.status == TopicStatus.success) {
-            var topic = state.topic!;
-            var postCount = state.posts.length;
-            var itemCount = postCount;
-            if (state.loading) {
-              itemCount += 1;
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: ColorPalette.topicBgColor,
+        appBar: _buildAppBar(),
+        floatingActionButton: _buildPostButton(context),
+        body: BlocConsumer<TopicCubit, TopicState>(
+          listener: (context, state) {
+            if (state.postSuccess) {
+              EasyLoading.showToast('帖子发布成功');
             }
-            return _buildPostList(topic, postCount, itemCount, state);
-          } else {
-            return ListLoader();
-          }
-        },
+          },
+          builder: (context, state) {
+            if (state.status == TopicStatus.success) {
+              var topic = state.topic!;
+              var postCount = state.posts.length;
+              var itemCount = postCount;
+              if (state.loading) {
+                itemCount += 1;
+              }
+              return _buildPostList(topic, postCount, itemCount, state);
+            } else {
+              return ListLoader();
+            }
+          },
+        ),
       ),
     );
   }

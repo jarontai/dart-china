@@ -41,22 +41,25 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 20,
-        ),
-        child: Column(
-          children: [
-            _buildSearchBar(context),
-            SizedBox(
-              height: 10,
-            ),
-            _buildSearchResult(context),
-          ],
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _buildAppBar(),
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 20,
+          ),
+          child: Column(
+            children: [
+              _buildSearchBar(context),
+              SizedBox(
+                height: 10,
+              ),
+              _buildSearchResult(context),
+            ],
+          ),
         ),
       ),
     );

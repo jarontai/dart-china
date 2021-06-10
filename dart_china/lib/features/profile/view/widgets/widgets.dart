@@ -5,4 +5,4 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../common.dart';
 import '../../../../widgets/widgets.dart';
 
-part 'profile_card.dart';
+part 'editable_avatar.dart';

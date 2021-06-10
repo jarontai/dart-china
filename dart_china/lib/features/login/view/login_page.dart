@@ -23,33 +23,36 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          child: BlocConsumer<LoginCubit, LoginState>(
-            listener: (context, state) {
-              if ((state.isLogin || state.fail) &&
-                  state.errorMessage.isNotEmpty) {
-                FocusManager.instance.primaryFocus?.unfocus();
-                EasyLoading.showToast(state.errorMessage);
-              }
-              if (state.loading) {
-                FocusManager.instance.primaryFocus?.unfocus();
-                EasyLoading.show();
-              } else if (state.isLogin) {
-                EasyLoading.showToast(Messages.loginSuccess);
-                Navigator.of(context).popAndPushNamed(Routes.home);
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                children: [
-                  _buildHead(),
-                  _buildForm(),
-                ],
-              );
-            },
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Container(
+            child: BlocConsumer<LoginCubit, LoginState>(
+              listener: (context, state) {
+                if ((state.isLogin || state.fail) &&
+                    state.errorMessage.isNotEmpty) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  EasyLoading.showToast(state.errorMessage);
+                }
+                if (state.loading) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  EasyLoading.show();
+                } else if (state.isLogin) {
+                  EasyLoading.showToast(Messages.loginSuccess);
+                  Navigator.of(context).popAndPushNamed(Routes.home);
+                }
+              },
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    _buildHead(),
+                    _buildForm(),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

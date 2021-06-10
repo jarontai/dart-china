@@ -2,29 +2,6 @@ part of 'widgets.dart';
 
 typedef ImagePickCallback = Function(PickedFile file);
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    Key? key,
-    this.onPickAvatar,
-  }) : super(key: key);
-
-  final ImagePickCallback? onPickAvatar;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          EditableAvatar(
-            avatar: '',
-            onPickAvatar: onPickAvatar,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class EditableAvatar extends StatefulWidget {
   EditableAvatar({required this.avatar, this.onPickAvatar});
 
@@ -42,10 +19,13 @@ class _EditableAvatarState extends State<EditableAvatar> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        AvatarButton(size: 60, avatarUrl: widget.avatar),
+        AvatarButton(
+          size: 60,
+          avatarUrl: widget.avatar,
+        ),
         Positioned(
-          right: 2,
-          bottom: 5,
+          right: 0,
+          bottom: 0,
           child: widget.onPickAvatar != null
               ? Container(
                   width: 25,

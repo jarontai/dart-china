@@ -60,54 +60,52 @@ class _TopicListPageState extends State<TopicListPage> {
         color: Color(0xFF4162D2),
       ),
       child: SafeArea(
-        child: Container(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: RefreshIndicator(
-              key: _refreshKey,
-              onRefresh: () async {
-                await context.read<TopicListCubit>().checkLatest();
-              },
-              child: CustomScrollView(
-                controller: _scrollController,
-                physics: ClampingScrollPhysics(),
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: HomeSliverHeader(
-                      onMenuPressed: () {
-                        if (ZoomDrawer.of(context)!.isOpen()) {
-                          ZoomDrawer.of(context)?.close();
-                        } else {
-                          ZoomDrawer.of(context)?.open();
-                        }
-                      },
-                      onSearchPressed: () {
-                        Navigator.of(context).pushNamed(Routes.search);
-                      },
-                    ),
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverCategorySelector(onSelect: () {
-                      _jumpToTop();
-                    }),
-                  ),
-                  buildSliverTopicList(context),
-                ],
-              ),
-            ),
-            floatingActionButton: showToTop
-                ? FloatingActionButton(
-                    mini: true,
-                    backgroundColor: ColorPalette.backgroundColor,
-                    child: Icon(Icons.arrow_upward_outlined),
-                    onPressed: () {
-                      _jumpToTop();
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: RefreshIndicator(
+            key: _refreshKey,
+            onRefresh: () async {
+              await context.read<TopicListCubit>().checkLatest();
+            },
+            child: CustomScrollView(
+              controller: _scrollController,
+              physics: ClampingScrollPhysics(),
+              slivers: [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: HomeSliverHeader(
+                    onMenuPressed: () {
+                      if (ZoomDrawer.of(context)!.isOpen()) {
+                        ZoomDrawer.of(context)?.close();
+                      } else {
+                        ZoomDrawer.of(context)?.open();
+                      }
                     },
-                  )
-                : null,
+                    onSearchPressed: () {
+                      Navigator.of(context).pushNamed(Routes.search);
+                    },
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverCategorySelector(onSelect: () {
+                    _jumpToTop();
+                  }),
+                ),
+                buildSliverTopicList(context),
+              ],
+            ),
           ),
+          floatingActionButton: showToTop
+              ? FloatingActionButton(
+                  mini: true,
+                  backgroundColor: ColorPalette.backgroundColor,
+                  child: Icon(Icons.arrow_upward_outlined),
+                  onPressed: () {
+                    _jumpToTop();
+                  },
+                )
+              : null,
         ),
       ),
     );
