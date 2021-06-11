@@ -8,6 +8,8 @@ import '../../../widgets/widgets.dart';
 import '../../global/cubit/global_cubit.dart';
 import '../../login/cubit/login_cubit.dart';
 
+typedef RouteGenCallback = String Function();
+
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
 
@@ -94,36 +96,44 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildBody(BuildContext context, int selected) {
-    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
-    final user = context.select((GlobalCubit b) => b.state.user);
-
-    // TODO:
-
     return Container(
       width: 180,
       child: Column(
         children: [
-          MenuItem(
+          _MenuItem(
             icon: Icons.home_outlined,
             text: '首页',
             selected: selected == 0,
           ),
-          MenuItem(
+          _MenuItem(
             icon: Icons.search_outlined,
             text: '搜索',
-            route: Routes.search,
+            routeGen: () => Routes.search,
             selected: selected == 1,
           ),
-          MenuItem(
+          _MenuItem(
             icon: Icons.notifications_outlined,
             text: '消息',
-            route: Routes.message,
+            routeGen: () => Routes.message,
             selected: selected == 2,
           ),
-          MenuItem(
+          _MenuItem(
             icon: Icons.person_outlined,
             text: '我的',
-            route: Routes.profile,
+            routeGen: () {
+              var route = '';
+
+              final state = context.read<GlobalCubit>().state;
+              final userLogin = state.userLogin;
+              final user = state.user;
+              if (userLogin) {
+                Navigator.of(context)
+                    .pushNamed(Routes.profile, arguments: user!.username);
+              } else {
+                route = Routes.login;
+              }
+              return route;
+            },
             selected: selected == 3,
           ),
         ],
@@ -137,10 +147,10 @@ class _MenuPageState extends State<MenuPage> {
     return userLogin
         ? Container(
             width: 200,
-            child: MenuItem(
+            child: _MenuItem(
               icon: Icons.exit_to_app_outlined,
               text: '登出',
-              route: '/',
+              routeGen: () => '/',
               selected: false,
               callback: () {
                 context.read<LoginCubit>().logout();
@@ -152,15 +162,13 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
-typedef BoolCallback = bool Function();
-
-class MenuItem extends StatelessWidget {
-  const MenuItem({
+class _MenuItem extends StatelessWidget {
+  const _MenuItem({
     Key? key,
     this.callback,
     required this.icon,
     required this.text,
-    this.route,
+    this.routeGen,
     required this.selected,
     this.canRoute = true,
   }) : super(key: key);
@@ -168,7 +176,7 @@ class MenuItem extends StatelessWidget {
   final VoidCallback? callback;
   final IconData icon;
   final String text;
-  final String? route;
+  final RouteGenCallback? routeGen;
   final bool selected;
   final bool canRoute;
 
@@ -197,9 +205,12 @@ class MenuItem extends StatelessWidget {
           if (canRoute) {
             callback?.call();
 
-            if (route != null) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  route!, ModalRoute.withName(Routes.home));
+            if (routeGen != null) {
+              final route = routeGen!.call();
+              if (route.isNotEmpty) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    route, ModalRoute.withName(Routes.home));
+              }
             }
           }
         },

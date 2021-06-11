@@ -7,13 +7,16 @@ import 'package:result_type/result_type.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this.authRepository) : super(ProfileInitial());
+  ProfileCubit(this.authRepository, this.topicRepository)
+      : super(ProfileInitial());
 
   final AuthRepository authRepository;
+  final TopicRepository topicRepository;
 
   init(String username) async {
     final user = await authRepository.userProfile(username);
-    emit(ProfileSuccess(user: user));
+    final topics = await topicRepository.recentReadTopics();
+    emit(ProfileSuccess(user: user, recentTopics: topics));
   }
 
   updateAvatar(int userId, String username, PickedFile file) async {

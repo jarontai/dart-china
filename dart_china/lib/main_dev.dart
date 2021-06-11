@@ -15,8 +15,6 @@ class CubitObserver extends BlocObserver {
   }
 }
 
-setup() {}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

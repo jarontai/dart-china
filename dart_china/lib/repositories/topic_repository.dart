@@ -36,4 +36,8 @@ class TopicRepository extends BaseRepository {
   Future<Topic> findTopic(int topicId) async {
     return await client.topicDetail(topicId);
   }
+
+  Future<List<Topic>> recentReadTopics() async {
+    return await client.recentRead();
+  }
 }
