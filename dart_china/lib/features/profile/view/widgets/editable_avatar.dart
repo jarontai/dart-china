@@ -20,7 +20,7 @@ class _EditableAvatarState extends State<EditableAvatar> {
     return Stack(
       children: [
         AvatarButton(
-          size: 60,
+          size: 55,
           avatarUrl: widget.avatar,
         ),
         Positioned(
@@ -28,8 +28,8 @@ class _EditableAvatarState extends State<EditableAvatar> {
           bottom: 0,
           child: widget.onPickAvatar != null
               ? Container(
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color(0xffd3def4),

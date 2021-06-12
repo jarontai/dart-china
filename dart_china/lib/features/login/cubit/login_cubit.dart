@@ -20,9 +20,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   check() async {
     var login = await _authRepository.checkLogin();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var username = prefs.getString(_kUsername);
     if (login) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var username = prefs.getString(_kUsername);
       if (username != null && username.isNotEmpty) {
         var user = await _authRepository.userInfo(username);
         emit(state.copyWith(
@@ -30,6 +30,10 @@ class LoginCubit extends Cubit<LoginState> {
           isLogin: true,
           user: user,
         ));
+      }
+    } else {
+      if (username != null) {
+        await _authRepository.logout(username);
       }
     }
   }

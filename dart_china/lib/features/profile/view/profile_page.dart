@@ -1,6 +1,6 @@
+import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'package:dart_china/common.dart';
 import 'package:dart_china/features/profile/cubit/profile_cubit.dart';
@@ -34,27 +34,38 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: ColorPalette.backgroundColor,
         appBar: AppBar(
+          title: Text(
+            '我的',
+          ),
           backgroundColor: ColorPalette.backgroundColor,
           elevation: 0,
         ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              final myState = state;
-              User? user;
-              if (myState is ProfileSuccess) {
-                user = myState.user;
-              }
+        body: BlocBuilder<ProfileCubit, ProfileState>(
+          builder: (context, state) {
+            final myState = state;
+            User? user;
+            List<Topic>? topics;
+            if (myState is ProfileSuccess) {
+              user = myState.user;
+              topics = myState.recentTopics;
+            }
 
-              return Column(
-                children: [
-                  _buildHead(context, user),
-                  _buildBody(context, user),
-                ],
-              );
-            },
-          ),
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [
+                    _buildHead(context, user),
+                    _buildBody(context, user),
+                  ]),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                _buildFooter(context, topics),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -62,6 +73,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildHead(BuildContext context, User? user) {
     return Container(
+      padding: EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.white38),
+        ),
+      ),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,18 +99,12 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(
             user?.username ?? '',
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 25,
               color: Colors.white,
               fontWeight: FontWeight.w400,
             ),
           )
         ],
-      ),
-      padding: EdgeInsets.only(bottom: 15),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white38),
-        ),
       ),
     );
   }
@@ -105,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(vertical: 15),
           child: Text(
             user?.bio ?? '',
             style: TextStyle(
@@ -115,10 +126,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         SizedBox(
-          height: 8,
+          height: 0,
         ),
         Container(
-          height: 80,
+          height: 65,
           decoration: BoxDecoration(
             color: Colors.white24,
             borderRadius: BorderRadius.circular(15),
@@ -131,46 +142,86 @@ class _ProfilePageState extends State<ProfilePage> {
                 rightBorder: true,
               ),
               _StatisticItem(
-                number: '${(summary?.timeRead ?? 0) ~/ (60)}',
-                text: '阅读分钟',
-                rightBorder: true,
-              ),
-              _StatisticItem(
-                number: '${summary?.topicsEntered ?? 0}',
-                text: '已阅主题',
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.white24,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Row(
-            children: [
-              _StatisticItem(
-                number: '${summary?.postsReadCount ?? 0}',
-                text: '已读帖子',
-                rightBorder: true,
-              ),
-              _StatisticItem(
                 number: '${summary?.topicCount ?? 0}',
                 text: '发表主题',
                 rightBorder: true,
               ),
               _StatisticItem(
-                number: '${summary?.postCount ?? 0}',
-                text: '发表帖子',
+                number: '${summary?.postsReadCount ?? 0}',
+                text: '已读帖子',
               ),
             ],
           ),
         ),
+        // SizedBox(
+        //   height: 20,
+        // ),
+        // Container(
+        //   height: 80,
+        //   decoration: BoxDecoration(
+        //     color: Colors.white24,
+        //     borderRadius: BorderRadius.circular(15),
+        //   ),
+        //   child: Row(
+        //     children: [
+        //       _StatisticItem(
+        //         number: '${summary?.postsReadCount ?? 0}',
+        //         text: '已读帖子',
+        //         rightBorder: true,
+        //       ),
+        //       _StatisticItem(
+        //         number: '${summary?.topicCount ?? 0}',
+        //         text: '发表主题',
+        //         rightBorder: true,
+        //       ),
+        //       _StatisticItem(
+        //         number: '${summary?.postCount ?? 0}',
+        //         text: '发表帖子',
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
+    );
+  }
+
+  Widget _buildFooter(BuildContext context, List<Topic>? topics) {
+    var topicCards = <Widget>[
+      Row(
+        children: [
+          SizedBox(
+            width: 25,
+          ),
+          Text(
+            '最近阅读主题',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
+      SizedBox(
+        height: 5,
+      ),
+    ];
+    if (topics != null && topics.isNotEmpty) {
+      topicCards.addAll(topics.map((e) => TopicCard(topic: e)));
+    }
+
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(
+          top: 15,
+        ),
+        decoration: BoxDecoration(
+          color: ColorPalette.topicBgColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: ListView(
+          children: topicCards,
+        ),
+      ),
     );
   }
 }
@@ -204,7 +255,7 @@ class _StatisticItem extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ),

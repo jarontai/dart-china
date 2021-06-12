@@ -3,14 +3,32 @@ part of 'repositories.dart';
 class TopicRepository extends BaseRepository {
   Future<PageModel<Topic>> fetchLatest(
       {int page = 0, int? categoryId, String? categorySlug}) async {
-    var result = <Topic>[];
-
     var pageModel = await client.topicList(
         latest: true,
         page: page,
         categoryId: categoryId,
         categorySlug: categorySlug);
-    for (var topic in pageModel.data) {
+
+    var result = _prepare(pageModel.data);
+    return pageModel.copyWith(data: result);
+  }
+
+  Future<bool> checkLatest() async {
+    return _client.pollLatest();
+  }
+
+  Future<Topic> findTopic(int topicId) async {
+    return await client.topicDetail(topicId);
+  }
+
+  Future<List<Topic>> recentReadTopics() async {
+    final topics = await client.recentRead();
+    return _prepare(topics);
+  }
+
+  List<Topic> _prepare(List<Topic> topics) {
+    var result = <Topic>[];
+    for (var topic in topics) {
       topic.users?.forEach((user) {
         userMap.putIfAbsent(user.id, () => user);
       });
@@ -25,19 +43,6 @@ class TopicRepository extends BaseRepository {
         poster: poster,
       ));
     }
-
-    return pageModel.copyWith(data: result);
-  }
-
-  Future<bool> checkLatest() async {
-    return _client.pollLatest();
-  }
-
-  Future<Topic> findTopic(int topicId) async {
-    return await client.topicDetail(topicId);
-  }
-
-  Future<List<Topic>> recentReadTopics() async {
-    return await client.recentRead();
+    return result;
   }
 }

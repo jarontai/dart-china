@@ -17,6 +17,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final user = await authRepository.userProfile(username);
     final topics = await topicRepository.recentReadTopics();
     emit(ProfileSuccess(user: user, recentTopics: topics));
+    // emit(ProfileSuccess(user: user, recentTopics: []));
   }
 
   updateAvatar(int userId, String username, PickedFile file) async {
