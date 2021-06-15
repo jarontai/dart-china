@@ -21,7 +21,13 @@ class DartChinaApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              GlobalCubit(BlocProvider.of<LoginCubit>(context)),
+              ProfileCubit(AuthRepository(), TopicRepository()),
+        ),
+        BlocProvider(
+          create: (context) => GlobalCubit(
+            BlocProvider.of<LoginCubit>(context),
+            BlocProvider.of<ProfileCubit>(context),
+          ),
         ),
         BlocProvider(
           create: (context) =>
@@ -35,10 +41,6 @@ class DartChinaApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RegisterCubit(AuthRepository()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              ProfileCubit(AuthRepository(), TopicRepository()),
         ),
       ],
       child: isProduction

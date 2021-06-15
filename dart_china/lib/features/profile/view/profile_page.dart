@@ -186,22 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildFooter(BuildContext context, List<Topic>? topics) {
-    var topicCards = <Widget>[
-      Row(
-        children: [
-          SizedBox(
-            width: 25,
-          ),
-          Text(
-            '最近阅读主题',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          )
-        ],
-      ),
-      SizedBox(
-        height: 5,
-      ),
-    ];
+    var topicCards = <Widget>[];
     if (topics != null && topics.isNotEmpty) {
       topicCards.addAll(topics.map((e) => TopicCard(topic: e)));
     }
@@ -218,8 +203,28 @@ class _ProfilePageState extends State<ProfilePage> {
             topRight: Radius.circular(20),
           ),
         ),
-        child: ListView(
-          children: topicCards,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 25,
+                ),
+                Text(
+                  '最近阅读主题',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Expanded(
+              child: ListView(
+                children: topicCards,
+              ),
+            ),
+          ],
         ),
       ),
     );

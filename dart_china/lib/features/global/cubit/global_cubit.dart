@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dart_china/features/profile/cubit/profile_cubit.dart';
 import 'package:dart_china/repositories/repositories.dart';
 
 import '../../../common.dart';
@@ -10,10 +11,11 @@ import '../../login/cubit/login_cubit.dart';
 part 'global_state.dart';
 
 class GlobalCubit extends Cubit<GlobalState> {
-  GlobalCubit(this.loginCubit) : super(GlobalState()) {
-    authSubscription = loginCubit.stream.listen((authState) {
-      if (authState.isLogin) {
+  GlobalCubit(this.loginCubit, this.profileCubit) : super(GlobalState()) {
+    _authSubscription = loginCubit.stream.listen((authState) {
+      if (authState.isLogin && authState.user != null) {
         _updateLogin(true, authState.user);
+        profileCubit.init(authState.user!.username);
       } else {
         _updateLogin(false, null);
       }
@@ -23,7 +25,8 @@ class GlobalCubit extends Cubit<GlobalState> {
   }
 
   final LoginCubit loginCubit;
-  StreamSubscription? authSubscription;
+  final ProfileCubit profileCubit;
+  StreamSubscription? _authSubscription;
 
   checkLogin() async {
     await loginCubit.check();
@@ -36,7 +39,7 @@ class GlobalCubit extends Cubit<GlobalState> {
 
   @override
   Future<void> close() {
-    authSubscription?.cancel();
+    _authSubscription?.cancel();
     return super.close();
   }
 }
