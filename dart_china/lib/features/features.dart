@@ -13,3 +13,5 @@ export 'search/cubit/search_cubit.dart';
 export 'search/view/search_page.dart';
 export 'topic/cubit/topic_cubit.dart';
 export 'topic/view/topic_page.dart';
+export 'message/cubit/message_cubit.dart';
+export 'message/view/message_page.dart';

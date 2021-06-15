@@ -29,6 +29,7 @@ dependencies:
   sentry: ^5.0.0
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
+  html_editor_enhanced: ^2.2.0
 
 dependency_overrides:
   discourse_api:

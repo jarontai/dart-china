@@ -24,11 +24,11 @@ class AppConfig {
   final String siteUrl;
   final String? cdnUrl;
 
-  bool get isProduction {
+  bool get isProd {
     return flavorName == production;
   }
 
-  bool get isDevelopment {
+  bool get isDev {
     return flavorName == development;
   }
 }

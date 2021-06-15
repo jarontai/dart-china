@@ -238,7 +238,7 @@ packages:
       path: "../../discourse_api"
       relative: true
     source: path
-    version: "0.3.11"
+    version: "0.3.13"
   dotenv:
     dependency: transitive
     description:
@@ -274,6 +274,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.1"
+  file_picker:
+    dependency: transitive
+    description:
+      name: file_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.2+2"
   fixnum:
     dependency: transitive
     description:
@@ -307,6 +314,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.1"
+  flutter_colorpicker:
+    dependency: transitive
+    description:
+      name: flutter_colorpicker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
   flutter_easyloading:
     dependency: "direct main"
     description:
@@ -314,6 +328,34 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  flutter_inappwebview:
+    dependency: transitive
+    description:
+      name: flutter_inappwebview
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.2"
+  flutter_keyboard_visibility:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.2"
+  flutter_keyboard_visibility_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  flutter_keyboard_visibility_web:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -434,6 +476,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.4"
+  html_editor_enhanced:
+    dependency: "direct main"
+    description:
+      name: html_editor_enhanced
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.0"
   http:
     dependency: transitive
     description:
@@ -483,6 +532,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  infinite_listview:
+    dependency: transitive
+    description:
+      name: infinite_listview
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   injectable:
     dependency: transitive
     description:
@@ -581,6 +637,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  numberpicker:
+    dependency: transitive
+    description:
+      name: numberpicker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.1"
   octo_image:
     dependency: transitive
     description:
@@ -679,6 +742,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  pointer_interceptor:
+    dependency: transitive
+    description:
+      name: pointer_interceptor
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.9.0+1"
   pool:
     dependency: transitive
     description:
@@ -950,6 +1020,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  visibility_detector:
+    dependency: transitive
+    description:
+      name: visibility_detector
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   watcher:
     dependency: transitive
     description:

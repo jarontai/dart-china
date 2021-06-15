@@ -10,7 +10,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.authRepository, this.topicRepository)
       : super(ProfileInitial());
 
-  final AuthRepository authRepository;
+  final UserRepository authRepository;
   final TopicRepository topicRepository;
 
   init(String username) async {

@@ -12,11 +12,13 @@ part 'login_state.dart';
 const _kUsername = 'username';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(AuthRepository authRepository)
+  LoginCubit(AuthRepository authRepository, UserRepository userRepository)
       : _authRepository = authRepository,
+        _userRepository = userRepository,
         super(LoginState());
 
   final AuthRepository _authRepository;
+  final UserRepository _userRepository;
 
   check() async {
     var login = await _authRepository.checkLogin();
@@ -24,7 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
     var username = prefs.getString(_kUsername);
     if (login) {
       if (username != null && username.isNotEmpty) {
-        var user = await _authRepository.userInfo(username);
+        var user = await _userRepository.userInfo(username);
         emit(state.copyWith(
           loading: false,
           isLogin: true,

@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:result_type/result_type.dart';
 
 part 'auth_repository.dart';
+part 'user_repository.dart';
 part 'post_repository.dart';
 part 'topic_repository.dart';
 

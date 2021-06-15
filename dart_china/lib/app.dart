@@ -12,53 +12,68 @@ import 'repositories/repositories.dart';
 class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isProduction = AppConfigScope.of(context).config.isProduction;
+    final isProd = AppConfigScope.of(context).config.isProd;
 
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (context) => LoginCubit(AuthRepository()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              ProfileCubit(AuthRepository(), TopicRepository()),
-        ),
-        BlocProvider(
-          create: (context) => GlobalCubit(
-            BlocProvider.of<LoginCubit>(context),
-            BlocProvider.of<ProfileCubit>(context),
-          ),
-        ),
-        BlocProvider(
-          create: (context) =>
-              TopicListCubit(TopicRepository(), CategoryRepository()),
-        ),
-        BlocProvider(
-          create: (context) => TopicCubit(PostRepository(), TopicRepository()),
-        ),
-        BlocProvider(
-          create: (context) => SearchCubit(PostRepository()),
-        ),
-        BlocProvider(
-          create: (context) => RegisterCubit(AuthRepository()),
-        ),
+        RepositoryProvider<AuthRepository>(create: (_) => AuthRepository()),
+        RepositoryProvider<UserRepository>(create: (_) => UserRepository()),
+        RepositoryProvider<TopicRepository>(create: (_) => TopicRepository()),
+        RepositoryProvider<CategoryRepository>(
+            create: (_) => CategoryRepository()),
+        RepositoryProvider<PostRepository>(create: (_) => PostRepository()),
       ],
-      child: isProduction
-          ? Builder(builder: (context) {
-              return _buildApp(context, true);
-            })
-          : DevicePreview(
-              builder: (context) {
-                return _buildApp(context, false);
-              },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginCubit(
+                context.read<AuthRepository>(), context.read<UserRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => ProfileCubit(context.read<UserRepository>(),
+                context.read<TopicRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => GlobalCubit(
+              BlocProvider.of<LoginCubit>(context),
+              BlocProvider.of<ProfileCubit>(context),
             ),
+          ),
+          BlocProvider(
+            create: (context) => TopicListCubit(context.read<TopicRepository>(),
+                context.read<CategoryRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => TopicCubit(context.read<PostRepository>(),
+                context.read<TopicRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => SearchCubit(context.read<PostRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => RegisterCubit(context.read<AuthRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => MessageCubit(context.read<UserRepository>()),
+          ),
+        ],
+        child: isProd
+            ? Builder(builder: (context) {
+                return _buildApp(context, true);
+              })
+            : DevicePreview(
+                builder: (context) {
+                  return _buildApp(context, false);
+                },
+              ),
+      ),
     );
   }
 
-  Widget _buildApp(BuildContext context, bool production) {
+  Widget _buildApp(BuildContext context, bool isProd) {
     return MaterialApp(
       builder: EasyLoading.init(builder: (context, child) {
-        if (!production) {
+        if (!isProd) {
           child = DevicePreview.appBuilder(context, child);
         }
         return child!;
