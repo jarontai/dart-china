@@ -25,4 +25,12 @@ class UserRepository extends BaseRepository {
       {int page = 0}) async {
     return client.notifications(username, page: page);
   }
+
+  Future<bool> readNotification(String username, int id) async {
+    return client.notificationRead(username, id);
+  }
+
+  Future<bool> readAllNotification(String username) async {
+    return client.notificationReadAll(username);
+  }
 }

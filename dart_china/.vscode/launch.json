@@ -10,5 +10,12 @@
             "type": "dart",
             "program": "lib/main_dev.dart",
         },
+        {
+            "name": "dart_china_profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "program": "lib/main_dev.dart",
+        },
     ]
 }
