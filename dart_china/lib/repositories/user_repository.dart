@@ -21,6 +21,11 @@ class UserRepository extends BaseRepository {
     return client.updateUserInfo(username, bio: bio);
   }
 
+  Future<bool> hasNotification(String username) async {
+    final notifications = await client.notifications(username, unread: true);
+    return notifications.data.isNotEmpty;
+  }
+
   Future<PageModel<Notification>> notifications(String username,
       {int page = 0}) async {
     return client.notifications(username, page: page);

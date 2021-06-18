@@ -34,9 +34,14 @@ class DartChinaApp extends StatelessWidget {
                 context.read<TopicRepository>()),
           ),
           BlocProvider(
+            create: (context) =>
+                NotificationCubit(context.read<UserRepository>()),
+          ),
+          BlocProvider(
             create: (context) => GlobalCubit(
               BlocProvider.of<LoginCubit>(context),
               BlocProvider.of<ProfileCubit>(context),
+              BlocProvider.of<NotificationCubit>(context),
             ),
           ),
           BlocProvider(
@@ -52,9 +57,6 @@ class DartChinaApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => RegisterCubit(context.read<AuthRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => NotificationCubit(context.read<UserRepository>()),
           ),
         ],
         child: isProd

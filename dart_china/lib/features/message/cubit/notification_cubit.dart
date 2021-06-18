@@ -6,9 +6,9 @@ import 'package:dart_china/repositories/repositories.dart';
 part 'notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
-  NotificationCubit(this.authRepository) : super(NotificationInitial());
+  NotificationCubit(this.userRepository) : super(NotificationInitial());
 
-  final UserRepository authRepository;
+  final UserRepository userRepository;
 
   void fetch(String username, {bool refresh = false}) async {
     var page = 0;
@@ -27,11 +27,15 @@ class NotificationCubit extends Cubit<NotificationState> {
       ));
     }
 
-    final pageModel = await authRepository.notifications(username, page: page);
+    final pageModel = await userRepository.notifications(username, page: page);
     emit(NotificationSuccess(
       page: page,
       more: pageModel.hasNext,
       notifications: pageModel.data,
     ));
+  }
+
+  Future<bool> hasNotification(String username) {
+    return userRepository.hasNotification(username);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:badges/badges.dart';
+import 'package:dart_china/features/global/cubit/global_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,5 +9,4 @@ import '../../cubit/topic_list_cubit.dart';
 
 part 'category_selector.dart';
 part 'home_sliver_header.dart';
-part 'topic_list.dart';
 part 'welcome_block.dart';

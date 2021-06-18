@@ -4,8 +4,10 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
   HomeSliverHeader({
     required this.onMenuPressed,
     required this.onSearchPressed,
+    this.badge = false,
   });
 
+  final bool badge;
   final VoidCallback onMenuPressed;
   final VoidCallback onSearchPressed;
   final double _expandedHeight = 130;
@@ -49,17 +51,23 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
   }
 
   AppBar _buildAppBar(BuildContext context, [bool titleVisiable = false]) {
+    Widget menuButton = IconButton(
+      icon: badge
+          ? Badge(
+              child: Icon(Icons.menu),
+              position: BadgePosition.topEnd(top: 0, end: 0))
+          : Icon(Icons.menu),
+      splashRadius: kSplashRadius,
+      onPressed: () {
+        onMenuPressed.call();
+      },
+    );
+
     return AppBar(
       centerTitle: true,
       backgroundColor: titleVisiable ? Color(0xFF4162D2) : Colors.transparent,
       elevation: 0,
-      leading: IconButton(
-        icon: Icon(Icons.menu),
-        splashRadius: kSplashRadius,
-        onPressed: () {
-          onMenuPressed.call();
-        },
-      ),
+      leading: menuButton,
       title: titleVisiable
           ? Text(
               'Dart China',
