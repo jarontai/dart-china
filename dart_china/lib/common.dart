@@ -49,18 +49,3 @@ abstract class RegExps {
   static final email = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 }
-
-class Debouncer {
-  late int millisecond;
-  Timer? _timer;
-
-  Debouncer({this.millisecond = 500});
-
-  run(VoidCallback action) {
-    if (_timer != null) {
-      _timer!.cancel();
-    }
-
-    _timer = Timer(Duration(milliseconds: millisecond), action);
-  }
-}

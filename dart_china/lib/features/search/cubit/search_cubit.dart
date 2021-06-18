@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
-import 'package:equatable/equatable.dart';
 
-import '../../../common.dart';
+import '../../../util.dart';
 import '../../../repositories/repositories.dart';
 
 part 'search_state.dart';

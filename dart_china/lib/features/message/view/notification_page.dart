@@ -1,4 +1,5 @@
 import 'package:dart_china/models/models.dart' as models;
+import 'package:dart_china/util.dart';
 import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class _NotificationPageState extends State<NotificationPage> {
                 final myState = state;
 
                 if (myState is NotificationLoading) {
-                  return ListLoader();
+                  return Column(
+                    children: [ListLoader()],
+                  );
                 } else if (myState is NotificationSuccess) {
                   final notifications = myState.notifications;
                   final itemCount = notifications.length;
@@ -83,6 +86,7 @@ class _NotificationPageState extends State<NotificationPage> {
   ListTile _buildItem(models.Notification item) {
     var title;
     var username;
+    var time = DateTime.parse(item.createdAt);
     var topicId = item.topicId;
     var itemData = item.data;
     if (itemData != null) {
@@ -131,12 +135,13 @@ class _NotificationPageState extends State<NotificationPage> {
     }
 
     return ListTile(
+      horizontalTitleGap: 8,
       leading: Icon(icon),
       title: RichText(
         text: TextSpan(children: [
           if (username != null)
             TextSpan(text: username, style: TextStyle(color: Colors.black87)),
-          if (username != null) TextSpan(text: '  '),
+          if (username != null) TextSpan(text: ' '),
           TextSpan(
               text: title,
               style: TextStyle(color: Colors.blue.shade700),
@@ -147,6 +152,12 @@ class _NotificationPageState extends State<NotificationPage> {
                       print('Click message');
                     }))
         ]),
+      ),
+      subtitle: Text(
+        TimeUtil.format(time),
+        style: TextStyle(
+          fontSize: 13,
+        ),
       ),
     );
   }
