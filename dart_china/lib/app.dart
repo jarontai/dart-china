@@ -54,7 +54,7 @@ class DartChinaApp extends StatelessWidget {
             create: (context) => RegisterCubit(context.read<AuthRepository>()),
           ),
           BlocProvider(
-            create: (context) => MessageCubit(context.read<UserRepository>()),
+            create: (context) => NotificationCubit(context.read<UserRepository>()),
           ),
         ],
         child: isProd
@@ -88,6 +88,7 @@ class DartChinaApp extends StatelessWidget {
         Routes.login: (_) => LoginPage(),
         Routes.search: (_) => SearchPage(),
         Routes.register: (_) => RegisterPage(),
+        Routes.notification: (_) => NotificationPage(),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
       debugShowCheckedModeBanner: false,

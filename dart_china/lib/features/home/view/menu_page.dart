@@ -114,7 +114,7 @@ class _MenuPageState extends State<MenuPage> {
           _MenuItem(
             icon: Icons.notifications_outlined,
             text: '消息',
-            routeGen: () => Routes.message,
+            routeGen: () => Routes.notification,
             selected: selected == 2,
           ),
           _MenuItem(

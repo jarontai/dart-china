@@ -94,13 +94,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildSearchResult(BuildContext context) {
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
-        var theState = state;
-        if (theState is SearchLoading) {
+        var myState = state;
+        if (myState is SearchLoading) {
           return ListLoader();
         }
-        if (theState is SearchSuccess) {
-          var loading = theState.loading;
-          var dataCount = theState.data.length;
+        if (myState is SearchSuccess) {
+          var loading = myState.loading;
+          var dataCount = myState.data.length;
           var itemCount = dataCount;
           if (loading) {
             itemCount++;
@@ -114,9 +114,9 @@ class _SearchPageState extends State<SearchPage> {
                 return ListLoader();
               }
 
-              var topic = theState.data[index].topic;
-              var post = theState.data[index].post;
-              var slug = theState.slugs[index];
+              var topic = myState.data[index].topic;
+              var post = myState.data[index].post;
+              var slug = myState.slugs[index];
               var time = DateTime.parse(post.createdAt);
 
               return SearchItem(
