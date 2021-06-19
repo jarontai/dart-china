@@ -44,7 +44,7 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
           body: Container(
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: BlocBuilder<NotificationCubit, NotificationState>(
               builder: (context, state) {
                 final myState = state;
@@ -58,17 +58,15 @@ class _NotificationPageState extends State<NotificationPage> {
                   final itemCount = notifications.length;
                   return Column(
                     children: [
-                      Row(
-                        children: [Text('通知列表')],
-                      ),
                       Expanded(
                         child: ListView.builder(
+                          padding: EdgeInsets.only(top: 10),
                           itemBuilder: (context, index) {
                             if (index >= itemCount) {
                               return ListLoader();
                             }
                             final item = notifications[index];
-                            return _buildItem(item);
+                            return _buildItem(context, item);
                           },
                           itemCount: myState.paging ? itemCount + 1 : itemCount,
                         ),
@@ -83,9 +81,9 @@ class _NotificationPageState extends State<NotificationPage> {
         ));
   }
 
-  ListTile _buildItem(models.Notification item) {
+  ListTile _buildItem(BuildContext context, models.Notification item) {
     var title;
-    var username;
+    var user;
     var time = DateTime.parse(item.createdAt);
     var topicId = item.topicId;
     var itemData = item.data;
@@ -101,7 +99,7 @@ class _NotificationPageState extends State<NotificationPage> {
       if (title != null &&
           itemData.displayUsername != null &&
           itemData.displayUsername!.isNotEmpty) {
-        username = itemData.displayUsername;
+        user = itemData.displayUsername;
       }
     }
 
@@ -134,17 +132,22 @@ class _NotificationPageState extends State<NotificationPage> {
         break;
     }
 
+    var color = item.read ? Colors.grey.shade500 : Colors.blue.shade400;
     return ListTile(
+      contentPadding: EdgeInsets.only(
+        left: 16,
+        right: 0,
+      ),
       horizontalTitleGap: 8,
       leading: Icon(icon),
       title: RichText(
         text: TextSpan(children: [
-          if (username != null)
-            TextSpan(text: username, style: TextStyle(color: Colors.black87)),
-          if (username != null) TextSpan(text: ' '),
+          if (user != null)
+            TextSpan(text: user, style: TextStyle(color: Colors.black)),
+          if (user != null) TextSpan(text: ' '),
           TextSpan(
               text: title,
-              style: TextStyle(color: Colors.blue.shade700),
+              style: TextStyle(color: color),
               recognizer: topicId == null
                   ? null
                   : (TapGestureRecognizer()
@@ -159,6 +162,25 @@ class _NotificationPageState extends State<NotificationPage> {
           fontSize: 13,
         ),
       ),
+      trailing: item.read
+          ? null
+          : Material(
+              color: Colors.white,
+              child: IconButton(
+                splashRadius: 20,
+                icon: Icon(Icons.drafts_outlined),
+                onPressed: () async {
+                  final global = context.read<GlobalCubit>().state;
+                  if (global.user != null) {
+                    final notificationCubit = context.read<NotificationCubit>();
+                    await notificationCubit.readNotification(
+                        global.user!.username, item.id);
+                    notificationCubit.fetch(global.user!.username,
+                        refresh: true);
+                  }
+                },
+              ),
+            ),
     );
   }
 }

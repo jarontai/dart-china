@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/features/features.dart';
 import 'package:dart_china/models/models.dart';
 import 'package:dart_china/repositories/repositories.dart';
 
@@ -37,5 +36,9 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   Future<bool> hasNotification(String username) {
     return userRepository.hasNotification(username);
+  }
+
+  Future<bool> readNotification(String username, int id) {
+    return userRepository.readNotification(username, id);
   }
 }

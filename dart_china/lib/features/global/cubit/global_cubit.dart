@@ -16,7 +16,6 @@ class GlobalCubit extends Cubit<GlobalState> {
       if (authState.isLogin && authState.user != null) {
         _updateLogin(true, authState.user);
         profileCubit.init(authState.user!.username);
-        _checkNotification(authState.user!.username);
       } else {
         _updateLogin(false, null, notifcation: false);
       }
@@ -29,7 +28,6 @@ class GlobalCubit extends Cubit<GlobalState> {
   final LoginCubit loginCubit;
   final ProfileCubit profileCubit;
   StreamSubscription? _loginSubscription;
-  StreamSubscription? _notificationSubscription;
 
   _checkLogin() async {
     await loginCubit.check();
@@ -41,15 +39,17 @@ class GlobalCubit extends Cubit<GlobalState> {
         userLogin: status, user: user, hasNotification: notifcation));
   }
 
-  _checkNotification(String username) async {
-    final has = await notificationCubit.hasNotification(username);
-    emit(state.copyWith(hasNotification: has));
+  checkNotification([String? username]) async {
+    if (username != null || state.user != null) {
+      final has = await notificationCubit
+          .hasNotification(username ?? state.user!.username);
+      emit(state.copyWith(hasNotification: has));
+    }
   }
 
   @override
   Future<void> close() {
     _loginSubscription?.cancel();
-    _notificationSubscription?.cancel();
     return super.close();
   }
 }
