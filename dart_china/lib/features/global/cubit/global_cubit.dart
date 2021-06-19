@@ -18,7 +18,7 @@ class GlobalCubit extends Cubit<GlobalState> {
         profileCubit.init(authState.user!.username);
         _checkNotification(authState.user!.username);
       } else {
-        _updateLogin(false, null);
+        _updateLogin(false, null, notifcation: false);
       }
     });
 
@@ -35,9 +35,10 @@ class GlobalCubit extends Cubit<GlobalState> {
     await loginCubit.check();
   }
 
-  _updateLogin(bool status, User? user) {
+  _updateLogin(bool status, User? user, {bool? notifcation}) {
     print('App state login change: $status');
-    emit(state.copyWith(userLogin: status, user: user));
+    emit(state.copyWith(
+        userLogin: status, user: user, hasNotification: notifcation));
   }
 
   _checkNotification(String username) async {

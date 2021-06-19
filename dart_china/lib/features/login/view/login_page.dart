@@ -41,7 +41,8 @@ class _LoginPageState extends State<LoginPage> {
                   EasyLoading.show();
                 } else if (state.isLogin) {
                   EasyLoading.showToast(Messages.loginSuccess);
-                  Navigator.of(context).popAndPushNamed(Routes.home);
+                  Navigator.of(context)
+                      .popUntil(ModalRoute.withName(Routes.home));
                 }
               },
               builder: (context, state) {

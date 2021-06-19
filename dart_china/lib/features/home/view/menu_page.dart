@@ -223,8 +223,7 @@ class _MenuItem extends StatelessWidget {
             if (routeGen != null) {
               final route = routeGen!.call();
               if (route.isNotEmpty) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    route, ModalRoute.withName(Routes.home));
+                Navigator.of(context).pushNamed(route);
               }
             }
           }

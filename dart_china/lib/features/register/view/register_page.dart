@@ -100,7 +100,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 } else if (state is RegisterSuccess) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   EasyLoading.showToast(Messages.registerSuccess);
-                  Navigator.of(context).pushNamed(Routes.home);
+                  Navigator.of(context)
+                      .popUntil(ModalRoute.withName(Routes.home));
                 } else if (state is RegisterFail) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   EasyLoading.showToast(Messages.registerFail);
