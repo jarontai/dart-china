@@ -117,7 +117,17 @@ class _MenuPageState extends State<MenuPage> {
               _MenuItem(
                 icon: Icons.notifications_outlined,
                 text: '消息',
-                routeGen: () => Routes.notification,
+                routeGen: () {
+                  var route = '';
+                  final state = context.read<GlobalCubit>().state;
+                  final userLogin = state.userLogin;
+                  if (userLogin) {
+                    route = Routes.notification;
+                  } else {
+                    route = Routes.login;
+                  }
+                  return route;
+                },
                 selected: selected == 2,
                 badge: state.hasNotification,
               ),
@@ -126,7 +136,6 @@ class _MenuPageState extends State<MenuPage> {
                 text: '我的',
                 routeGen: () {
                   var route = '';
-
                   final state = context.read<GlobalCubit>().state;
                   final userLogin = state.userLogin;
                   final user = state.user;
