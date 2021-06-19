@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -98,45 +99,50 @@ class _MenuPageState extends State<MenuPage> {
   Widget _buildBody(BuildContext context, int selected) {
     return Container(
       width: 180,
-      child: Column(
-        children: [
-          _MenuItem(
-            icon: Icons.home_outlined,
-            text: '首页',
-            selected: selected == 0,
-          ),
-          _MenuItem(
-            icon: Icons.search_outlined,
-            text: '搜索',
-            routeGen: () => Routes.search,
-            selected: selected == 1,
-          ),
-          _MenuItem(
-            icon: Icons.notifications_outlined,
-            text: '消息',
-            routeGen: () => Routes.notification,
-            selected: selected == 2,
-          ),
-          _MenuItem(
-            icon: Icons.person_outlined,
-            text: '我的',
-            routeGen: () {
-              var route = '';
+      child: BlocBuilder<GlobalCubit, GlobalState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              _MenuItem(
+                icon: Icons.home_outlined,
+                text: '首页',
+                selected: selected == 0,
+              ),
+              _MenuItem(
+                icon: Icons.search_outlined,
+                text: '搜索',
+                routeGen: () => Routes.search,
+                selected: selected == 1,
+              ),
+              _MenuItem(
+                icon: Icons.notifications_outlined,
+                text: '消息',
+                routeGen: () => Routes.notification,
+                selected: selected == 2,
+                badge: state.hasNotification,
+              ),
+              _MenuItem(
+                icon: Icons.person_outlined,
+                text: '我的',
+                routeGen: () {
+                  var route = '';
 
-              final state = context.read<GlobalCubit>().state;
-              final userLogin = state.userLogin;
-              final user = state.user;
-              if (userLogin) {
-                Navigator.of(context)
-                    .pushNamed(Routes.profile, arguments: user!.username);
-              } else {
-                route = Routes.login;
-              }
-              return route;
-            },
-            selected: selected == 3,
-          ),
-        ],
+                  final state = context.read<GlobalCubit>().state;
+                  final userLogin = state.userLogin;
+                  final user = state.user;
+                  if (userLogin) {
+                    Navigator.of(context)
+                        .pushNamed(Routes.profile, arguments: user!.username);
+                  } else {
+                    route = Routes.login;
+                  }
+                  return route;
+                },
+                selected: selected == 3,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -171,6 +177,7 @@ class _MenuItem extends StatelessWidget {
     this.routeGen,
     required this.selected,
     this.canRoute = true,
+    this.badge = false,
   }) : super(key: key);
 
   final VoidCallback? callback;
@@ -179,6 +186,7 @@ class _MenuItem extends StatelessWidget {
   final RouteGenCallback? routeGen;
   final bool selected;
   final bool canRoute;
+  final bool badge;
 
   @override
   Widget build(BuildContext context) {
@@ -190,10 +198,17 @@ class _MenuItem extends StatelessWidget {
         ),
         tileColor: selected ? Color(0xFFa7aec2) : null,
         horizontalTitleGap: 0,
-        leading: Icon(
-          icon,
-          color: selected ? Colors.white : Colors.grey.shade300,
-        ),
+        leading: badge
+            ? Badge(
+                position: BadgePosition.topEnd(top: 0, end: 0),
+                child: Icon(
+                  icon,
+                  color: selected ? Colors.white : Colors.grey.shade300,
+                ))
+            : Icon(
+                icon,
+                color: selected ? Colors.white : Colors.grey.shade300,
+              ),
         title: Text(
           text,
           style: TextStyle(

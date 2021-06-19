@@ -55,7 +55,7 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
       icon: badge
           ? Badge(
               child: Icon(Icons.menu),
-              position: BadgePosition.topEnd(top: 0, end: 0))
+              position: BadgePosition.topEnd(top: 0, end: -2))
           : Icon(Icons.menu),
       splashRadius: kSplashRadius,
       onPressed: () {
