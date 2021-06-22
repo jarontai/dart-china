@@ -73,5 +73,6 @@ class TopicCubit extends Cubit<TopicState> {
       status: TopicStatus.success,
       postSuccess: true,
     ));
+    emit(state.copyWith(postSuccess: false));
   }
 }

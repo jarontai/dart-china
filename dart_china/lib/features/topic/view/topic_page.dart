@@ -53,7 +53,7 @@ class _TopicPageState extends State<TopicPage> {
       child: Scaffold(
         backgroundColor: ColorPalette.topicBgColor,
         appBar: _buildAppBar(),
-        floatingActionButton: _buildPostButton(context),
+        floatingActionButton: _buildFloatingButton(context),
         body: BlocConsumer<TopicCubit, TopicState>(
           listener: (context, state) {
             if (state.postSuccess) {
@@ -78,17 +78,20 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
-  Widget _buildPostButton(BuildContext context) {
+  Widget _buildFloatingButton(BuildContext context) {
     var appState = context.read<GlobalCubit>().state;
-    return ReplySection(
-      canOpen: appState.userLogin,
-      onReject: () {
-        Navigator.of(context).pushNamed(Routes.login);
-      },
-      onReply: (text) {
-        var topicCubit = context.read<TopicCubit>();
-        topicCubit.createTopicPost(text);
-      },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: ReplySection(
+        canOpen: appState.userLogin,
+        onReject: () {
+          Navigator.of(context).pushNamed(Routes.login);
+        },
+        onReply: (text) {
+          var topicCubit = context.read<TopicCubit>();
+          topicCubit.createTopicPost(text);
+        },
+      ),
     );
   }
 

@@ -19,7 +19,9 @@ class ReplySection extends StatefulWidget {
 class _ReplySectionState extends State<ReplySection> {
   bool _open = false;
   bool _empty = true;
+  bool _focus = false;
   TextEditingController _textEditingController = new TextEditingController();
+  FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -28,6 +30,12 @@ class _ReplySectionState extends State<ReplySection> {
     _textEditingController.addListener(() {
       setState(() {
         _empty = _textEditingController.text.isEmpty;
+      });
+    });
+
+    _focusNode.addListener(() {
+      setState(() {
+        _focus = _focusNode.hasFocus;
       });
     });
   }
@@ -67,32 +75,27 @@ class _ReplySectionState extends State<ReplySection> {
                           right: 50,
                         ),
                         child: TextField(
+                          focusNode: _focusNode,
                           controller: _textEditingController,
                           minLines: 1,
                           maxLines: 6,
                           decoration: InputDecoration(
                             isDense: true,
-                            fillColor: Color(0xFFd3def4),
+                            fillColor: _focus
+                                ? Colors.blue.shade100
+                                : Colors.grey.shade300,
                             filled: true,
                             border: OutlineInputBorder(
                               gapPadding: 0,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                                bottomLeft: Radius.circular(20),
-                              ),
+                              borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
                               gapPadding: 0,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                                bottomLeft: Radius.circular(20),
-                              ),
+                              borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(
-                                color: Colors.blue.shade400,
-                                width: 1.5,
+                                color: Colors.blue.shade500,
+                                width: 1.2,
                               ),
                             ),
                           ),
