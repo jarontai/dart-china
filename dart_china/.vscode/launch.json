@@ -17,5 +17,12 @@
             "flutterMode": "profile",
             "program": "lib/main_dev.dart",
         },
+        {
+            "name": "dart_china_release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_prod.dart",
+        },
     ]
 }

@@ -73,7 +73,6 @@ class _NotificationPageState extends State<NotificationPage> {
                 } else if (state.status.isSuccess || state.status.isPaging) {
                   final notifications = state.notifications;
                   final itemCount = notifications.length;
-                  print('itemCount: $itemCount');
                   return Column(
                     children: [
                       Expanded(

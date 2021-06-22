@@ -34,7 +34,7 @@ class GlobalCubit extends Cubit<GlobalState> {
   }
 
   _updateLogin(bool status, User? user, {bool? notifcation}) {
-    print('App state login change: $status');
+    // print('App state login change: $status');
     emit(state.copyWith(
         userLogin: status, user: user, hasNotification: notifcation));
   }

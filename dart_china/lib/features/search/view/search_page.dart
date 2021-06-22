@@ -30,11 +30,9 @@ class _SearchPageState extends State<SearchPage> {
       if (!_scrollController.hasClients) return;
 
       var maxScroll = _scrollController.position.maxScrollExtent;
-      print('${_scrollController.offset} ${maxScroll * 0.9}');
       if (_scrollController.offset >= (maxScroll * 0.9)) {
         var value = form.control('search').value;
         context.read<SearchCubit>().search(value, refresh: false);
-        print('wtf');
       }
     });
   }
