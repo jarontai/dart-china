@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/models/models.dart';
-import 'package:dart_china/repositories/repositories.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:result_type/result_type.dart';
+
+import '../../../models/models.dart';
+import '../../../repositories/repositories.dart';
 
 part 'profile_state.dart';
 

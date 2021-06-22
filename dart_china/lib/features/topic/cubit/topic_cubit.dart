@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
 
-import '../../../util.dart';
 import '../../../repositories/repositories.dart';
+import '../../../util.dart';
 
 export 'package:discourse_api/discourse_api.dart' show Topic, Post, User;
 

@@ -1,9 +1,9 @@
-import 'package:dart_china/widgets/post_body.dart';
-import 'package:dart_china/widgets/topic_post_header.dart';
 import 'package:flutter/material.dart';
 
 import '../common.dart';
 import '../models/models.dart';
+import 'post_body.dart';
+import 'topic_post_header.dart';
 
 class TopicCard extends StatelessWidget {
   const TopicCard({

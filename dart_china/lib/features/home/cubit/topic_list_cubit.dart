@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:discourse_api/discourse_api.dart';
 import 'package:meta/meta.dart';
 
-import '../../../util.dart';
 import '../../../common.dart';
 import '../../../repositories/repositories.dart';
+import '../../../util.dart';
 import '../../features.dart';
 
 export 'package:discourse_api/discourse_api.dart' show Topic;

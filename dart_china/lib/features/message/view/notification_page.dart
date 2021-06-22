@@ -1,11 +1,11 @@
-import 'package:dart_china/models/models.dart' as models;
-import 'package:dart_china/util.dart';
-import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common.dart';
+import '../../../models/models.dart' as models;
+import '../../../util.dart';
+import '../../../widgets/widgets.dart';
 import '../../features.dart';
 
 class NotificationPage extends StatefulWidget {

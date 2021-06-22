@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/features/message/cubit/notification_cubit.dart';
-import 'package:dart_china/features/profile/cubit/profile_cubit.dart';
 
 import '../../../models/models.dart';
 import '../../login/cubit/login_cubit.dart';
+import '../../message/cubit/notification_cubit.dart';
+import '../../profile/cubit/profile_cubit.dart';
 
 part 'global_state.dart';
 

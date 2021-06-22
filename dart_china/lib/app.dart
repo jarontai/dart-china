@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'config.dart';
 import 'common.dart';
+import 'config.dart';
 import 'features/features.dart';
 import 'repositories/repositories.dart';
 

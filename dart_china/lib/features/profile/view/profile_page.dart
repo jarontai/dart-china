@@ -1,11 +1,11 @@
-import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:dart_china/common.dart';
-import 'package:dart_china/features/profile/cubit/profile_cubit.dart';
-import 'package:dart_china/features/profile/view/widgets/widgets.dart';
-import 'package:dart_china/models/models.dart';
+import '../../../common.dart';
+import '../../../models/models.dart';
+import '../../../widgets/widgets.dart';
+import '../cubit/profile_cubit.dart';
+import 'widgets/widgets.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
