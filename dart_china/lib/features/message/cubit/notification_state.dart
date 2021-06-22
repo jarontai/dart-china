@@ -1,35 +1,41 @@
 part of 'notification_cubit.dart';
 
-abstract class NotificationState {}
+enum NotificationStatus { initial, success, paging, failure }
 
-class NotificationInitial extends NotificationState {}
+extension NotificationStatusX on NotificationStatus {
+  bool get isInitial => this == NotificationStatus.initial;
+  bool get isSuccess => this == NotificationStatus.success;
+  bool get isPaging => this == NotificationStatus.paging;
+  bool get isFailure => this == NotificationStatus.failure;
+}
 
-class NotificationLoading extends NotificationState {}
-
-class NotificationSuccess extends NotificationState {
-  NotificationSuccess({
-    required this.notifications,
+class NotificationState extends Equatable {
+  NotificationState({
+    this.status = NotificationStatus.initial,
+    this.notifications = const <Notification>[],
     this.page = 0,
     this.more = false,
-    this.paging = false,
   });
 
+  final NotificationStatus status;
   final List<Notification> notifications;
   final int page;
   final bool more;
-  final bool paging;
 
-  NotificationSuccess copyWith({
+  NotificationState copyWith({
+    NotificationStatus? status,
     List<Notification>? notifications,
     int? page,
     bool? more,
-    bool? paging,
   }) {
-    return NotificationSuccess(
+    return NotificationState(
+      status: status ?? this.status,
       notifications: notifications ?? this.notifications,
       page: page ?? this.page,
       more: more ?? this.more,
-      paging: paging ?? this.paging,
     );
   }
+
+  @override
+  List<Object?> get props => [status, notifications, page, more];
 }

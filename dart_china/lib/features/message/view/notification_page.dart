@@ -16,17 +16,36 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  final ScrollController _scrollController = ScrollController();
+  late String? _username;
+
   @override
   void initState() {
     super.initState();
 
     final global = context.read<GlobalCubit>().state;
     if (global.userLogin && global.user != null) {
-      final username = global.user?.username;
-      if (username != null) {
-        context.read<NotificationCubit>().fetch(username, refresh: true);
+      _username = global.user?.username;
+      if (_username != null) {
+        context.read<NotificationCubit>().fetch(_username!, refresh: true);
       }
     }
+
+    _scrollController.addListener(() {
+      if (_username != null && _scrollController.hasClients) {
+        var maxExtent = _scrollController.position.maxScrollExtent;
+        if (_scrollController.offset >= (maxExtent * 0.9) &&
+            !_scrollController.position.outOfRange) {
+          context.read<NotificationCubit>().fetch(_username!);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,19 +66,19 @@ class _NotificationPageState extends State<NotificationPage> {
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: BlocBuilder<NotificationCubit, NotificationState>(
               builder: (context, state) {
-                final myState = state;
-
-                if (myState is NotificationLoading) {
+                if (state.status.isInitial) {
                   return Column(
                     children: [ListLoader()],
                   );
-                } else if (myState is NotificationSuccess) {
-                  final notifications = myState.notifications;
+                } else if (state.status.isSuccess || state.status.isPaging) {
+                  final notifications = state.notifications;
                   final itemCount = notifications.length;
+                  print('itemCount: $itemCount');
                   return Column(
                     children: [
                       Expanded(
                         child: ListView.builder(
+                          controller: _scrollController,
                           padding: EdgeInsets.only(top: 10),
                           itemBuilder: (context, index) {
                             if (index >= itemCount) {
@@ -68,7 +87,8 @@ class _NotificationPageState extends State<NotificationPage> {
                             final item = notifications[index];
                             return _buildItem(context, item);
                           },
-                          itemCount: myState.paging ? itemCount + 1 : itemCount,
+                          itemCount:
+                              state.status.isPaging ? itemCount + 1 : itemCount,
                         ),
                       ),
                     ],
