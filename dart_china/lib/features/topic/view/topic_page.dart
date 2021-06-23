@@ -57,7 +57,7 @@ class _TopicPageState extends State<TopicPage> {
         body: BlocConsumer<TopicCubit, TopicState>(
           listener: (context, state) {
             if (state.postSuccess) {
-              EasyLoading.showToast('帖子发布成功');
+              EasyLoading.showToast('回复成功');
             }
           },
           builder: (context, state) {

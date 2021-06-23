@@ -287,7 +287,7 @@ packages:
       name: file_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.2+2"
+    version: "3.0.3"
   fixnum:
     dependency: transitive
     description:
@@ -448,6 +448,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  full_screen_image:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: jarontai
+      resolved-ref: "0c5a96da130c78d1c3a69984ba2e6f62f35464a7"
+      url: "git@github.com:jarontai/full_screen_image.git"
+    source: git
+    version: "1.0.2"
   get_it:
     dependency: transitive
     description:
@@ -524,7 +533,7 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.0+3"
+    version: "0.8.0+4"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -977,7 +986,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.6"
+    version: "6.0.7"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1054,7 +1063,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.5"
+    version: "2.2.2"
   xdg_directories:
     dependency: transitive
     description:

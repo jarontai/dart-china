@@ -71,14 +71,14 @@ class TopicPostCard extends StatelessWidget {
                 ),
                 // blockquotePadding: EdgeInsets.zero,
               ),
-              imageBuilder: _buildImageBuilder,
+              imageBuilder: (Uri uri, String? title, String? alt) {
+                return _buildImageBuilder(uri, title, alt);
+              },
               onTapLink: (text, href, title) async {
                 if (href != null && href.startsWith('http')) {
                   var can = await urlLauncher.canLaunch(href);
                   if (can) {
                     await urlLauncher.launch(href);
-                  } else {
-                    // TODO: ?
                   }
                 }
               },
@@ -105,7 +105,18 @@ class TopicPostCard extends StatelessWidget {
         ),
       );
     } else {
-      return Image.network(uri.toString());
+      return FullScreenWidget(
+        child: Center(
+          child: Hero(
+            tag: "smallImage",
+            child: InteractiveViewer(
+              child: CachedNetworkImage(
+                imageUrl: uri.toString(),
+              ),
+            ),
+          ),
+        ),
+      );
     }
   }
 }
