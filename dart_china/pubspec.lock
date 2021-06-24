@@ -1063,7 +1063,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.3"
   xdg_directories:
     dependency: transitive
     description:

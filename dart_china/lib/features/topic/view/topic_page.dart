@@ -4,7 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
-import '../../global/cubit/global_cubit.dart';
+import '../../../features/features.dart';
 import '../cubit/topic_cubit.dart';
 import 'widgets/widgets.dart';
 
@@ -79,7 +79,7 @@ class _TopicPageState extends State<TopicPage> {
   }
 
   Widget _buildFloatingButton(BuildContext context) {
-    var appState = context.read<GlobalCubit>().state;
+    var appState = context.read<AppCubit>().state;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: ReplySection(

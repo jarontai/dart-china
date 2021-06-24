@@ -6,7 +6,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
-import '../../global/cubit/global_cubit.dart';
+import '../../../features/features.dart';
 import '../../login/cubit/login_cubit.dart';
 
 typedef RouteGenCallback = String Function();
@@ -54,8 +54,8 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildHeader(BuildContext context) {
-    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
-    final user = context.select((GlobalCubit b) => b.state.user);
+    final userLogin = context.select((AppCubit b) => b.state.userLogin);
+    final user = context.select((AppCubit b) => b.state.user);
 
     return Container(
       child: Row(
@@ -99,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
   Widget _buildBody(BuildContext context, int selected) {
     return Container(
       width: 180,
-      child: BlocBuilder<GlobalCubit, GlobalState>(
+      child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return Column(
             children: [
@@ -119,7 +119,7 @@ class _MenuPageState extends State<MenuPage> {
                 text: '消息',
                 routeGen: () {
                   var route = '';
-                  final state = context.read<GlobalCubit>().state;
+                  final state = context.read<AppCubit>().state;
                   final userLogin = state.userLogin;
                   if (userLogin) {
                     route = Routes.notification;
@@ -136,7 +136,7 @@ class _MenuPageState extends State<MenuPage> {
                 text: '我的',
                 routeGen: () {
                   var route = '';
-                  final state = context.read<GlobalCubit>().state;
+                  final state = context.read<AppCubit>().state;
                   final userLogin = state.userLogin;
                   final user = state.user;
                   if (userLogin) {
@@ -157,7 +157,7 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget _buildFooter(BuildContext context) {
-    final userLogin = context.select((GlobalCubit b) => b.state.userLogin);
+    final userLogin = context.select((AppCubit b) => b.state.userLogin);
 
     return userLogin
         ? Container(

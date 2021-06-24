@@ -1,25 +1,25 @@
-part of 'global_cubit.dart';
+part of 'app_cubit.dart';
 
-class GlobalState {
+class AppState {
   final bool userLogin;
   final bool hasNotification;
   final User? user;
   final Map<int, Category>? categoryMap;
 
-  GlobalState({
+  AppState({
     this.userLogin = false,
     this.hasNotification = false,
     this.user,
     this.categoryMap,
   });
 
-  GlobalState copyWith({
+  AppState copyWith({
     bool? userLogin,
     bool? hasNotification,
     User? user,
     Map<int, Category>? categoryMap,
   }) {
-    return GlobalState(
+    return AppState(
       userLogin: userLogin ?? this.userLogin,
       hasNotification: hasNotification ?? this.hasNotification,
       user: user ?? this.user,

@@ -1,4 +1,4 @@
-export 'global/cubit/global_cubit.dart';
+export 'app/cubit/app_cubit.dart';
 export 'home/cubit/topic_list_cubit.dart';
 export 'home/view/home_page.dart';
 export 'home/view/menu_page.dart';

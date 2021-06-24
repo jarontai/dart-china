@@ -38,7 +38,7 @@ class DartChinaApp extends StatelessWidget {
                 NotificationCubit(context.read<UserRepository>()),
           ),
           BlocProvider(
-            create: (context) => GlobalCubit(
+            create: (context) => AppCubit(
               BlocProvider.of<LoginCubit>(context),
               BlocProvider.of<ProfileCubit>(context),
               BlocProvider.of<NotificationCubit>(context),

@@ -7,11 +7,11 @@ import '../../login/cubit/login_cubit.dart';
 import '../../message/cubit/notification_cubit.dart';
 import '../../profile/cubit/profile_cubit.dart';
 
-part 'global_state.dart';
+part 'app_state.dart';
 
-class GlobalCubit extends Cubit<GlobalState> {
-  GlobalCubit(this.loginCubit, this.profileCubit, this.notificationCubit)
-      : super(GlobalState()) {
+class AppCubit extends Cubit<AppState> {
+  AppCubit(this.loginCubit, this.profileCubit, this.notificationCubit)
+      : super(AppState()) {
     _loginSubscription = loginCubit.stream.listen((authState) {
       if (authState.isLogin && authState.user != null) {
         _updateLogin(true, authState.user);

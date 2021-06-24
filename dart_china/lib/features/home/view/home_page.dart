@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    context.read<GlobalCubit>().checkNotification();
+    context.read<AppCubit>().checkNotification();
   }
 
   @override
