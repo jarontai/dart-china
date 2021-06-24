@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                   var password = form.control('password').value;
                   context
                       .read<LoginBloc>()
-                      .add(LoginLogin(username: username, password: password));
+                      .add(LoginPost(username: username, password: password));
                 } else {}
               },
             ),

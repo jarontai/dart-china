@@ -19,7 +19,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     if (event is RegisterOpen) {
       emit(RegisterInitial());
-    } else if (event is RegisterRegister) {
+    } else if (event is RegisterPost) {
       _register(event.email, event.username, event.password);
     }
   }
@@ -32,10 +32,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       user.result((value) {
         emit(RegisterSuccess(user: value));
       }, (value) {
-        emit(RegisterFail());
+        emit(RegisterFailure());
       });
     } else {
-      emit(RegisterFail());
+      emit(RegisterFailure());
     }
   }
 

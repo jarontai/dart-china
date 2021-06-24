@@ -15,11 +15,11 @@ class LoginOpen extends LoginEvent {
   });
 }
 
-class LoginLogin extends LoginEvent {
+class LoginPost extends LoginEvent {
   final String username;
   final String password;
 
-  LoginLogin({
+  LoginPost({
     required this.username,
     required this.password,
   });

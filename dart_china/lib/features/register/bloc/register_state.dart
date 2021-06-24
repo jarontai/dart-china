@@ -27,4 +27,4 @@ class RegisterSuccess extends RegisterState {
   }
 }
 
-class RegisterFail extends RegisterState {}
+class RegisterFailure extends RegisterState {}

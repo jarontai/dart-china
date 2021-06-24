@@ -34,7 +34,7 @@ class _SearchPageState extends State<SearchPage> {
         var value = form.control('search').value;
         context
             .read<SearchBloc>()
-            .add(SearchSearch(search: value, refresh: false));
+            .add(SearchFetch(search: value, refresh: false));
       }
     });
   }
@@ -84,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                 var value = form.control('search').value;
                 context
                     .read<SearchBloc>()
-                    .add(SearchSearch(search: value, refresh: true));
+                    .add(SearchFetch(search: value, refresh: true));
               },
             ),
           ],
@@ -101,10 +101,10 @@ class _SearchPageState extends State<SearchPage> {
           return ListLoader();
         }
         if (myState is SearchSuccess) {
-          var loading = myState.loading;
-          var dataCount = myState.data.length;
+          final paging = myState.paging;
+          final dataCount = myState.data.length;
           var itemCount = dataCount;
-          if (loading) {
+          if (paging) {
             itemCount++;
           }
 
@@ -112,7 +112,7 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView.builder(
             controller: _scrollController,
             itemBuilder: (context, index) {
-              if (loading && index == dataCount) {
+              if (paging && index == dataCount) {
                 return ListLoader();
               }
 

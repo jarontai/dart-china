@@ -29,7 +29,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async* {
     if (event is SearchOpen) {
       emit(SearchInitial());
-    } else if (event is SearchSearch) {
+    } else if (event is SearchFetch) {
       _doSearch(event.search, refresh: event.refresh);
     }
   }
@@ -46,7 +46,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (theState is SearchInitial) {
       emit(SearchLoading());
     } else if (theState is SearchSuccess) {
-      if (!theState.more || theState.loading) {
+      if (!theState.more || theState.paging) {
         return;
       }
       emit(theState.copyWith(loading: true));
@@ -64,7 +64,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       data: List.of(oldPosts..addAll(pageModel.data)),
       more: pageModel.hasNext,
       page: pageModel.page,
-      loading: false,
+      paging: false,
     ));
   }
 }

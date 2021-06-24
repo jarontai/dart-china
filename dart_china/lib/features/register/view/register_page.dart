@@ -102,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   EasyLoading.showToast(Messages.registerSuccess);
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName(Routes.home));
-                } else if (state is RegisterFail) {
+                } else if (state is RegisterFailure) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   EasyLoading.showToast(Messages.registerFail);
                 }
@@ -235,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   var email = form.control('email').value;
                   var username = form.control('username').value;
                   var password = form.control('password').value;
-                  context.read<RegisterBloc>().add(RegisterRegister(
+                  context.read<RegisterBloc>().add(RegisterPost(
                       email: email, username: username, password: password));
                 }
               },

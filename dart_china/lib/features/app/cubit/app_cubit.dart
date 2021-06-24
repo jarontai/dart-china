@@ -6,17 +6,17 @@ import 'package:equatable/equatable.dart';
 import '../../../models/models.dart';
 import '../../login/bloc/login_bloc.dart';
 import '../../message/cubit/notification_cubit.dart';
-import '../../profile/cubit/profile_cubit.dart';
+import '../../profile/bloc/profile_bloc.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit(this.loginBloc, this.profileCubit, this.notificationCubit)
+  AppCubit(this.loginBloc, this.profileBloc, this.notificationCubit)
       : super(AppState()) {
     _loginSubscription = loginBloc.stream.listen((authState) {
       if (authState is LoginSuccess) {
         _updateLogin(true, authState.user);
-        profileCubit.init(authState.user.username);
+        profileBloc.add(ProfileOpen(username: authState.user.username));
       } else {
         _updateLogin(false, null, notifcation: false);
       }
@@ -27,7 +27,7 @@ class AppCubit extends Cubit<AppState> {
 
   final NotificationCubit notificationCubit;
   final LoginBloc loginBloc;
-  final ProfileCubit profileCubit;
+  final ProfileBloc profileBloc;
   StreamSubscription? _loginSubscription;
 
   _checkLogin() {

@@ -25,7 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async* {
     if (event is LoginOpen) {
       emit(LoginInitial());
-    } else if (event is LoginLogin) {
+    } else if (event is LoginPost) {
       _login(event.username, event.password);
     } else if (event is LoginLogout) {
       _logout();

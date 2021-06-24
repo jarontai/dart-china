@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common.dart';
 import '../../../models/models.dart';
 import '../../../widgets/widgets.dart';
-import '../cubit/profile_cubit.dart';
+import '../bloc/profile_bloc.dart';
 import 'widgets/widgets.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
 
-    context.read<ProfileCubit>().init(widget.username);
+    context.read<ProfileBloc>().add(ProfileOpen(username: widget.username));
   }
 
   @override
@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: ColorPalette.backgroundColor,
           elevation: 0,
         ),
-        body: BlocBuilder<ProfileCubit, ProfileState>(
+        body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             final myState = state;
             User? user;
@@ -87,9 +87,10 @@ class _ProfilePageState extends State<ProfilePage> {
             avatar: user?.avatar ?? '',
             onPickAvatar: (file) {
               if (user != null) {
-                context
-                    .read<ProfileCubit>()
-                    .updateAvatar(user.id, user.username, file);
+                // TODO: updateAvatar
+                // context
+                //     .read<ProfileBloc>()
+                //     .updateAvatar(user.id, user.username, file);
               }
             },
           ),

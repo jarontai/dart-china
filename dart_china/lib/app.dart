@@ -30,7 +30,7 @@ class DartChinaApp extends StatelessWidget {
                 context.read<AuthRepository>(), context.read<UserRepository>()),
           ),
           BlocProvider(
-            create: (context) => ProfileCubit(context.read<UserRepository>(),
+            create: (context) => ProfileBloc(context.read<UserRepository>(),
                 context.read<TopicRepository>()),
           ),
           BlocProvider(
@@ -40,7 +40,7 @@ class DartChinaApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AppCubit(
               BlocProvider.of<LoginBloc>(context),
-              BlocProvider.of<ProfileCubit>(context),
+              BlocProvider.of<ProfileBloc>(context),
               BlocProvider.of<NotificationCubit>(context),
             ),
           ),

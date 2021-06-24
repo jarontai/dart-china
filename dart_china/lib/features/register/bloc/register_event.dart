@@ -9,12 +9,12 @@ abstract class RegisterEvent extends Equatable {
 
 class RegisterOpen extends RegisterEvent {}
 
-class RegisterRegister extends RegisterEvent {
+class RegisterPost extends RegisterEvent {
   final String email;
   final String username;
   final String password;
 
-  RegisterRegister({
+  RegisterPost({
     required this.email,
     required this.username,
     required this.password,

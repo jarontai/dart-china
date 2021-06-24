@@ -9,11 +9,11 @@ abstract class SearchEvent extends Equatable {
 
 class SearchOpen extends SearchEvent {}
 
-class SearchSearch extends SearchEvent {
+class SearchFetch extends SearchEvent {
   final String search;
   final bool refresh;
 
-  SearchSearch({
+  SearchFetch({
     required this.search,
     this.refresh = false,
   });

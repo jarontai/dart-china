@@ -11,7 +11,7 @@ export 'login/view/login_page.dart';
 export 'message/cubit/notification_cubit.dart';
 export 'message/view/notification_page.dart';
 
-export 'profile/cubit/profile_cubit.dart';
+export 'profile/bloc/profile_bloc.dart';
 export 'profile/view/profile_page.dart';
 
 export 'register/bloc/register_bloc.dart';
