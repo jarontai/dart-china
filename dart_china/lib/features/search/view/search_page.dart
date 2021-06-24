@@ -4,7 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
-import '../cubit/search_cubit.dart';
+import '../bloc/search_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
 
-    context.read<SearchCubit>().init();
+    context.read<SearchBloc>().add(SearchOpen());
 
     _scrollController.addListener(() {
       if (!_scrollController.hasClients) return;
@@ -32,7 +32,9 @@ class _SearchPageState extends State<SearchPage> {
       var maxScroll = _scrollController.position.maxScrollExtent;
       if (_scrollController.offset >= (maxScroll * 0.9)) {
         var value = form.control('search').value;
-        context.read<SearchCubit>().search(value, refresh: false);
+        context
+            .read<SearchBloc>()
+            .add(SearchSearch(search: value, refresh: false));
       }
     });
   }
@@ -80,7 +82,9 @@ class _SearchPageState extends State<SearchPage> {
               onEditComplete: () {
                 FocusManager.instance.primaryFocus?.unfocus();
                 var value = form.control('search').value;
-                context.read<SearchCubit>().search(value, refresh: true);
+                context
+                    .read<SearchBloc>()
+                    .add(SearchSearch(search: value, refresh: true));
               },
             ),
           ],
@@ -90,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildSearchResult(BuildContext context) {
-    return BlocBuilder<SearchCubit, SearchState>(
+    return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         var myState = state;
         if (myState is SearchLoading) {

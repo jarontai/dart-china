@@ -1,6 +1,11 @@
-part of 'search_cubit.dart';
+part of 'search_bloc.dart';
 
-abstract class SearchState {}
+abstract class SearchState extends Equatable {
+  const SearchState();
+
+  @override
+  List<Object> get props => [];
+}
 
 class SearchInitial extends SearchState {}
 
@@ -36,4 +41,7 @@ class SearchSuccess extends SearchState {
       loading: loading ?? this.loading,
     );
   }
+
+  @override
+  List<Object> get props => [slugs, data, page, more, loading];
 }

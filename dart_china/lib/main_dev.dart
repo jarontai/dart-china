@@ -9,10 +9,16 @@ import 'repositories/repositories.dart';
 
 class CubitObserver extends BlocObserver {
   @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    print('Bloc onEvent: ${bloc.runtimeType} ${event.runtimeType}');
+  }
+
+  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print(
-        '${bloc.runtimeType} ${change.currentState.runtimeType} ${change.nextState.runtimeType}');
+        'Bloc onChange: ${bloc.runtimeType} ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}');
   }
 }
 

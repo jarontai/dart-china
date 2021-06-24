@@ -9,4 +9,5 @@ export 'package:discourse_api/discourse_api.dart'
         UserAction,
         Notification,
         NotificationData,
-        NotificationType;
+        NotificationType,
+        SearchResult;

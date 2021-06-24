@@ -1,27 +1,37 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:discourse_api/discourse_api.dart';
+import 'package:dart_china/repositories/repositories.dart';
+import 'package:equatable/equatable.dart';
+import 'package:rxdart/rxdart.dart';
 
-import '../../../repositories/repositories.dart';
-import '../../../util.dart';
+import '../../../models/models.dart';
 
+part 'search_event.dart';
 part 'search_state.dart';
 
-class SearchCubit extends Cubit<SearchState> {
-  SearchCubit(
-    this._postRepository,
-  ) : super(SearchInitial());
+class SearchBloc extends Bloc<SearchEvent, SearchState> {
+  SearchBloc(this._postRepository) : super(SearchInitial());
 
   final PostRepository _postRepository;
-  final Debouncer _debouncer = Debouncer();
 
-  void init() {
-    emit(SearchInitial());
+  @override
+  Stream<Transition<SearchEvent, SearchState>> transformEvents(
+      Stream<SearchEvent> events,
+      TransitionFunction<SearchEvent, SearchState> transitionFn) {
+    return super.transformEvents(
+        events.debounceTime(Duration(milliseconds: 500)), transitionFn);
   }
 
-  void search(String text, {bool refresh = false}) async {
-    _debouncer.run(() async {
-      _doSearch(text, refresh: refresh);
-    });
+  @override
+  Stream<SearchState> mapEventToState(
+    SearchEvent event,
+  ) async* {
+    if (event is SearchOpen) {
+      emit(SearchInitial());
+    } else if (event is SearchSearch) {
+      _doSearch(event.search, refresh: event.refresh);
+    }
   }
 
   void _doSearch(String text, {bool refresh = false}) async {

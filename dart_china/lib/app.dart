@@ -53,7 +53,7 @@ class DartChinaApp extends StatelessWidget {
                 context.read<TopicRepository>()),
           ),
           BlocProvider(
-            create: (context) => SearchCubit(context.read<PostRepository>()),
+            create: (context) => SearchBloc(context.read<PostRepository>()),
           ),
           BlocProvider(
             create: (context) => RegisterCubit(context.read<AuthRepository>()),
