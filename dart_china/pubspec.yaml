@@ -1,5 +1,5 @@
 name: dart_china
-description: The official mobile app of dart-china.org.
+description: The official mobile app of dart-china.org, built with flutter. It's minimal, only provides the most commonly used features.
 publish_to: 'none'
 version: 0.1.0
 
@@ -37,9 +37,9 @@ dependencies:
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
 
-dependency_overrides:
-  discourse_api:
-    path: ../../discourse_api
+# dependency_overrides:
+#   discourse_api:
+#     path: ../../discourse_api
 
 dev_dependencies:
   flutter_test:
@@ -50,15 +50,15 @@ dev_dependencies:
   injectable_generator: null
   lints: ^1.0.1
 
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/logo_dart.png
+    - assets/icon/logo_dart_ios.png
+
 flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
   image_path_android: "assets/icon/logo_dart.png"
   image_path_ios: "assets/icon/logo_dart_ios.png"
-
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/icon/logo_dart.png
-    - assets/icon/logo_dart_ios.png

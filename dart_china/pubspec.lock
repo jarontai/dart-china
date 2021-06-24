@@ -91,7 +91,7 @@ packages:
       name: build_runner
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   build_runner_core:
     dependency: transitive
     description:
@@ -147,7 +147,7 @@ packages:
       name: cli_util
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   clock:
     dependency: transitive
     description:
@@ -175,7 +175,7 @@ packages:
       name: convert
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   cookie_jar:
     dependency: transitive
     description:
@@ -242,9 +242,11 @@ packages:
   discourse_api:
     dependency: "direct main"
     description:
-      path: "../../discourse_api"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0c5a0694fe6373199ccee1eb6f30868b391d3acc"
+      url: "git@github.com:jarontai/discourse_api.git"
+    source: git
     version: "0.4.0"
   dotenv:
     dependency: transitive
@@ -533,7 +535,7 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.0+4"
+    version: "0.8.1+1"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -1063,7 +1065,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   xdg_directories:
     dependency: transitive
     description:

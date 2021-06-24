@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dart_china/models/models.dart';
 import 'package:dart_china/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 
@@ -27,7 +28,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(RegisterPending());
     final result = await _authRepository.register(email, username, password);
     if (result) {
-      emit(RegisterSuccess());
+      final user = await _authRepository.login(username, password);
+      user.result((value) {
+        emit(RegisterSuccess(user: value));
+      }, (value) {
+        emit(RegisterFail());
+      });
     } else {
       emit(RegisterFail());
     }

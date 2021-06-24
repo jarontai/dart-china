@@ -11,6 +11,20 @@ class RegisterInitial extends RegisterState {}
 
 class RegisterPending extends RegisterState {}
 
-class RegisterSuccess extends RegisterState {}
+class RegisterSuccess extends RegisterState {
+  final User user;
+
+  RegisterSuccess({
+    required this.user,
+  });
+
+  RegisterSuccess copyWith({
+    User? user,
+  }) {
+    return RegisterSuccess(
+      user: user ?? this.user,
+    );
+  }
+}
 
 class RegisterFail extends RegisterState {}
