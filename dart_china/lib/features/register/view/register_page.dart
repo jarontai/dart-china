@@ -6,7 +6,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../common.dart';
 import '../../../widgets/button_widget.dart';
 import '../../../widgets/widgets.dart';
-import '../cubit/register_cubit.dart';
+import '../bloc/register_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
       AbstractControl<dynamic> control) async {
     final error = {'available': false};
     final available =
-        await context.read<RegisterCubit>().isAvailable(email: control.value);
+        await context.read<RegisterBloc>().checkAvailable(email: control.value);
     return available ? {} : error;
   }
 
@@ -78,8 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
       AbstractControl<dynamic> control) async {
     final error = {'available': false};
     final available = await context
-        .read<RegisterCubit>()
-        .isAvailable(username: control.value);
+        .read<RegisterBloc>()
+        .checkAvailable(username: control.value);
     return available ? {} : error;
   }
 
@@ -92,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
         body: SingleChildScrollView(
           child: Container(
             color: ColorPalette.backgroundColor,
-            child: BlocConsumer<RegisterCubit, RegisterState>(
+            child: BlocConsumer<RegisterBloc, RegisterState>(
               listener: (context, state) {
                 if (state is RegisterPending) {
                   FocusManager.instance.primaryFocus?.unfocus();
@@ -235,9 +235,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   var email = form.control('email').value;
                   var username = form.control('username').value;
                   var password = form.control('password').value;
-                  context
-                      .read<RegisterCubit>()
-                      .register(email, username, password);
+                  context.read<RegisterBloc>().add(RegisterRegister(
+                      email: email, username: username, password: password));
                 }
               },
             ),
