@@ -23,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     super.initState();
 
-    final global = context.read<AppCubit>().state;
+    final global = context.read<AppBloc>().state;
     if (global.userLogin && global.user != null) {
       _username = global.user?.username;
       if (_username != null) {
@@ -189,7 +189,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 splashRadius: 20,
                 icon: Icon(Icons.drafts_outlined),
                 onPressed: () async {
-                  final global = context.read<AppCubit>().state;
+                  final global = context.read<AppBloc>().state;
                   if (global.user != null) {
                     final notificationCubit = context.read<NotificationCubit>();
                     await notificationCubit.readNotification(

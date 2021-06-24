@@ -23,6 +23,7 @@ class DartChinaApp extends StatelessWidget {
             create: (_) => CategoryRepository()),
         RepositoryProvider<PostRepository>(create: (_) => PostRepository()),
       ],
+      // Global blocs
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -30,33 +31,11 @@ class DartChinaApp extends StatelessWidget {
                 context.read<AuthRepository>(), context.read<UserRepository>()),
           ),
           BlocProvider(
-            create: (context) => ProfileBloc(context.read<UserRepository>(),
-                context.read<TopicRepository>()),
-          ),
-          BlocProvider(
-            create: (context) =>
-                NotificationCubit(context.read<UserRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => AppCubit(
-              BlocProvider.of<LoginBloc>(context),
-              BlocProvider.of<ProfileBloc>(context),
-              BlocProvider.of<NotificationCubit>(context),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => TopicListCubit(context.read<TopicRepository>(),
-                context.read<CategoryRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => TopicCubit(context.read<PostRepository>(),
-                context.read<TopicRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => SearchBloc(context.read<PostRepository>()),
-          ),
-          BlocProvider(
             create: (context) => RegisterBloc(context.read<AuthRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => AppBloc(context.read<UserRepository>(),
+                context.read<LoginBloc>(), context.read<RegisterBloc>())..add(AppOpen()),
           ),
         ],
         child: isProd

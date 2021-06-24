@@ -73,7 +73,7 @@ class _TopicListPageState extends State<TopicListPage> {
               controller: _scrollController,
               physics: ClampingScrollPhysics(),
               slivers: [
-                BlocBuilder<AppCubit, AppState>(
+                BlocBuilder<AppBloc, AppState>(
                   builder: (context, state) {
                     return SliverPersistentHeader(
                       pinned: true,

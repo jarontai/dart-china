@@ -79,7 +79,7 @@ class _TopicPageState extends State<TopicPage> {
   }
 
   Widget _buildFloatingButton(BuildContext context) {
-    var appState = context.read<AppCubit>().state;
+    var appState = context.read<AppBloc>().state;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: ReplySection(
