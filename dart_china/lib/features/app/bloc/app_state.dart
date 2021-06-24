@@ -1,4 +1,4 @@
-part of 'app_cubit.dart';
+part of 'app_bloc.dart';
 
 class AppState extends Equatable {
   final bool userLogin;

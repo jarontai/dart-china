@@ -1,21 +1,22 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../models/models.dart';
-import '../../login/cubit/login_cubit.dart';
+import '../../login/bloc/login_bloc.dart';
 import '../../message/cubit/notification_cubit.dart';
 import '../../profile/cubit/profile_cubit.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit(this.loginCubit, this.profileCubit, this.notificationCubit)
+  AppCubit(this.loginBloc, this.profileCubit, this.notificationCubit)
       : super(AppState()) {
-    _loginSubscription = loginCubit.stream.listen((authState) {
-      if (authState.isLogin && authState.user != null) {
+    _loginSubscription = loginBloc.stream.listen((authState) {
+      if (authState is LoginSuccess) {
         _updateLogin(true, authState.user);
-        profileCubit.init(authState.user!.username);
+        profileCubit.init(authState.user.username);
       } else {
         _updateLogin(false, null, notifcation: false);
       }
@@ -25,12 +26,12 @@ class AppCubit extends Cubit<AppState> {
   }
 
   final NotificationCubit notificationCubit;
-  final LoginCubit loginCubit;
+  final LoginBloc loginBloc;
   final ProfileCubit profileCubit;
   StreamSubscription? _loginSubscription;
 
-  _checkLogin() async {
-    await loginCubit.check();
+  _checkLogin() {
+    loginBloc.add(LoginCheck());
   }
 
   _updateLogin(bool status, User? user, {bool? notifcation}) {

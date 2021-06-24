@@ -26,7 +26,7 @@ class DartChinaApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => LoginCubit(
+            create: (context) => LoginBloc(
                 context.read<AuthRepository>(), context.read<UserRepository>()),
           ),
           BlocProvider(
@@ -39,7 +39,7 @@ class DartChinaApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AppCubit(
-              BlocProvider.of<LoginCubit>(context),
+              BlocProvider.of<LoginBloc>(context),
               BlocProvider.of<ProfileCubit>(context),
               BlocProvider.of<NotificationCubit>(context),
             ),

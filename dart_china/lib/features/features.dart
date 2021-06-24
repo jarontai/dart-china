@@ -5,7 +5,7 @@ export 'home/view/home_page.dart';
 export 'home/view/menu_page.dart';
 export 'home/view/topic_list_page.dart';
 
-export 'login/cubit/login_cubit.dart';
+export 'login/bloc/login_bloc.dart';
 export 'login/view/login_page.dart';
 
 export 'message/cubit/notification_cubit.dart';

@@ -7,7 +7,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
 import '../../../features/features.dart';
-import '../../login/cubit/login_cubit.dart';
+import '../../login/bloc/login_bloc.dart';
 
 typedef RouteGenCallback = String Function();
 
@@ -168,7 +168,7 @@ class _MenuPageState extends State<MenuPage> {
               routeGen: () => '/',
               selected: false,
               callback: () {
-                context.read<LoginCubit>().logout();
+                context.read<LoginBloc>().add(LoginLogout());
                 EasyLoading.showToast(Messages.logoutSuccess);
               },
             ),
