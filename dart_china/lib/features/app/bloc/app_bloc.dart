@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/features/features.dart';
-import 'package:dart_china/models/models.dart';
-import 'package:dart_china/repositories/repositories.dart';
+import '../../features.dart';
+import '../../../models/models.dart';
+import '../../../repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 
 part 'app_event.dart';

@@ -5,8 +5,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../common.dart';
-import '../../../widgets/widgets.dart';
 import '../../../features/features.dart';
+import '../../../widgets/widgets.dart';
 import '../../login/bloc/login_bloc.dart';
 
 typedef RouteGenCallback = String Function();

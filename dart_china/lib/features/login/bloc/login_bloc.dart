@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:dart_china/models/models.dart';
-import 'package:dart_china/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../models/models.dart';
+import '../../../repositories/repositories.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:dart_china/models/models.dart' as models;
-import 'package:dart_china/repositories/repositories.dart';
+import '../../../models/models.dart' as models;
+import '../../../repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
 
 part 'notification_event.dart';
