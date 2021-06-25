@@ -16,8 +16,6 @@ class NotificationFetch extends NotificationEvent {
     required this.username,
     this.refresh = false,
   });
-
-  
 }
 
 class NotificationRead extends NotificationEvent {}
