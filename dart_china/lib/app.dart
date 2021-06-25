@@ -35,7 +35,8 @@ class DartChinaApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AppBloc(context.read<UserRepository>(),
-                context.read<LoginBloc>(), context.read<RegisterBloc>())..add(AppOpen()),
+                context.read<LoginBloc>(), context.read<RegisterBloc>())
+              ..add(AppOpen()),
           ),
         ],
         child: isProd
@@ -67,8 +68,13 @@ class DartChinaApp extends StatelessWidget {
       routes: {
         Routes.home: (_) => HomePage(),
         Routes.login: (_) => LoginPage(),
-        Routes.search: (_) => SearchPage(),
         Routes.register: (_) => RegisterPage(),
+        Routes.search: (context) => BlocProvider<SearchBloc>(
+              create: (context) => SearchBloc(
+                context.read<PostRepository>(),
+              ),
+              child: SearchPage(),
+            ),
         Routes.notification: (_) => NotificationPage(),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
@@ -82,8 +88,14 @@ class DartChinaApp extends StatelessWidget {
     if (routeName == Routes.topic) {
       final topicId = settings.arguments as int;
       return MaterialPageRoute(
-        builder: (_) => TopicPage(
-          topicId: topicId,
+        builder: (_) => BlocProvider<TopicBloc>(
+          create: (context) => TopicBloc(
+            context.read<TopicRepository>(),
+            context.read<PostRepository>(),
+          ),
+          child: TopicPage(
+            topicId: topicId,
+          ),
         ),
       );
     } else if (routeName == Routes.profile) {
@@ -92,8 +104,14 @@ class DartChinaApp extends StatelessWidget {
         username = settings.arguments as String;
       }
       return MaterialPageRoute(
-        builder: (_) => ProfilePage(
-          username: username,
+        builder: (_) => BlocProvider<ProfileBloc>(
+          create: (context) => ProfileBloc(
+            context.read<UserRepository>(),
+            context.read<TopicRepository>(),
+          ),
+          child: ProfilePage(
+            username: username,
+          ),
         ),
       );
     }

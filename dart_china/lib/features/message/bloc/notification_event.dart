@@ -7,8 +7,6 @@ abstract class NotificationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class NotificationOpen extends NotificationEvent {}
-
 class NotificationFetch extends NotificationEvent {
   final String username;
   final bool refresh;

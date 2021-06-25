@@ -27,7 +27,9 @@ class _NotificationPageState extends State<NotificationPage> {
     if (global.userLogin && global.user != null) {
       _username = global.user?.username;
       if (_username != null) {
-        context.read<NotificationCubit>().fetch(_username!, refresh: true);
+        context
+            .read<NotificationBloc>()
+            .add(NotificationFetch(username: _username!, refresh: true));
       }
     }
 
@@ -36,7 +38,9 @@ class _NotificationPageState extends State<NotificationPage> {
         var maxExtent = _scrollController.position.maxScrollExtent;
         if (_scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
-          context.read<NotificationCubit>().fetch(_username!);
+          context
+              .read<NotificationBloc>()
+              .add(NotificationFetch(username: _username!));
         }
       }
     });
@@ -64,7 +68,7 @@ class _NotificationPageState extends State<NotificationPage> {
           body: Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 15),
-            child: BlocBuilder<NotificationCubit, NotificationState>(
+            child: BlocBuilder<NotificationBloc, NotificationState>(
               builder: (context, state) {
                 if (state.status.isInitial) {
                   return Column(
@@ -191,11 +195,11 @@ class _NotificationPageState extends State<NotificationPage> {
                 onPressed: () async {
                   final global = context.read<AppBloc>().state;
                   if (global.user != null) {
-                    final notificationCubit = context.read<NotificationCubit>();
-                    await notificationCubit.readNotification(
+                    final notificationBloc = context.read<NotificationBloc>();
+                    await notificationBloc.readNotification(
                         global.user!.username, item.id);
-                    notificationCubit.fetch(global.user!.username,
-                        refresh: true);
+                    notificationBloc.add(NotificationFetch(
+                        username: global.user!.username, refresh: true));
                   }
                 },
               ),

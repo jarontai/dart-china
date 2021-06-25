@@ -1,42 +1,46 @@
 part of 'notification_bloc.dart';
 
-abstract class NotificationState extends Equatable {
-  const NotificationState();
+enum NotificationStatus { initial, loading, success, paging, failure }
 
-  @override
-  List<Object> get props => [];
+extension NotificationStatusX on NotificationStatus {
+  bool get isInitial => this == NotificationStatus.initial;
+  bool get isLoading => this == NotificationStatus.loading;
+  bool get isSuccess => this == NotificationStatus.success;
+  bool get isPaging => this == NotificationStatus.paging;
+  bool get isFailure => this == NotificationStatus.failure;
 }
 
-class NotificationInitial extends NotificationState {}
-
-class NotificationLoading extends NotificationState {}
-
-class NotificationSuccess extends NotificationState {
+class NotificationState extends Equatable {
+  final NotificationStatus status;
   final List<models.Notification> notifications;
   final int page;
   final bool more;
   final bool paging;
 
-  NotificationSuccess({
-    required this.notifications,
-    required this.page,
-    required this.more,
-    required this.paging,
+  NotificationState({
+    this.status = NotificationStatus.initial,
+    this.notifications = const [],
+    this.page = -1,
+    this.more = true,
+    this.paging = false,
   });
 
-  NotificationSuccess copyWith({
+  NotificationState copyWith({
+    NotificationStatus? status,
     List<models.Notification>? notifications,
     int? page,
     bool? more,
     bool? paging,
   }) {
-    return NotificationSuccess(
+    return NotificationState(
+      status: status ?? this.status,
       notifications: notifications ?? this.notifications,
       page: page ?? this.page,
       more: more ?? this.more,
       paging: paging ?? this.paging,
     );
   }
-}
 
-class NotificationFailure extends NotificationState {}
+  @override
+  List<Object?> get props => [status, notifications, page, more, paging];
+}
