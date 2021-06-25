@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:dart_china/models/models.dart';
 import 'package:dart_china/repositories/repositories.dart';
 import 'package:equatable/equatable.dart';
@@ -13,6 +14,14 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
 
   final TopicRepository _topicRepository;
   final PostRepository _postRepository;
+
+  @override
+  Stream<Transition<TopicEvent, TopicState>> transformEvents(
+      Stream<TopicEvent> events,
+      TransitionFunction<TopicEvent, TopicState> transitionFn) {
+    return super.transformEvents(
+        events.debounceTime(Duration(milliseconds: 500)), transitionFn);
+  }
 
   @override
   Stream<TopicState> mapEventToState(
