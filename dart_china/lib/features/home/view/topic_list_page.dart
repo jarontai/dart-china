@@ -5,7 +5,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
 import '../../features.dart';
-import '../cubit/topic_list_cubit.dart';
+import '../bloc/topic_list_bloc.dart';
 import 'widgets/widgets.dart';
 
 class TopicListPage extends StatefulWidget {
@@ -23,14 +23,14 @@ class _TopicListPageState extends State<TopicListPage> {
   void initState() {
     super.initState();
 
-    context.read<TopicListCubit>().fetchLatest();
+    context.read<TopicListBloc>().add(TopicListFetch(refresh: true));
 
     _scrollController.addListener(() {
       if (_scrollController.hasClients) {
         var maxExtent = _scrollController.position.maxScrollExtent;
         if (_scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
-          context.read<TopicListCubit>().fetchLatest();
+          context.read<TopicListBloc>().add(TopicListFetch(refresh: false));
         }
 
         var shouldScrollTop = false;
@@ -67,7 +67,7 @@ class _TopicListPageState extends State<TopicListPage> {
           body: RefreshIndicator(
             key: _refreshKey,
             onRefresh: () async {
-              await context.read<TopicListCubit>().checkLatest();
+              context.read<TopicListBloc>().add(TopicListPoll());
             },
             child: CustomScrollView(
               controller: _scrollController,
@@ -119,8 +119,8 @@ class _TopicListPageState extends State<TopicListPage> {
   }
 
   Widget _buildSliverTopicList(BuildContext context) {
-    return BlocBuilder<TopicListCubit, TopicListState>(builder: (_, state) {
-      if (state is TopicListSuccess && !state.loading) {
+    return BlocBuilder<TopicListBloc, TopicListState>(builder: (_, state) {
+      if (state.status.isSuccess) {
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (_, index) {
@@ -144,7 +144,7 @@ class _TopicListPageState extends State<TopicListPage> {
               );
             },
             childCount:
-                state.more ? state.topics.length + 1 : state.topics.length,
+                state.paging ? state.topics.length + 1 : state.topics.length,
           ),
         );
       } else {

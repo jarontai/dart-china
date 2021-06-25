@@ -44,7 +44,10 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
     if (event is TopicListFetch) {
       _fetchLatest(refresh: event.refresh);
     } else if (event is TopicListPoll) {
-    } else if (event is TopicListChangeCategory) {}
+      _checkLatest();
+    } else if (event is TopicListChangeCategory) {
+      _changeCategory(event.categoryIndex);
+    }
   }
 
   Future<List<Category>> _fetchCategories() async {
@@ -91,7 +94,7 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
     }
   }
 
-  checkLatest() async {
+  _checkLatest() async {
     var latest = await _topicRepository.checkLatest();
     if (latest) {
       await _fetchLatest(refresh: true);
@@ -100,7 +103,7 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
     }
   }
 
-  changeCategory(int index) async {
+  _changeCategory(int index) async {
     if (state.status.isSuccess) {
       if (index == state.categoryIndex) {
         return;

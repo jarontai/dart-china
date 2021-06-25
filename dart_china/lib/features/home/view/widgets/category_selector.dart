@@ -8,11 +8,11 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return BlocBuilder<TopicListCubit, TopicListState>(
+    return BlocBuilder<TopicListBloc, TopicListState>(
         builder: (context, state) {
       var names = <String>[];
       var current = -1;
-      if (state is TopicListSuccess) {
+      if (state.status.isSuccess) {
         for (var cat in state.categories) {
           names.add(cat.name);
         }
@@ -45,7 +45,9 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
               names: names,
               current: current,
               onSelect: (index) {
-                context.read<TopicListCubit>().changeCategory(index);
+                context
+                    .read<TopicListBloc>()
+                    .add(TopicListChangeCategory(categoryIndex: index));
                 onSelect();
               },
             ),

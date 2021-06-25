@@ -1,6 +1,6 @@
 export 'app/bloc/app_bloc.dart';
 
-export 'home/cubit/topic_list_cubit.dart';
+export 'home/bloc/topic_list_bloc.dart';
 export 'home/view/home_page.dart';
 export 'home/view/menu_page.dart';
 export 'home/view/topic_list_page.dart';

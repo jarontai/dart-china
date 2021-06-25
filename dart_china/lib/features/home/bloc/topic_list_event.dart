@@ -11,10 +11,16 @@ class TopicListFetch extends TopicListEvent {
   final bool refresh;
 
   TopicListFetch({
-    required this.refresh,
+    this.refresh = false,
   });
 }
 
 class TopicListPoll extends TopicListEvent {}
 
-class TopicListChangeCategory extends TopicListEvent {}
+class TopicListChangeCategory extends TopicListEvent {
+  final int categoryIndex;
+
+  TopicListChangeCategory({
+    required this.categoryIndex,
+  });
+}
