@@ -12,7 +12,7 @@ class SliverCategorySelector extends SliverPersistentHeaderDelegate {
         builder: (context, state) {
       var names = <String>[];
       var current = -1;
-      if (state.status.isSuccess) {
+      if (state.categories.isNotEmpty) {
         for (var cat in state.categories) {
           names.add(cat.name);
         }

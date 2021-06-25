@@ -32,7 +32,7 @@ class SelectButton extends StatelessWidget {
             ),
           ),
           backgroundColor: MaterialStateProperty.all(
-            selected ? Color(0xFF7C7BFC) : Color(0xFFEDF0F7),
+            selected ? Color(0xFF7C7BFC) : Colors.white60,
           ),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
             EdgeInsets.all(0),

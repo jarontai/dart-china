@@ -23,7 +23,9 @@ class _TopicListPageState extends State<TopicListPage> {
   void initState() {
     super.initState();
 
-    context.read<TopicListBloc>().add(TopicListFetch(refresh: true));
+    context.read<TopicListBloc>()
+      ..add(TopicListInit())
+      ..add(TopicListFetch(refresh: true));
 
     _scrollController.addListener(() {
       if (_scrollController.hasClients) {

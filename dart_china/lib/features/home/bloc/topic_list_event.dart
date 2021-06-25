@@ -7,6 +7,8 @@ abstract class TopicListEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class TopicListInit extends TopicListEvent {}
+
 class TopicListFetch extends TopicListEvent {
   final bool refresh;
 

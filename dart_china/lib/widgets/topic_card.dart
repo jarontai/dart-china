@@ -79,7 +79,7 @@ class _TopicStatus extends StatelessWidget {
     return Text(
       CategoryNameMap[slug] ?? '其他',
       style: TextStyle(
-        fontSize: 11,
+        fontSize: 12,
         color: Colors.grey.shade500,
         height: 1,
       ),
@@ -102,11 +102,11 @@ class _TopicStatus extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 10,
-                height: 10,
+                width: 11,
+                height: 11,
                 decoration: BoxDecoration(
                   color: buildColor(),
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(2),
                 ),
               ),
               SizedBox(width: 5),

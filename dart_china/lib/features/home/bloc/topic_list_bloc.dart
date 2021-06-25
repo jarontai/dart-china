@@ -33,42 +33,48 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
   Stream<Transition<TopicListEvent, TopicListState>> transformEvents(
       Stream<TopicListEvent> events,
       TransitionFunction<TopicListEvent, TopicListState> transitionFn) {
-    return super.transformEvents(
-        events.debounceTime(Duration(milliseconds: 500)), transitionFn);
+    final nonDebounce = events.where((event) => event is! TopicListFetch);
+    final debounce = events
+        .where((event) => event is TopicListFetch)
+        .debounceTime(Duration(milliseconds: 500));
+    return super
+        .transformEvents(MergeStream([nonDebounce, debounce]), transitionFn);
   }
 
   @override
   Stream<TopicListState> mapEventToState(
     TopicListEvent event,
   ) async* {
-    if (event is TopicListFetch) {
+    if (event is TopicListInit) {
+      _fetchCategories();
+    } else if (event is TopicListFetch) {
       _fetchLatest(refresh: event.refresh);
     } else if (event is TopicListPoll) {
-      _checkLatest();
+      await _checkLatest();
     } else if (event is TopicListChangeCategory) {
       _changeCategory(event.categoryIndex);
     }
   }
 
-  Future<List<Category>> _fetchCategories() async {
+  _fetchCategories() async {
     var categories = await _categoryRepository.fetchAll();
     categories
         .retainWhere((element) => kEnableCategories.contains(element.slug));
-    return categories;
+    categories.insert(0, theAllCategory);
+    emit(state.copyWith(
+      categoryIndex: 0,
+      categories: categories,
+    ));
   }
 
   _fetchLatest({bool refresh = false}) async {
     if (state.status.isInitial) {
       var pageModel = await _topicRepository.fetchLatest();
-      var categories = await _fetchCategories();
-      categories.insert(0, theAllCategory);
-      emit(TopicListState(
+      emit(state.copyWith(
         status: TopicListStatus.success,
         topics: pageModel.data,
         page: 0,
         more: pageModel.hasNext,
-        categoryIndex: 0,
-        categories: categories,
       ));
     } else if (state.status.isSuccess) {
       if (state.more || refresh) {
@@ -80,14 +86,22 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
           categorySlug = cat.slug;
         }
 
-        emit(state.copyWith(
-          paging: true,
-        ));
+        if (refresh) {
+          emit(state.copyWith(
+            status: TopicListStatus.loading,
+          ));
+        } else {
+          emit(state.copyWith(
+            paging: true,
+          ));
+        }
+
         var nextPage = refresh ? 0 : state.page + 1;
         var pageModel = await _topicRepository.fetchLatest(
             page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
         var oldTopics = refresh ? <Topic>[] : List.of(state.topics);
         emit(state.copyWith(
+          status: TopicListStatus.success,
           topics: oldTopics..addAll(pageModel.data),
           page: nextPage,
           more: pageModel.hasNext,
@@ -115,7 +129,6 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
       var categories = state.categories;
       if (index < categories.length) {
         emit(state.copyWith(
-          status: TopicListStatus.loading,
           categoryIndex: index,
         ));
         await _fetchLatest(refresh: true);

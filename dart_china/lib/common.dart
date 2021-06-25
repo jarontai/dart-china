@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 const kSplashRadius = 25.0;
@@ -12,9 +11,9 @@ const CategoryNameMap = {
 };
 
 const CategoryColorMap = {
-  'share': Color(0xFF40a37e),
-  'question': Color(0xFFd9a01c),
-  'meta': Color(0xFFa19b8f),
+  'share': Color(0xFF3AB54A),
+  'question': Color(0xFFF1592A),
+  'meta': Color(0xFF888281),
 };
 
 abstract class Messages {

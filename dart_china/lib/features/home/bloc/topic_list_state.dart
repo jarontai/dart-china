@@ -52,4 +52,12 @@ class TopicListState extends Equatable {
   @override
   List<Object?> get props =>
       [status, topics, page, more, categories, categoryIndex, paging];
+
+  @override
+  bool? get stringify => false;
+
+  @override
+  String toString() {
+    return '$runtimeType($status)';
+  }
 }
