@@ -63,7 +63,10 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
       var categories = await _fetchCategories();
       categories.insert(0, theAllCategory);
       emit(TopicListState(
+        status: TopicListStatus.success,
         topics: pageModel.data,
+        page: 0,
+        more: pageModel.hasNext,
         categoryIndex: 0,
         categories: categories,
       ));

@@ -7,7 +7,7 @@ import 'app.dart';
 import 'config.dart';
 import 'repositories/repositories.dart';
 
-class CubitObserver extends BlocObserver {
+class SimpleBlocObserver extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
@@ -18,7 +18,7 @@ class CubitObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print(
-        'Bloc onChange: ${bloc.runtimeType} ${change.currentState.runtimeType} -> ${change.nextState.runtimeType}');
+        'Bloc onChange: ${bloc.runtimeType} ${change.currentState} -> ${change.nextState}');
   }
 }
 
@@ -30,7 +30,7 @@ void main() async {
 
   EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.ring;
 
-  Bloc.observer = CubitObserver();
+  Bloc.observer = SimpleBlocObserver();
 
   final config = AppConfig.dev();
   await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);

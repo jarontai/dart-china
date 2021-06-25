@@ -13,20 +13,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc(this._userRepository, this._loginBloc, this._registerBloc)
       : super(AppState()) {
     _loginSubscription = _loginBloc.stream.listen((authState) {
-      // if (authState is LoginSuccess) {
-      //   _updateLogin(true, authState.user);
-      //   profileBloc.add(ProfileOpen(username: authState.user.username));
-      // } else {
-      //   _updateLogin(false, null, notifcation: false);
-      // }
+      if (authState is LoginSuccess) {
+        _updateLogin(true, authState.user);
+      }
     });
     _registerSubscription = _registerBloc.stream.listen((authState) {
-      // if (authState is LoginSuccess) {
-      //   _updateLogin(true, authState.user);
-      //   profileBloc.add(ProfileOpen(username: authState.user.username));
-      // } else {
-      //   _updateLogin(false, null, notifcation: false);
-      // }
+      if (authState is RegisterSuccess) {
+        _updateLogin(true, authState.user);
+      }
     });
   }
 
@@ -40,22 +34,31 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> mapEventToState(
     AppEvent event,
   ) async* {
-    if (event is AppOpen) {}
-    // if (event is AppLogin) {
-    //   emit(state.copyWith(
-    //     userLogin: true,
-    //     user: event.user,
-    //   ));
-    // } else if (event is AppLogout) {
-    //   emit(state.copyWith(
-    //     userLogin: false,
-    //     user: null,
-    //   ));
-    // }
+    if (event is AppOpen) {
+      if (state.userLogin) {
+        _checkNotification(state.user!.username);
+      }
+    } else if (event is AppHome) {
+      // if (state.userLogin) {
+      //   _checkNotification(state.user!.username);
+      // }
+    }
+  }
+
+  _updateLogin(bool status, User? user, {bool? notifcation}) {
+    emit(state.copyWith(
+        userLogin: status, user: user, hasNotification: notifcation));
   }
 
   _checkNotification(String username) async {
     final has = await _userRepository.hasNotification(username);
     emit(state.copyWith(hasNotification: has));
+  }
+
+  @override
+  Future<void> close() {
+    _loginSubscription.cancel();
+    _registerSubscription.cancel();
+    return super.close();
   }
 }

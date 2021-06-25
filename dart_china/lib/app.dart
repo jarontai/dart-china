@@ -66,6 +66,8 @@ class DartChinaApp extends StatelessWidget {
       ),
       initialRoute: Routes.home,
       routes: {
+        Routes.login: (_) => LoginPage(),
+        Routes.register: (_) => RegisterPage(),
         Routes.home: (_) => BlocProvider<TopicListBloc>(
               create: (context) => TopicListBloc(
                 context.read<CategoryRepository>(),
@@ -73,15 +75,18 @@ class DartChinaApp extends StatelessWidget {
               ),
               child: HomePage(),
             ),
-        Routes.login: (_) => LoginPage(),
-        Routes.register: (_) => RegisterPage(),
         Routes.search: (context) => BlocProvider<SearchBloc>(
               create: (context) => SearchBloc(
                 context.read<PostRepository>(),
               ),
               child: SearchPage(),
             ),
-        Routes.notification: (_) => NotificationPage(),
+        Routes.notification: (_) => BlocProvider<NotificationBloc>(
+              create: (context) => NotificationBloc(
+                context.read<UserRepository>(),
+              ),
+              child: NotificationPage(),
+            ),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
       debugShowCheckedModeBanner: false,
