@@ -20,5 +20,5 @@ export 'register/view/register_page.dart';
 export 'search/bloc/search_bloc.dart';
 export 'search/view/search_page.dart';
 
-export 'topic/cubit/topic_cubit.dart';
+export 'topic/bloc/topic_bloc.dart';
 export 'topic/view/topic_page.dart';

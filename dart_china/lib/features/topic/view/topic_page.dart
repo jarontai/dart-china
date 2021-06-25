@@ -5,7 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../common.dart';
 import '../../../widgets/widgets.dart';
 import '../../../features/features.dart';
-import '../cubit/topic_cubit.dart';
+import '../bloc/topic_bloc.dart';
 import 'widgets/widgets.dart';
 
 class TopicPage extends StatefulWidget {
@@ -26,7 +26,9 @@ class _TopicPageState extends State<TopicPage> {
   @override
   void initState() {
     super.initState();
-    context.read<TopicCubit>().fetchTopic(widget.topicId);
+    context
+        .read<TopicBloc>()
+        .add(TopicFetch(topicId: widget.topicId, fetchTopic: true));
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -34,7 +36,9 @@ class _TopicPageState extends State<TopicPage> {
         var maxExtent = _scrollController.position.maxScrollExtent;
         if (_scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
-          context.read<TopicCubit>().fetchTopicPosts();
+          context
+              .read<TopicBloc>()
+              .add(TopicFetch(topicId: widget.topicId, fetchTopic: false));
         }
       }
     });
@@ -54,18 +58,18 @@ class _TopicPageState extends State<TopicPage> {
         backgroundColor: ColorPalette.topicBgColor,
         appBar: _buildAppBar(),
         floatingActionButton: _buildFloatingButton(context),
-        body: BlocConsumer<TopicCubit, TopicState>(
+        body: BlocConsumer<TopicBloc, TopicState>(
           listener: (context, state) {
             if (state.postSuccess) {
               EasyLoading.showToast('回复成功');
             }
           },
           builder: (context, state) {
-            if (state.status == TopicStatus.success) {
+            if (state.status.isSuccess) {
               var topic = state.topic!;
               var postCount = state.posts.length;
               var itemCount = postCount;
-              if (state.loading) {
+              if (state.paging) {
                 itemCount += 1;
               }
               return _buildPostList(topic, postCount, itemCount, state);
@@ -88,8 +92,7 @@ class _TopicPageState extends State<TopicPage> {
           Navigator.of(context).pushNamed(Routes.login);
         },
         onReply: (text) {
-          var topicCubit = context.read<TopicCubit>();
-          topicCubit.createTopicPost(text);
+          context.read<TopicBloc>().add(TopicReply(content: text));
         },
       ),
     );
