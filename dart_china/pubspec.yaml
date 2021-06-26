@@ -1,5 +1,6 @@
 name: dart_china
-description: The official mobile app of dart-china.org, built with flutter. It's minimal, only provides the most commonly used features.
+description: The official mobile app of dart-china.org, built with flutter. It's
+  minimal, only provides the most commonly used features.
 publish_to: 'none'
 version: 0.1.0
 
@@ -18,6 +19,7 @@ dependencies:
       ref: jarontai
   badges: ^2.0.1
   bloc: ^7.0.0
+  bugly_crash: ^0.0.6
   cached_network_image: ^3.0.0
   cupertino_icons: ^1.0.2
   device_preview: ^0.7.1
@@ -26,6 +28,7 @@ dependencies:
   flutter_easyloading: ^3.0.0
   flutter_markdown: ^0.6.1
   flutter_zoom_drawer: ^2.0.2+4
+  get_it: 7.1.3
   html_editor_enhanced: ^2.2.0
   image_picker: ^0.8.0+3
   intl: ^0.17.0
@@ -36,11 +39,11 @@ dependencies:
   sentry: ^5.0.0
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
+  package_info_plus: ^1.0.3
 
 # dependency_overrides:
 #   discourse_api:
 #     path: ../../discourse_api
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 const development = 'development';
 const production = 'production';
 
@@ -9,15 +7,21 @@ class AppConfig {
         flavorName = development,
         apiBaseUrl = '',
         siteUrl = 'https://www.dart-china.org',
-        cdnUrl = 'https://cdn.dart-china.org';
+        cdnUrl = 'https://cdn.dart-china.org',
+        buglyAndroidAppId = '7ba411b3d4',
+        buglyIosAppId = '6eb3a75f2a';
 
   AppConfig.prod()
       : appName = 'Dart China',
         flavorName = production,
         apiBaseUrl = '',
         siteUrl = 'https://www.dart-china.org',
-        cdnUrl = 'https://cdn.dart-china.org';
+        cdnUrl = 'https://cdn.dart-china.org',
+        buglyAndroidAppId = '4d03d3e324',
+        buglyIosAppId = '2bc1eb307b';
 
+  final String buglyAndroidAppId;
+  final String buglyIosAppId;
   final String appName;
   final String flavorName;
   final String apiBaseUrl;
@@ -31,20 +35,4 @@ class AppConfig {
   bool get isDev {
     return flavorName == development;
   }
-}
-
-class AppConfigScope extends InheritedWidget {
-  AppConfigScope({
-    required this.config,
-    required Widget child,
-  }) : super(child: child);
-
-  final AppConfig config;
-
-  static AppConfigScope of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AppConfigScope>()!;
-  }
-
-  @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
 }

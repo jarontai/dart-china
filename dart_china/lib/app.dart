@@ -12,7 +12,7 @@ import 'repositories/repositories.dart';
 class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isProd = AppConfigScope.of(context).config.isProd;
+    final isProd = getIt.get<AppConfig>().isProd;
 
     return MultiRepositoryProvider(
       providers: [
@@ -27,16 +27,26 @@ class DartChinaApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (_) => BuglyBloc(),
+          ),
+          BlocProvider(
             create: (context) => LoginBloc(
-                context.read<AuthRepository>(), context.read<UserRepository>()),
+              context.read<AuthRepository>(),
+              context.read<UserRepository>(),
+            ),
           ),
           BlocProvider(
-            create: (context) => RegisterBloc(context.read<AuthRepository>()),
+            create: (context) => RegisterBloc(
+              context.read<AuthRepository>(),
+            ),
           ),
           BlocProvider(
-            create: (context) => AppBloc(context.read<UserRepository>(),
-                context.read<LoginBloc>(), context.read<RegisterBloc>())
-              ..add(AppOpen()),
+            create: (context) => AppBloc(
+              context.read<UserRepository>(),
+              context.read<LoginBloc>(),
+              context.read<RegisterBloc>(),
+              context.read<BuglyBloc>(),
+            )..add(AppOpen()),
           ),
         ],
         child: isProd

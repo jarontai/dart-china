@@ -15,3 +15,4 @@ export 'search/bloc/search_bloc.dart';
 export 'search/view/search_page.dart';
 export 'topic/bloc/topic_bloc.dart';
 export 'topic/view/topic_page.dart';
+export 'bugly/bloc/bugly_bloc.dart';

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dart_china/common.dart';
+import 'package:dart_china/features/bugly/bloc/bugly_bloc.dart';
 import '../../features.dart';
 import '../../../models/models.dart';
 import '../../../repositories/repositories.dart';
@@ -10,7 +12,8 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc(this._userRepository, this._loginBloc, this._registerBloc)
+  AppBloc(this._userRepository, this._loginBloc, this._registerBloc,
+      this._buglyBloc)
       : super(AppState()) {
     _loginSubscription = _loginBloc.stream.listen((authState) {
       if (authState is LoginSuccess) {
@@ -29,6 +32,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final RegisterBloc _registerBloc;
   late StreamSubscription _loginSubscription;
   late StreamSubscription _registerSubscription;
+  final BuglyBloc _buglyBloc;
 
   @override
   Stream<AppState> mapEventToState(
@@ -38,10 +42,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       if (state.userLogin) {
         _checkNotification(state.user!.username);
       }
+
+      final config = getIt.get<AppConfig>();
+      _buglyBloc.add(BuglyInit(
+        enableDebug: !config.isProd,
+        androidAppId: config.buglyAndroidAppId,
+        iosAppId: config.buglyIosAppId,
+      ));
     } else if (event is AppHome) {
-      // if (state.userLogin) {
-      //   _checkNotification(state.user!.username);
-      // }
+      if (state.userLogin) {
+        _checkNotification(state.user!.username);
+      }
     }
   }
 

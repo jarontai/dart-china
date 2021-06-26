@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+export './config.dart';
+
+final getIt = GetIt.instance;
 
 const kSplashRadius = 25.0;
 const kEnableCategories = ['share', 'question', 'meta'];

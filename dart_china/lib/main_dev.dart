@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:bugly_crash/bugly.dart';
+import 'package:dart_china/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,20 +27,32 @@ class SimpleBlocObserver extends BlocObserver {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    print("zone current print error");
+    Zone.current.handleUncaughtError(details.exception, details.stack!);
+  };
 
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.ring;
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  Bloc.observer = SimpleBlocObserver();
+    EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.circle;
 
-  final config = AppConfig.dev();
-  await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
+    Bloc.observer = SimpleBlocObserver();
 
-  runApp(AppConfigScope(
-    config: config,
-    child: DartChinaApp(),
-  ));
+    final config = AppConfig.dev();
+    await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
+    getIt.registerSingleton<AppConfig>(config);
+
+    runApp(DartChinaApp());
+  }, (error, stackTrace) async {
+    String type = "flutter uncaught error";
+    await Bugly.postException(
+        type: type,
+        error: error.toString(),
+        stackTrace: stackTrace.toString(),
+        extraInfo: {});
+  });
 }
