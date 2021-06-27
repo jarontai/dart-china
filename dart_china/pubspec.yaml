@@ -36,7 +36,6 @@ dependencies:
   reactive_forms: ^10.4.1
   result_type: ^0.1.0
   rxdart: ^0.27.1
-  sentry: ^5.0.0
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
   package_info_plus: ^1.0.3

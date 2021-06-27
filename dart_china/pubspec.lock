@@ -872,13 +872,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.1"
-  sentry:
-    dependency: "direct main"
-    description:
-      name: sentry
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "5.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
