@@ -33,7 +33,6 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
         var theTopic = await _topicRepository.findTopic(event.topicId);
         emit(state.copyWith(
           topic: theTopic,
-          posts: List.of(theTopic.posts ?? []),
         ));
       }
       _fetchTopicPosts();
@@ -57,6 +56,7 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
         await _postRepository.fetchTopicPosts(state.topic!, page: page);
     var newPosts = List.of(state.posts)..addAll(pageModel.data);
     emit(state.copyWith(
+      status: TopicStatus.success,
       posts: newPosts,
       page: page,
       more: pageModel.hasNext,
@@ -76,5 +76,9 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
       postSuccess: true,
     ));
     emit(state.copyWith(postSuccess: false));
+  }
+
+  String buildTopicUrl(int topicId) {
+    return _topicRepository.buildTopicUrl(topicId);
   }
 }

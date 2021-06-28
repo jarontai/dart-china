@@ -251,10 +251,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0c5a0694fe6373199ccee1eb6f30868b391d3acc"
+      resolved-ref: ceb04283b8a1e06f1ae9f923450b18ffda0b23b7
       url: "git@github.com:jarontai/discourse_api.git"
     source: git
-    version: "0.4.0"
+    version: "0.4.1"
   dotenv:
     dependency: transitive
     description:
@@ -872,6 +872,48 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.1"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.4"
+  share_plus_linux:
+    dependency: transitive
+    description:
+      name: share_plus_linux
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
+  share_plus_macos:
+    dependency: transitive
+    description:
+      name: share_plus_macos
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.2"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
+  share_plus_web:
+    dependency: transitive
+    description:
+      name: share_plus_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4"
+  share_plus_windows:
+    dependency: transitive
+    description:
+      name: share_plus_windows
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   shared_preferences:
     dependency: "direct main"
     description:

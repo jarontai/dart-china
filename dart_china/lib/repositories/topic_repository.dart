@@ -45,4 +45,8 @@ class TopicRepository extends BaseRepository {
     }
     return result;
   }
+
+  String buildTopicUrl(int topicId) {
+    return _client.buildTopicUrl(topicId);
+  }
 }

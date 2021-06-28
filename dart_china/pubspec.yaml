@@ -1,6 +1,5 @@
 name: dart_china
-description: The official mobile app of dart-china.org, built with flutter. It's
-  minimal, only provides the most commonly used features.
+description: The official mobile app of dart-china.org, built with flutter.
 publish_to: 'none'
 version: 0.1.0
 
@@ -32,13 +31,14 @@ dependencies:
   html_editor_enhanced: ^2.2.0
   image_picker: ^0.8.0+3
   intl: ^0.17.0
+  package_info_plus: ^1.0.3
   path_provider: ^2.0.1
   reactive_forms: ^10.4.1
   result_type: ^0.1.0
   rxdart: ^0.27.1
+  share_plus: ^2.1.4
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
-  package_info_plus: ^1.0.3
 
 # dependency_overrides:
 #   discourse_api:

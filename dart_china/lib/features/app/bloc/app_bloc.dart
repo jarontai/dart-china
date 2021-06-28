@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dart_china/common.dart';
 import 'package:dart_china/features/bugly/bloc/bugly_bloc.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:equatable/equatable.dart';
+
 import '../../features.dart';
 import '../../../models/models.dart';
 import '../../../repositories/repositories.dart';
-import 'package:equatable/equatable.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
@@ -53,6 +55,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       if (state.userLogin) {
         _checkNotification(state.user!.username);
       }
+    } else if (event is AppShare) {
+      _shareTopic(event.url, event.title);
     }
   }
 
@@ -64,6 +68,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   _checkNotification(String username) async {
     final has = await _userRepository.hasNotification(username);
     emit(state.copyWith(hasNotification: has));
+  }
+
+  _shareTopic(String url, String? title) {
+    Share.share('$title $url', subject: title);
   }
 
   @override

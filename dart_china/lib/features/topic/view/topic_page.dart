@@ -57,7 +57,7 @@ class _TopicPageState extends State<TopicPage> {
       top: false,
       child: Scaffold(
         backgroundColor: ColorPalette.topicBgColor,
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(context),
         floatingActionButton: _buildFloatingButton(context),
         body: BlocConsumer<TopicBloc, TopicState>(
           listener: (context, state) {
@@ -99,13 +99,24 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: false,
       title: Text(
         '查看话题',
         style: TextStyle(color: ColorPalette.titleColor),
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            final topicBloc = context.read<TopicBloc>();
+            final url = topicBloc.buildTopicUrl(widget.topicId);
+            final title = topicBloc.state.topic?.title;
+            context.read<AppBloc>().add(AppShare(url: url, title: title));
+          },
+          icon: Icon(Icons.share_outlined),
+        )
+      ],
       backgroundColor: ColorPalette.topicBgColor,
       elevation: 0,
       iconTheme: IconThemeData(color: ColorPalette.titleColor),
