@@ -39,6 +39,7 @@ dependencies:
   share_plus: ^2.1.4
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.6
+  flutter_dotenv: ^5.0.0
 
 # dependency_overrides:
 #   discourse_api:
@@ -57,6 +58,7 @@ flutter:
   assets:
     - assets/icon/logo_dart.png
     - assets/icon/logo_dart_ios.png
+    - .env
 
 flutter_icons:
   android: true

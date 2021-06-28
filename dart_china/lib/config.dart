@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 const development = 'development';
 const production = 'production';
 
@@ -6,19 +8,19 @@ class AppConfig {
       : appName = 'Dart China DEV',
         flavorName = development,
         apiBaseUrl = '',
-        siteUrl = 'https://www.dart-china.org',
-        cdnUrl = 'https://cdn.dart-china.org',
-        buglyAndroidAppId = '7ba411b3d4',
-        buglyIosAppId = '6eb3a75f2a';
+        siteUrl = dotenv.env['DEV_SITE_URL']!,
+        cdnUrl = dotenv.env['DEV_CDN_URL']!,
+        buglyAndroidAppId = dotenv.env['DEV_BUGLY_ANDROID_APP_ID']!,
+        buglyIosAppId = dotenv.env['DEV_BUGLY_IOS_APP_ID']!;
 
   AppConfig.prod()
       : appName = 'Dart China',
         flavorName = production,
         apiBaseUrl = '',
-        siteUrl = 'https://www.dart-china.org',
-        cdnUrl = 'https://cdn.dart-china.org',
-        buglyAndroidAppId = '4d03d3e324',
-        buglyIosAppId = '2bc1eb307b';
+        siteUrl = dotenv.env['PROD_SITE_URL']!,
+        cdnUrl = dotenv.env['PROD_CDN_URL']!,
+        buglyAndroidAppId = dotenv.env['PROD_BUGLY_ANDROID_APP_ID']!,
+        buglyIosAppId = dotenv.env['PROD_BUGLY_IOS_APP_ID']!;
 
   final String buglyAndroidAppId;
   final String buglyIosAppId;

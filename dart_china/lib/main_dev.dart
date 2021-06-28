@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'app.dart';
 import 'config.dart';
@@ -41,6 +42,8 @@ void main() async {
     EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.circle;
 
     Bloc.observer = SimpleBlocObserver();
+
+    await dotenv.load();
 
     final config = AppConfig.dev();
     await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
