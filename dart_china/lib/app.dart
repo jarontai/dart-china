@@ -41,6 +41,7 @@ class DartChinaApp extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => AppBloc(
               context.read<UserRepository>(),
               context.read<LoginBloc>(),

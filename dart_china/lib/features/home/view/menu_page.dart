@@ -61,7 +61,7 @@ class _MenuPageState extends State<MenuPage> {
       child: Row(
         children: [
           AvatarButton(
-            size: 30,
+            size: 35,
             avatarUrl: userLogin ? user?.avatar : null,
             onPressed: () {
               ZoomDrawer.of(context)?.close();
