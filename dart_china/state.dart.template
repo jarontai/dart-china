@@ -1,0 +1,30 @@
+enum TopicEditStatus {
+  initial,
+  loading,
+  loadSuccess,
+  submitting,
+  submitSuccess,
+  failure
+}
+
+extension TopicEditStatusX on TopicEditStatus {
+  bool get isInitial => this == TopicEditStatus.initial;
+  bool get isLoading => this == TopicEditStatus.loading;
+  bool get isLoadingSuccess => this == TopicEditStatus.loadSuccess;
+  bool get isSubmitting => this == TopicEditStatus.submitting;
+  bool get isSubmitSuccess => this == TopicEditStatus.submitSuccess;
+  bool get isFailure => this == TopicEditStatus.failure;
+}
+
+class TopicEditState extends Equatable {
+  final TopicEditStatus status;
+  final Topic topic;
+
+  TopicEditState({
+    required this.status,
+    required this.topic,
+  });
+
+  @override
+  List<Object?> get props => [status, topic];
+}
