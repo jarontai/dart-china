@@ -4,18 +4,19 @@ Dart中文社区官方App，使用Flutter编写
 
 ## 功能
 
-[Dart中文社区]()是使用[Discouse]()构建，Discourse功能异常丰富，APP是作为网页端的补充，即只实现最核心最常用的功能。
+[Dart中文社区](https://www.dart-china.org/)是使用[Discouse](https://www.discourse.org/)搭建，Discourse的Web端功能异常丰富。本APP定位为Web端的补充，只实现最常用的部分功能。
 
 目前已实现的功能（页面）：
 
   * 主题列表
   * 主题详情与回复
-  * 发表主题（构建中）
+  * 主题发布（构建中）
   * 搜索
   * 通知消息
   * 登录
   * 注册
   * 我的
+  * 异常上报和事件统计
 
 ## 截图
 
