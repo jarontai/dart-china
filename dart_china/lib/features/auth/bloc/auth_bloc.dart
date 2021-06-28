@@ -9,28 +9,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/models.dart';
 import '../../../repositories/repositories.dart';
 
-part 'login_event.dart';
-part 'login_state.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 const _kUsername = 'username';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(this._authRepository, this._userRepository) : super(LoginInitial());
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthBloc(this._authRepository, this._userRepository)
+      : super(AuthLoginInitial());
 
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
 
   @override
-  Stream<LoginState> mapEventToState(
-    LoginEvent event,
+  Stream<AuthState> mapEventToState(
+    AuthEvent event,
   ) async* {
-    if (event is LoginOpen) {
-      emit(LoginInitial());
-    } else if (event is LoginPost) {
+    if (event is AuthLoginOpen) {
+      emit(AuthLoginInitial());
+    } else if (event is AuthLoginPost) {
       _login(event.username, event.password);
-    } else if (event is LoginLogout) {
+    } else if (event is AuthLogout) {
       _logout();
-    } else if (event is LoginCheck) {
+    } else if (event is AuthLoginCheck) {
       _check();
     }
   }
@@ -42,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (login) {
       if (username != null && username.isNotEmpty) {
         var user = await _userRepository.userInfo(username);
-        emit(LoginSuccess(user: user));
+        emit(AuthLoginSuccess(user: user));
       }
     } else {
       if (username != null) {
@@ -52,15 +53,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   _login(String username, String password) async {
-    emit(LoginPending());
+    emit(AuthLoginPending());
     var result = await _authRepository.login(username, password);
     result.result((value) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_kUsername, value.username);
 
-      emit(LoginSuccess(user: value));
+      emit(AuthLoginSuccess(user: value));
     }, (value) {
-      emit(LoginFail(error: '登录失败'));
+      emit(AuthLoginFail(error: '登录失败'));
     });
   }
 
@@ -79,6 +80,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await item.delete(recursive: true);
     }
 
-    emit(LoginLogoutSuccess());
+    emit(AuthLogoutSuccess());
   }
 }

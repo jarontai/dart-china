@@ -30,7 +30,7 @@ class DartChinaApp extends StatelessWidget {
             create: (_) => BuglyBloc(),
           ),
           BlocProvider(
-            create: (context) => LoginBloc(
+            create: (context) => AuthBloc(
               context.read<AuthRepository>(),
               context.read<UserRepository>(),
             ),
@@ -44,7 +44,7 @@ class DartChinaApp extends StatelessWidget {
             lazy: false,
             create: (context) => AppBloc(
               context.read<UserRepository>(),
-              context.read<LoginBloc>(),
+              context.read<AuthBloc>(),
               context.read<RegisterBloc>(),
               context.read<BuglyBloc>(),
             )..add(AppOpen()),

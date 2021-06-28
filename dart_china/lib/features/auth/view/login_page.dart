@@ -6,7 +6,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../common.dart';
 import '../../../widgets/button_widget.dart';
 import '../../../widgets/widgets.dart';
-import '../bloc/login_bloc.dart';
+import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -29,16 +29,16 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
-            child: BlocConsumer<LoginBloc, LoginState>(
+            child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if (state is LoginFail) {
+                if (state is AuthLoginFail) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   EasyLoading.showToast(state.error);
                 }
-                if (state is LoginPending) {
+                if (state is AuthLoginPending) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   EasyLoading.show();
-                } else if (state is LoginSuccess) {
+                } else if (state is AuthLoginSuccess) {
                   EasyLoading.showToast(Messages.loginSuccess);
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName(Routes.home));
@@ -137,9 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                 if (form.valid) {
                   var username = form.control('username').value;
                   var password = form.control('password').value;
-                  context
-                      .read<LoginBloc>()
-                      .add(LoginPost(username: username, password: password));
+                  context.read<AuthBloc>().add(
+                      AuthLoginPost(username: username, password: password));
                 } else {}
               },
             ),

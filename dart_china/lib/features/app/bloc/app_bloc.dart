@@ -18,8 +18,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       this._buglyBloc)
       : super(AppState()) {
     _loginSubscription = _loginBloc.stream.listen((authState) {
-      if (authState is LoginSuccess) {
+      if (authState is AuthLoginSuccess) {
         _updateLogin(true, authState.user);
+      } else if (authState is AuthLogoutSuccess) {
+        _updateLogin(false, null);
       }
     });
     _registerSubscription = _registerBloc.stream.listen((authState) {
@@ -30,11 +32,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   final UserRepository _userRepository;
-  final LoginBloc _loginBloc;
+  final AuthBloc _loginBloc;
   final RegisterBloc _registerBloc;
+  final BuglyBloc _buglyBloc;
   late StreamSubscription _loginSubscription;
   late StreamSubscription _registerSubscription;
-  final BuglyBloc _buglyBloc;
 
   @override
   Stream<AppState> mapEventToState(
@@ -62,7 +64,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   _updateLogin(bool status, User? user, {bool? notifcation}) {
     emit(state.copyWith(
-        userLogin: status, user: user, hasNotification: notifcation));
+      userLogin: status,
+      user: user,
+      hasNotification: notifcation,
+    ));
   }
 
   _checkNotification(String username) async {

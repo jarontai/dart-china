@@ -108,7 +108,7 @@ class TopicPostCard extends StatelessWidget {
       return FullScreenWidget(
         child: Center(
           child: Hero(
-            tag: "smallImage",
+            tag: uri.path,
             child: InteractiveViewer(
               child: CachedNetworkImage(
                 imageUrl: uri.toString(),
