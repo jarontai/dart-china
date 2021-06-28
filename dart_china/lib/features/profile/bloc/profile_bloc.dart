@@ -20,7 +20,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> mapEventToState(
     ProfileEvent event,
   ) async* {
-    if (event is ProfileOpen) {
+    if (event is ProfileInit) {
       _init(event.username);
     }
   }

@@ -7,10 +7,10 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthLoginOpen extends AuthEvent {
+class AuthLoginInit extends AuthEvent {
   final String returnRoute;
 
-  AuthLoginOpen({
+  AuthLoginInit({
     this.returnRoute = '/',
   });
 }

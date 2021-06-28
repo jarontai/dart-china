@@ -47,7 +47,7 @@ class DartChinaApp extends StatelessWidget {
               context.read<AuthBloc>(),
               context.read<RegisterBloc>(),
               context.read<BuglyBloc>(),
-            )..add(AppOpen()),
+            )..add(AppInit()),
           ),
         ],
         child: isProd

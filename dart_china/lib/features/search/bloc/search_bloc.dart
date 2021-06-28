@@ -27,7 +27,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    if (event is SearchOpen) {
+    if (event is SearchInit) {
       emit(SearchInitial());
     } else if (event is SearchFetch) {
       _doSearch(event.search, refresh: event.refresh);

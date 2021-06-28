@@ -42,7 +42,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> mapEventToState(
     AppEvent event,
   ) async* {
-    if (event is AppOpen) {
+    if (event is AppInit) {
       if (state.userLogin) {
         _checkNotification(state.user!.username);
       }

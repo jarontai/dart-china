@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    if (event is AuthLoginOpen) {
+    if (event is AuthLoginInit) {
       emit(AuthLoginInitial());
     } else if (event is AuthLoginPost) {
       _login(event.username, event.password);

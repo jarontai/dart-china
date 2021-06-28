@@ -7,7 +7,7 @@ abstract class SearchEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchOpen extends SearchEvent {}
+class SearchInit extends SearchEvent {}
 
 class SearchFetch extends SearchEvent {
   final String search;

@@ -7,7 +7,7 @@ abstract class RegisterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class RegisterOpen extends RegisterEvent {}
+class RegisterInit extends RegisterEvent {}
 
 class RegisterPost extends RegisterEvent {
   final String email;

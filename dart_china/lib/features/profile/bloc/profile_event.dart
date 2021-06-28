@@ -7,10 +7,10 @@ abstract class ProfileEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ProfileOpen extends ProfileEvent {
+class ProfileInit extends ProfileEvent {
   final String username;
 
-  ProfileOpen({
+  ProfileInit({
     required this.username,
   });
 }

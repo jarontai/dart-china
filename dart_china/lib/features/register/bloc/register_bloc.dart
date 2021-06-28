@@ -18,7 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> mapEventToState(
     RegisterEvent event,
   ) async* {
-    if (event is RegisterOpen) {
+    if (event is RegisterInit) {
       emit(RegisterInitial());
     } else if (event is RegisterPost) {
       _register(event.email, event.username, event.password);

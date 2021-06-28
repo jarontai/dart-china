@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
 
-    context.read<ProfileBloc>().add(ProfileOpen(username: widget.username));
+    context.read<ProfileBloc>().add(ProfileInit(username: widget.username));
   }
 
   @override

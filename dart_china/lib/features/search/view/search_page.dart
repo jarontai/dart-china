@@ -24,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
 
-    context.read<SearchBloc>().add(SearchOpen());
+    context.read<SearchBloc>().add(SearchInit());
 
     _scrollController.addListener(() {
       if (!_scrollController.hasClients) return;
