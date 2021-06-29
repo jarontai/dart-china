@@ -9,9 +9,11 @@ class TopicCard extends StatelessWidget {
   const TopicCard({
     Key? key,
     required this.topic,
+    this.isLast = false,
   }) : super(key: key);
 
   final Topic topic;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class TopicCard extends StatelessWidget {
         left: 20,
         right: 20,
         top: 8,
-        bottom: 10,
+        bottom: isLast ? 0 : 10,
       ),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(

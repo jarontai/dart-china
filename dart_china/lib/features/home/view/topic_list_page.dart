@@ -76,38 +76,20 @@ class _TopicListPageState extends State<TopicListPage> {
               controller: _scrollController,
               physics: ClampingScrollPhysics(),
               slivers: [
-                BlocBuilder<AppBloc, AppState>(
-                  builder: (context, state) {
-                    return SliverPersistentHeader(
-                      pinned: true,
-                      delegate: HomeSliverHeader(
-                        onMenuPressed: () {
-                          if (ZoomDrawer.of(context)!.isOpen()) {
-                            ZoomDrawer.of(context)?.close();
-                          } else {
-                            ZoomDrawer.of(context)?.open();
-                          }
-                        },
-                        onSearchPressed: () {
-                          Navigator.of(context).pushNamed(Routes.search);
-                        },
-                        onAddPressed: () {
-                          final args = PostArguments(isTopic: true);
-                          Navigator.of(context)
-                              .pushNamed(Routes.post, arguments: args);
-                        },
-                        badge: state.hasNotification,
-                      ),
-                    );
-                  },
-                ),
+                _buildHeader(),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: SliverCategorySelector(onSelect: () {
                     _jumpToTop();
                   }),
                 ),
-                _buildSliverTopicList(context),
+                _buildTopicList(context),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: ColorPalette.topicBgColor,
+                  ),
+                )
               ],
             ),
           ),
@@ -126,9 +108,37 @@ class _TopicListPageState extends State<TopicListPage> {
     );
   }
 
-  Widget _buildSliverTopicList(BuildContext context) {
+  Widget _buildHeader() {
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (context, state) {
+        return SliverPersistentHeader(
+          pinned: true,
+          delegate: HomeSliverHeader(
+            onMenuPressed: () {
+              if (ZoomDrawer.of(context)!.isOpen()) {
+                ZoomDrawer.of(context)?.close();
+              } else {
+                ZoomDrawer.of(context)?.open();
+              }
+            },
+            onSearchPressed: () {
+              Navigator.of(context).pushNamed(Routes.search);
+            },
+            onAddPressed: () {
+              final args = PostArguments(isTopic: true);
+              Navigator.of(context).pushNamed(Routes.post, arguments: args);
+            },
+            badge: state.hasNotification,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTopicList(BuildContext context) {
     return BlocBuilder<TopicListBloc, TopicListState>(builder: (_, state) {
       if (state.status.isSuccess) {
+        final topicNum = state.topics.length;
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (_, index) {
@@ -144,15 +154,15 @@ class _TopicListPageState extends State<TopicListPage> {
                     ),
                   ],
                 ),
-                child: index >= state.topics.length
+                child: index >= topicNum
                     ? ListLoader()
                     : TopicCard(
                         topic: state.topics[index],
+                        isLast: index >= topicNum - 1,
                       ),
               );
             },
-            childCount:
-                state.paging ? state.topics.length + 1 : state.topics.length,
+            childCount: state.paging ? topicNum + 1 : topicNum,
           ),
         );
       } else {

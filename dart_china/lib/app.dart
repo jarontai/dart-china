@@ -13,7 +13,7 @@ import 'repositories/repositories.dart';
 class DartChinaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isProd = getIt.get<AppConfig>().isProd;
+    final enablePreview = getIt.get<AppConfig>().enablePreview;
 
     return MultiRepositoryProvider(
       providers: [
@@ -51,23 +51,23 @@ class DartChinaApp extends StatelessWidget {
             )..add(AppInit()),
           ),
         ],
-        child: isProd
-            ? Builder(builder: (context) {
-                return _buildApp(context, true);
-              })
-            : DevicePreview(
+        child: enablePreview
+            ? DevicePreview(
                 builder: (context) {
-                  return _buildApp(context, false);
+                  return _buildApp(context, enablePreview);
                 },
-              ),
+              )
+            : Builder(builder: (context) {
+                return _buildApp(context, enablePreview);
+              }),
       ),
     );
   }
 
-  Widget _buildApp(BuildContext context, bool isProd) {
+  Widget _buildApp(BuildContext context, bool enablePreview) {
     return MaterialApp(
       builder: EasyLoading.init(builder: (context, child) {
-        if (!isProd) {
+        if (enablePreview) {
           child = DevicePreview.appBuilder(context, child);
         }
         return child!;
@@ -101,7 +101,6 @@ class DartChinaApp extends StatelessWidget {
             ),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
-      debugShowCheckedModeBanner: false,
     );
   }
 
