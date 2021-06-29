@@ -172,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 20,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               autofocus: true,
               email: true,
               name: 'email',
@@ -187,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 15,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               name: 'username',
               label: '用户名',
               hint: '独一无二，只包含数字和字母',
@@ -201,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 15,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               name: 'password',
               label: '密码',
               hint: '至少10位，非简单密码',
@@ -215,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 15,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               name: 'passwordConfirm',
               label: '密码确认',
               hint: '请重复输入一次密码',

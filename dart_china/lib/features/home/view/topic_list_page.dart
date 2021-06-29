@@ -1,3 +1,4 @@
+import 'package:dart_china/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -89,6 +90,11 @@ class _TopicListPageState extends State<TopicListPage> {
                         },
                         onSearchPressed: () {
                           Navigator.of(context).pushNamed(Routes.search);
+                        },
+                        onAddPressed: () {
+                          final args = PostArguments(isTopic: true);
+                          Navigator.of(context)
+                              .pushNamed(Routes.post, arguments: args);
                         },
                         badge: state.hasNotification,
                       ),

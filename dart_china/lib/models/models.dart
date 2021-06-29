@@ -11,3 +11,15 @@ export 'package:discourse_api/discourse_api.dart'
         NotificationData,
         NotificationType,
         SearchResult;
+
+class PostArguments {
+  final int? postId;
+  final int? topicId;
+  final bool isTopic;
+
+  PostArguments({
+    this.postId,
+    this.topicId,
+    this.isTopic = true,
+  });
+}

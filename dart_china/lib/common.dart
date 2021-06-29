@@ -45,6 +45,7 @@ abstract class Routes {
   static final register = '/register';
   static final profile = '/profile';
   static final notification = '/notification';
+  static final post = '/post';
 }
 
 abstract class RegExps {

@@ -63,16 +63,15 @@ class WelcomeBlock extends StatelessWidget {
               ],
             ),
           ),
-          // SizedBox.expand(),
-          // Align(
-          //   child: IconButton(
-          //     splashRadius: kSplashRadius,
-          //     iconSize: 30,
-          //     color: Colors.grey.shade300,
-          //     icon: Icon(Icons.search),
-          //     onPressed: () => onSearchPressed.call(),
-          //   ),
-          // )
+          Align(
+            child: IconButton(
+              splashRadius: kSplashRadius,
+              iconSize: 30,
+              color: Colors.grey.shade300,
+              icon: Icon(Icons.search),
+              onPressed: () => onSearchPressed.call(),
+            ),
+          )
         ],
       ),
     );

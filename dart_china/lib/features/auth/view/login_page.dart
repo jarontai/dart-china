@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               // autofocus: true,
               name: 'username',
               label: '用户名',
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 15,
             ),
-            InputWidget(
+            ReactiveInputWidget(
               name: 'password',
               label: '密码',
               messages: {

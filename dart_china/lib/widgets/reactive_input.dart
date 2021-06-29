@@ -4,8 +4,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../common.dart';
 
-class InputWidget extends StatelessWidget {
-  const InputWidget({
+class ReactiveInputWidget extends StatelessWidget {
+  const ReactiveInputWidget({
     Key? key,
     required this.name,
     this.hint = '',

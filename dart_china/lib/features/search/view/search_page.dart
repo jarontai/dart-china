@@ -71,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
         formGroup: form,
         child: Column(
           children: [
-            InputWidget(
+            ReactiveInputWidget(
               name: 'search',
               hint: '请输入关键字',
               prefix: Icon(

@@ -1,3 +1,4 @@
+import 'package:dart_china/models/models.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,7 +81,6 @@ class DartChinaApp extends StatelessWidget {
         Routes.login: (_) => LoginPage(),
         Routes.register: (_) => RegisterPage(),
         Routes.home: (_) => BlocProvider<TopicListBloc>(
-              lazy: false,
               create: (context) => TopicListBloc(
                 context.read<CategoryRepository>(),
                 context.read<TopicRepository>(),
@@ -94,7 +94,6 @@ class DartChinaApp extends StatelessWidget {
               child: SearchPage(),
             ),
         Routes.notification: (_) => BlocProvider<NotificationBloc>(
-              lazy: false,
               create: (context) => NotificationBloc(
                 context.read<UserRepository>(),
               ),
@@ -135,6 +134,21 @@ class DartChinaApp extends StatelessWidget {
           ),
           child: ProfilePage(
             username: username,
+          ),
+        ),
+      );
+    } else if (routeName == Routes.post) {
+      final args = settings.arguments as PostArguments;
+      return MaterialPageRoute(
+        builder: (_) => BlocProvider<PostBloc>(
+          create: (context) => PostBloc(
+            context.read<TopicRepository>(),
+            context.read<PostRepository>(),
+          ),
+          child: PostPage(
+            isTopic: args.isTopic,
+            postId: args.postId,
+            topicId: args.topicId,
           ),
         ),
       );

@@ -1,5 +1,5 @@
 export 'avatar_button.dart';
-export 'input_widget.dart';
+export 'reactive_input.dart';
 export 'list_loader.dart';
 export 'post_body.dart';
 export 'section_title.dart';
