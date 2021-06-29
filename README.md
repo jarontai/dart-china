@@ -27,16 +27,17 @@ Dart中文社区App，使用Flutter编写
 dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
 
 * [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
-* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的对Discourse API的封装库
 * [dio](https://pub.dev/packages/dio) - 最流行的 http client
-* [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）的代码生成工具
-* [html2md](https://pub.dev/packages/html2md) - 由作者编写的将html转换为markdown的组件
+* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的Discourse API封装库
+* [html2md](https://github.com/jarontai/html2md) - 由作者编写的将html转换为markdown的组件
+* [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）代码生成工具
 * [flutter_markdown](https://pub.dev/packages/flutter_markdown) - flutter官方提供的markdown渲染组件
+* [stash](https://pub.dev/packages/stash) - 功能强大的缓存库
 * [cached_network_image](https://pub.dev/packages/cached_network_image) - 图片缓存组件
 * [flutter_zoom_drawer](https://pub.dev/packages/flutter_zoom_drawer) - 主页菜单组件
 * [reactive_forms](https://pub.dev/packages/reactive_forms) - 功能超丰富的表单处理组件
 * [flutter_easyloading](https://pub.dev/packages/flutter_easyloading) - Loading组件
-* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报和事件统计组件
+* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报组件
 * ...
 
 ## 应用架构
