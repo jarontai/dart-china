@@ -1,16 +1,16 @@
 # Dart-China
 
-Dart中文社区官方App，使用Flutter编写
+Dart中文社区App，使用Flutter编写
 
 ## 功能
 
-[Dart中文社区](https://www.dart-china.org/)是使用[Discouse](https://www.discourse.org/)搭建，Discourse的Web端功能异常丰富。本APP定位为Web端的补充，只实现最常用的部分功能。
+[Dart中文社区](https://www.dart-china.org/)是使用知名社区软件[Discourse](https://www.discourse.org/)搭建，功能异常丰富。本APP定位为Web端的简化版，只实现最常用的部分功能。
 
 目前已实现的功能（页面）：
 
   * 主题列表
   * 主题详情与回复
-  * 主题发布（构建中）
+  * 主题发布与编辑（构建中）
   * 搜索
   * 通知消息
   * 登录
@@ -27,16 +27,16 @@ Dart中文社区官方App，使用Flutter编写
 dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
 
 * [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
-* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的对discourse API的封装库
-* [dio](https://pub.dev/packages/dio) - 最流行的http client
+* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的对Discourse API的封装库
+* [dio](https://pub.dev/packages/dio) - 最流行的 http client
 * [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）的代码生成工具
 * [html2md](https://pub.dev/packages/html2md) - 由作者编写的将html转换为markdown的组件
 * [flutter_markdown](https://pub.dev/packages/flutter_markdown) - flutter官方提供的markdown渲染组件
 * [cached_network_image](https://pub.dev/packages/cached_network_image) - 图片缓存组件
 * [flutter_zoom_drawer](https://pub.dev/packages/flutter_zoom_drawer) - 主页菜单组件
-* [reactive_forms](https://pub.dev/packages/reactive_forms) - 表单处理组件
+* [reactive_forms](https://pub.dev/packages/reactive_forms) - 功能超丰富的表单处理组件
 * [flutter_easyloading](https://pub.dev/packages/flutter_easyloading) - Loading组件
-* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报和运营统计组件
+* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报和事件统计组件
 * ...
 
 ## 应用架构
