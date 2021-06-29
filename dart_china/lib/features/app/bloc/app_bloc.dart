@@ -14,10 +14,13 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc(this._userRepository, this._loginBloc, this._registerBloc,
-      this._buglyBloc)
-      : super(AppState()) {
-    _loginSubscription = _loginBloc.stream.listen((authState) {
+  AppBloc(
+    this._userRepository,
+    this._authBloc,
+    this._registerBloc,
+    this._buglyBloc,
+  ) : super(AppState()) {
+    _loginSubscription = _authBloc.stream.listen((authState) {
       if (authState is AuthLoginSuccess) {
         _updateLogin(true, authState.user);
       } else if (authState is AuthLogoutSuccess) {
@@ -32,7 +35,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   final UserRepository _userRepository;
-  final AuthBloc _loginBloc;
+  final AuthBloc _authBloc;
   final RegisterBloc _registerBloc;
   final BuglyBloc _buglyBloc;
   late StreamSubscription _loginSubscription;
