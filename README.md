@@ -4,7 +4,7 @@ Dart中文社区App，使用Flutter编写
 
 ## 功能
 
-[Dart中文社区](https://www.dart-china.org/)是使用知名社区软件[Discourse](https://www.discourse.org/)搭建，功能异常丰富。本APP定位为Web端的简化版，只实现最常用的部分功能。
+[Dart中文社区](https://www.dart-china.org/)使用知名社区软件[Discourse](https://www.discourse.org/)搭建，功能异常丰富。本APP定位为网页端的简化版，只提供社区软件所必需的部分功能。
 
 目前已实现的功能（页面）：
 
@@ -53,6 +53,8 @@ dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质
     ├── scripts/      各种Dart脚本，如：打包apk
 
 ### 分层
+
+UI/业务逻辑/数据
 
 // TODO:
 
