@@ -85,37 +85,34 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
-            color: ColorPalette.backgroundColor,
-            child: BlocConsumer<RegisterBloc, RegisterState>(
-              listener: (context, state) {
-                if (state is RegisterPending) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  EasyLoading.show();
-                } else if (state is RegisterSuccess) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  EasyLoading.showToast(Messages.registerSuccess);
-                  Navigator.of(context)
-                      .popUntil(ModalRoute.withName(Routes.home));
-                } else if (state is RegisterFailure) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  EasyLoading.showToast(Messages.registerFail);
-                }
-              },
-              builder: (context, state) {
-                return Column(
-                  children: [
-                    _buildHead(),
-                    _buildForm(),
-                  ],
-                );
-              },
-            ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(
+          color: ColorPalette.backgroundColor,
+          child: BlocConsumer<RegisterBloc, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterPending) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                EasyLoading.show();
+              } else if (state is RegisterSuccess) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                EasyLoading.showToast(Messages.registerSuccess);
+                Navigator.of(context)
+                    .popUntil(ModalRoute.withName(Routes.home));
+              } else if (state is RegisterFailure) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                EasyLoading.showToast(Messages.registerFail);
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                children: [
+                  _buildHead(),
+                  _buildForm(),
+                ],
+              );
+            },
           ),
         ),
       ),

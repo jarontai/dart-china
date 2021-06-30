@@ -22,30 +22,44 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        backgroundColor: Color(0xFF657599),
-        body: InkWell(
+    return Scaffold(
+      backgroundColor: Color(0xFF657599),
+      body: SafeArea(
+        child: InkWell(
           onTap: () {
             ZoomDrawer.of(context)?.close();
           },
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30),
-                _buildHeader(context),
-                SizedBox(height: 150),
-                _buildBody(context, selected),
-                SizedBox(height: 120),
-                _buildFooter(context),
-              ],
-            ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 15,
+                      left: 15,
+                      child: _buildHeader(context),
+                    ),
+                    Center(
+                      child: ListView(
+                        padding: EdgeInsets.only(left: 15),
+                        shrinkWrap: true,
+                        children: [
+                          _buildBody(context, selected),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 60,
+                      left: 15,
+                      child: _buildFooter(context),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: SizedBox.shrink(),
+              ),
+            ],
           ),
         ),
       ),
@@ -57,6 +71,7 @@ class _MenuPageState extends State<MenuPage> {
     final user = context.select((AppBloc b) => b.state.user);
 
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: [
           AvatarButton(
@@ -172,7 +187,9 @@ class _MenuPageState extends State<MenuPage> {
               },
             ),
           )
-        : SizedBox.shrink();
+        : SizedBox(
+            height: 1,
+          );
   }
 }
 

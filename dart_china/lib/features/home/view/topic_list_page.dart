@@ -65,6 +65,7 @@ class _TopicListPageState extends State<TopicListPage> {
         color: Color(0xFF4162D2),
       ),
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: RefreshIndicator(

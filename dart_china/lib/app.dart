@@ -101,6 +101,7 @@ class DartChinaApp extends StatelessWidget {
             ),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
+      debugShowCheckedModeBanner: false,
     );
   }
 

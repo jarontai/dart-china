@@ -54,54 +54,52 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-          backgroundColor: ColorPalette.backgroundColor,
-          appBar: AppBar(
-            title: Text(
-              '消息',
-            ),
-            backgroundColor: ColorPalette.backgroundColor,
-            elevation: 0,
-          ),
-          body: Container(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: BlocBuilder<NotificationBloc, NotificationState>(
-              builder: (context, state) {
-                if (state.status.isInitial) {
-                  return Column(
-                    children: [ListLoader()],
-                  );
-                } else if (state.status.isSuccess || state.status.isPaging) {
-                  final notifications = state.notifications;
-                  final itemCount = notifications.length;
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          padding: EdgeInsets.only(top: 10),
-                          itemBuilder: (context, index) {
-                            if (index >= itemCount) {
-                              return ListLoader();
-                            }
-                            final item = notifications[index];
-                            return _buildItem(context, item);
-                          },
-                          itemCount:
-                              state.status.isPaging ? itemCount + 1 : itemCount,
-                        ),
-                      ),
-                    ],
-                  );
-                }
-                return SizedBox.shrink();
-              },
-            ),
-          ),
-        ));
+    return Scaffold(
+      backgroundColor: ColorPalette.backgroundColor,
+      appBar: AppBar(
+        title: Text(
+          '消息',
+        ),
+        backgroundColor: ColorPalette.backgroundColor,
+        elevation: 0,
+      ),
+      body: Container(
+        color: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: BlocBuilder<NotificationBloc, NotificationState>(
+          builder: (context, state) {
+            if (state.status.isInitial) {
+              return Column(
+                children: [ListLoader()],
+              );
+            } else if (state.status.isSuccess || state.status.isPaging) {
+              final notifications = state.notifications;
+              final itemCount = notifications.length;
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      padding: EdgeInsets.only(top: 10),
+                      itemBuilder: (context, index) {
+                        if (index >= itemCount) {
+                          return ListLoader();
+                        }
+                        final item = notifications[index];
+                        return _buildItem(context, item);
+                      },
+                      itemCount:
+                          state.status.isPaging ? itemCount + 1 : itemCount,
+                    ),
+                  ),
+                ],
+              );
+            }
+            return SizedBox.shrink();
+          },
+        ),
+      ),
+    );
   }
 
   ListTile _buildItem(BuildContext context, models.Notification item) {

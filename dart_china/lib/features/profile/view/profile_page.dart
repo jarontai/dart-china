@@ -29,44 +29,41 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: ColorPalette.backgroundColor,
+      appBar: AppBar(
+        title: Text(
+          '我的',
+        ),
         backgroundColor: ColorPalette.backgroundColor,
-        appBar: AppBar(
-          title: Text(
-            '我的',
-          ),
-          backgroundColor: ColorPalette.backgroundColor,
-          elevation: 0,
-        ),
-        body: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            final myState = state;
-            User? user;
-            List<Topic>? topics;
-            if (myState is ProfileSuccess) {
-              user = myState.user;
-              topics = myState.recentTopics;
-            }
+        elevation: 0,
+      ),
+      body: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          final myState = state;
+          User? user;
+          List<Topic>? topics;
+          if (myState is ProfileSuccess) {
+            user = myState.user;
+            topics = myState.recentTopics;
+          }
 
-            return Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(children: [
-                    _buildHead(context, user),
-                    _buildBody(context, user),
-                  ]),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                _buildFooter(context, topics),
-              ],
-            );
-          },
-        ),
+          return Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(children: [
+                  _buildHead(context, user),
+                  _buildBody(context, user),
+                ]),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              _buildFooter(context, topics),
+            ],
+          );
+        },
       ),
     );
   }

@@ -30,20 +30,18 @@ class _PostPageState extends State<PostPage> {
     final isCreate = widget.postId == null;
     final title = isTopic ? (isCreate ? '创建主题' : '编辑主题') : '编辑回复';
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: Container(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: ReactiveForm(
-            formGroup: form,
-            child: Column(
-              children: [
-                ReactiveInputWidget(name: 'title'),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        child: ReactiveForm(
+          formGroup: form,
+          child: Column(
+            children: [
+              ReactiveInputWidget(name: 'title'),
+            ],
           ),
         ),
       ),
