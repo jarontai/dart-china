@@ -26,6 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   _init(String username) async {
+    emit(ProfileLoading());
     final user = await authRepository.userProfile(username);
     final topics = await topicRepository.recentReadTopics();
     emit(ProfileSuccess(user: user, recentTopics: topics));

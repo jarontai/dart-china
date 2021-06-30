@@ -47,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
             user = myState.user;
             topics = myState.recentTopics;
           }
+          final loading = myState is ProfileLoading;
 
           return Column(
             children: [
@@ -60,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 height: 25,
               ),
-              _buildFooter(context, topics),
+              _buildFooter(context, loading, topics),
             ],
           );
         },
@@ -151,42 +152,35 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
-        // SizedBox(
-        //   height: 20,
-        // ),
-        // Container(
-        //   height: 80,
-        //   decoration: BoxDecoration(
-        //     color: Colors.white24,
-        //     borderRadius: BorderRadius.circular(15),
-        //   ),
-        //   child: Row(
-        //     children: [
-        //       _StatisticItem(
-        //         number: '${summary?.postsReadCount ?? 0}',
-        //         text: '已读帖子',
-        //         rightBorder: true,
-        //       ),
-        //       _StatisticItem(
-        //         number: '${summary?.topicCount ?? 0}',
-        //         text: '发表主题',
-        //         rightBorder: true,
-        //       ),
-        //       _StatisticItem(
-        //         number: '${summary?.postCount ?? 0}',
-        //         text: '发表帖子',
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ],
     );
   }
 
-  Widget _buildFooter(BuildContext context, List<Topic>? topics) {
+  Widget _buildFooter(BuildContext context, bool loading, List<Topic>? topics) {
     var topicCards = <Widget>[];
     if (topics != null && topics.isNotEmpty) {
       topicCards.addAll(topics.map((e) => TopicCard(topic: e)));
+    }
+
+    var bottom;
+    if (loading) {
+      bottom = Expanded(
+        child: Center(
+          child: ListLoader(),
+        ),
+      );
+    } else if (topicCards.isEmpty) {
+      bottom = Expanded(
+        child: Center(
+          child: Text('记录为空'),
+        ),
+      );
+    } else {
+      bottom = Expanded(
+        child: ListView(
+          children: topicCards,
+        ),
+      );
     }
 
     return Expanded(
@@ -217,11 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               height: 12,
             ),
-            Expanded(
-              child: ListView(
-                children: topicCards,
-              ),
-            ),
+            bottom,
           ],
         ),
       ),
