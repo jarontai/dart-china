@@ -11,8 +11,6 @@ import '../../../repositories/repositories.dart';
 part 'topic_list_event.dart';
 part 'topic_list_state.dart';
 
-const kDefaultCategorySlug = 'all';
-const kDefaultCategoryName = '全部';
 final theAllCategory = Category(
   id: 0,
   color: '',

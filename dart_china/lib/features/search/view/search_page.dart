@@ -234,7 +234,7 @@ class SearchItem extends StatelessWidget {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        CategoryNameMap[slug] ?? '其他',
+                        kCategoryNameMap[slug] ?? '其他',
                         style: TextStyle(
                           color: ColorPalette.postTextColor,
                         ),

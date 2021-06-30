@@ -7,8 +7,9 @@ final getIt = GetIt.instance;
 
 const kSplashRadius = 25.0;
 const kEnableCategories = ['share', 'question', 'meta'];
-
-const CategoryNameMap = {
+const kDefaultCategorySlug = 'all';
+const kDefaultCategoryName = '全部';
+const kCategoryNameMap = {
   'share': '分享',
   'question': '问答',
   'meta': '站务',

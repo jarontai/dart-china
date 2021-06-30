@@ -79,7 +79,7 @@ class _TopicStatus extends StatelessWidget {
 
   Text buildType() {
     return Text(
-      CategoryNameMap[slug] ?? '其他',
+      kCategoryNameMap[slug] ?? '其他',
       style: TextStyle(
         fontSize: 12,
         color: Colors.grey.shade500,
