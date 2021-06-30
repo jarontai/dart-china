@@ -15,14 +15,12 @@ class NotificationState extends Equatable {
   final List<models.Notification> notifications;
   final int page;
   final bool more;
-  final bool paging;
 
   NotificationState({
     this.status = NotificationStatus.initial,
     this.notifications = const [],
     this.page = -1,
     this.more = true,
-    this.paging = false,
   });
 
   NotificationState copyWith({
@@ -30,17 +28,15 @@ class NotificationState extends Equatable {
     List<models.Notification>? notifications,
     int? page,
     bool? more,
-    bool? paging,
   }) {
     return NotificationState(
       status: status ?? this.status,
       notifications: notifications ?? this.notifications,
       page: page ?? this.page,
       more: more ?? this.more,
-      paging: paging ?? this.paging,
     );
   }
 
   @override
-  List<Object?> get props => [status, notifications, page, more, paging];
+  List<Object?> get props => [status, notifications, page, more];
 }

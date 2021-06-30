@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 8,
           ),
           Text(
-            user?.username ?? '',
+            user?.username ?? '...',
             style: TextStyle(
               fontSize: 25,
               color: Colors.white,
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(vertical: 15),
           child: Text(
-            user?.bio ?? '',
+            user?.bio ?? '...',
             style: TextStyle(
               color: Colors.grey.shade100,
               fontSize: 16,

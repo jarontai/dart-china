@@ -92,7 +92,7 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
           ));
         } else {
           emit(state.copyWith(
-            paging: true,
+            status: TopicListStatus.paging,
           ));
         }
 
@@ -105,7 +105,6 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
           topics: oldTopics..addAll(pageModel.data),
           page: nextPage,
           more: pageModel.hasNext,
-          paging: false,
         ));
       }
     }

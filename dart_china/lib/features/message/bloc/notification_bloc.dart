@@ -45,15 +45,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
 
     if (page > 0) {
-      emit(state.copyWith(paging: true));
+      emit(state.copyWith(status: NotificationStatus.paging));
     }
 
     final pageModel = await _userRepository.notifications(username, page: page);
     emit(state.copyWith(
+      status: NotificationStatus.success,
       page: page,
       more: pageModel.hasNext,
       notifications: List.of(state.notifications)..addAll(pageModel.data),
-      paging: false,
     ));
   }
 

@@ -68,9 +68,9 @@ class _NotificationPageState extends State<NotificationPage> {
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: BlocBuilder<NotificationBloc, NotificationState>(
           builder: (context, state) {
-            if (state.status.isInitial) {
-              return Column(
-                children: [ListLoader()],
+            if (state.status.isInitial || state.status.isLoading) {
+              return Center(
+                child: ListLoader(),
               );
             } else if (state.status.isSuccess || state.status.isPaging) {
               final notifications = state.notifications;

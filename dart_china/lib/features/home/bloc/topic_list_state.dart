@@ -17,7 +17,6 @@ class TopicListState extends Equatable {
   final bool more;
   final List<Category> categories;
   final int categoryIndex;
-  final bool paging;
 
   TopicListState({
     this.status = TopicListStatus.initial,
@@ -26,7 +25,6 @@ class TopicListState extends Equatable {
     this.more = true,
     this.categories = const [],
     this.categoryIndex = 0,
-    this.paging = false,
   });
 
   TopicListState copyWith({
@@ -36,7 +34,6 @@ class TopicListState extends Equatable {
     bool? more,
     List<Category>? categories,
     int? categoryIndex,
-    bool? paging,
   }) {
     return TopicListState(
       status: status ?? this.status,
@@ -45,13 +42,12 @@ class TopicListState extends Equatable {
       more: more ?? this.more,
       categories: categories ?? this.categories,
       categoryIndex: categoryIndex ?? this.categoryIndex,
-      paging: paging ?? this.paging,
     );
   }
 
   @override
   List<Object?> get props =>
-      [status, topics, page, more, categories, categoryIndex, paging];
+      [status, topics, page, more, categories, categoryIndex];
 
   @override
   bool? get stringify => false;
