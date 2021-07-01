@@ -50,9 +50,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         _checkNotification(state.user!.username);
       }
 
+      _authBloc.add(AuthLoginCheck());
+
       final config = getIt.get<AppConfig>();
       _buglyBloc.add(BuglyInit(
-        enableDebug: !config.isProd,
+        enableDebug: config.enalbeBuglyDebug,
         androidAppId: config.buglyAndroidAppId,
         iosAppId: config.buglyIosAppId,
       ));

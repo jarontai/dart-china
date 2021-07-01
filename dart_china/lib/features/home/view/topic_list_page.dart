@@ -170,7 +170,7 @@ class _TopicListPageState extends State<TopicListPage> {
       } else {
         return SliverFillRemaining(
           child: Container(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 80),
             decoration: BoxDecoration(
               color: ColorPalette.topicBgColor,
               boxShadow: [
