@@ -24,13 +24,17 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
 
 <p float="left">
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/home.png" width="32%">
+  <apan width="2%"></apan>
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/topic.png" width="32%">
+  <apan width="2%"></apan>
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/menu.png" width="32%">
 </p>
 
 <p float="left">
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/login.png" width="32%">
+  <span width="2%"></span>
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/profile.png" width="32%">
+  <span width="2%"></span>
   <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/search.png" width="32%">
 </p>
 
