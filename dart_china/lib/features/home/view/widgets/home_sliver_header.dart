@@ -11,7 +11,7 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
   final bool badge;
   final VoidCallback onMenuPressed;
   final VoidCallback onSearchPressed;
-  final VoidCallback onAddPressed;
+  final VoidCallback? onAddPressed;
   final double _expandedHeight = 130;
 
   @override
@@ -81,12 +81,14 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
             )
           : null,
       actions: [
-        IconButton(
-          iconSize: 26,
-          splashRadius: kSplashRadius,
-          icon: Icon(Icons.add),
-          onPressed: onAddPressed,
-        )
+        onAddPressed == null
+            ? SizedBox.shrink()
+            : IconButton(
+                iconSize: 26,
+                splashRadius: kSplashRadius,
+                icon: Icon(Icons.add),
+                onPressed: onAddPressed,
+              )
       ],
     );
   }

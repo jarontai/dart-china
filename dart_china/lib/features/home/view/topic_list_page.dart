@@ -125,10 +125,11 @@ class _TopicListPageState extends State<TopicListPage> {
             onSearchPressed: () {
               Navigator.of(context).pushNamed(Routes.search);
             },
-            onAddPressed: () {
-              final args = PostArguments(isTopic: true);
-              Navigator.of(context).pushNamed(Routes.post, arguments: args);
-            },
+            onAddPressed: null,
+            // onAddPressed: () {
+            //   final args = PostArguments(isTopic: true);
+            //   Navigator.of(context).pushNamed(Routes.post, arguments: args);
+            // },
             badge: state.hasNotification,
           ),
         );
