@@ -22,21 +22,14 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
 
 ## 截图
 
-<p float="left">
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/home.png" width="32%">
-  <apan width="2%"></apan>
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/topic.png" width="32%">
-  <apan width="2%"></apan>
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/menu.png" width="32%">
-</p>
+| home | topic | menu |
+| ------------- | ------------- | ------------- |
+| <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/home.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/topic.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/menu.png">  |
 
-<p float="left">
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/login.png" width="32%">
-  <span width="2%"></span>
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/profile.png" width="32%">
-  <span width="2%"></span>
-  <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/search.png" width="32%">
-</p>
+| login | profile | search |
+| ------------- | ------------- | ------------- |
+| <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/login.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/profile.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/search.png">  |
+
 
 ## 依赖
 
