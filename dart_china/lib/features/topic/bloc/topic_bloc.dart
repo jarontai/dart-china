@@ -42,16 +42,11 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
   }
 
   _fetchTopicPosts() async {
-    if (!state.more) {
+    if (!state.hasMore) {
       return;
     }
 
     var page = state.page + 1;
-    if (page > 0) {
-      emit(state.copyWith(
-        paging: true,
-      ));
-    }
     var pageModel =
         await _postRepository.fetchTopicPosts(state.topic!, page: page);
     var newPosts = List.of(state.posts)..addAll(pageModel.data);
@@ -59,7 +54,7 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
       status: TopicStatus.success,
       posts: newPosts,
       page: page,
-      more: pageModel.hasNext,
+      hasMore: pageModel.hasNext,
     ));
   }
 

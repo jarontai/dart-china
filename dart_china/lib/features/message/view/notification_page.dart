@@ -72,7 +72,7 @@ class _NotificationPageState extends State<NotificationPage> {
               return Center(
                 child: ListLoader(),
               );
-            } else if (state.status.isSuccess || state.status.isPaging) {
+            } else if (state.status.isSuccess) {
               final notifications = state.notifications;
               final itemCount = notifications.length;
               return Column(
@@ -88,8 +88,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         final item = notifications[index];
                         return _buildItem(context, item);
                       },
-                      itemCount:
-                          state.status.isPaging ? itemCount + 1 : itemCount,
+                      itemCount: state.hasMore ? itemCount + 1 : itemCount,
                     ),
                   ),
                 ],

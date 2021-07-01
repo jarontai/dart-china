@@ -98,10 +98,9 @@ class _SearchPageState extends State<SearchPage> {
           return ListLoader();
         }
         if (myState is SearchSuccess) {
-          final paging = myState.paging;
           final dataCount = myState.data.length;
           var itemCount = dataCount;
-          if (paging) {
+          if (myState.hasMore) {
             itemCount++;
           }
 
@@ -109,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView.builder(
             controller: _scrollController,
             itemBuilder: (context, index) {
-              if (paging && index == dataCount) {
+              if (index >= dataCount) {
                 return ListLoader();
               }
 

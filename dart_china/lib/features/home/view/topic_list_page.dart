@@ -139,7 +139,7 @@ class _TopicListPageState extends State<TopicListPage> {
 
   Widget _buildTopicList(BuildContext context) {
     return BlocBuilder<TopicListBloc, TopicListState>(builder: (_, state) {
-      if (state.status.isSuccess || state.status.isPaging) {
+      if (state.status.isSuccess) {
         final topicNum = state.topics.length;
         return SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -164,7 +164,7 @@ class _TopicListPageState extends State<TopicListPage> {
                       ),
               );
             },
-            childCount: state.status.isPaging ? topicNum + 1 : topicNum,
+            childCount: state.hasMore ? topicNum + 1 : topicNum,
           ),
         );
       } else {

@@ -1,12 +1,11 @@
 part of 'topic_list_bloc.dart';
 
-enum TopicListStatus { initial, loading, success, paging, failure }
+enum TopicListStatus { initial, loading, success, failure }
 
 extension TopicListStatusX on TopicListStatus {
   bool get isInitial => this == TopicListStatus.initial;
   bool get isLoading => this == TopicListStatus.loading;
   bool get isSuccess => this == TopicListStatus.success;
-  bool get isPaging => this == TopicListStatus.paging;
   bool get isFailure => this == TopicListStatus.failure;
 }
 
@@ -14,7 +13,7 @@ class TopicListState extends Equatable {
   final TopicListStatus status;
   final List<Topic> topics;
   final int page;
-  final bool more;
+  final bool hasMore;
   final List<Category> categories;
   final int categoryIndex;
 
@@ -22,7 +21,7 @@ class TopicListState extends Equatable {
     this.status = TopicListStatus.initial,
     this.topics = const [],
     this.page = -1,
-    this.more = true,
+    this.hasMore = true,
     this.categories = const [],
     this.categoryIndex = 0,
   });
@@ -31,7 +30,7 @@ class TopicListState extends Equatable {
     TopicListStatus? status,
     List<Topic>? topics,
     int? page,
-    bool? more,
+    bool? hasMore,
     List<Category>? categories,
     int? categoryIndex,
   }) {
@@ -39,7 +38,7 @@ class TopicListState extends Equatable {
       status: status ?? this.status,
       topics: topics ?? this.topics,
       page: page ?? this.page,
-      more: more ?? this.more,
+      hasMore: hasMore ?? this.hasMore,
       categories: categories ?? this.categories,
       categoryIndex: categoryIndex ?? this.categoryIndex,
     );
@@ -47,7 +46,7 @@ class TopicListState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [status, topics, page, more, categories, categoryIndex];
+      [status, topics, page, hasMore, categories, categoryIndex];
 
   @override
   bool? get stringify => false;

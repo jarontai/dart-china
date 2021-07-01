@@ -68,7 +68,7 @@ class _TopicPageState extends State<TopicPage> {
             var topic = state.topic!;
             var postCount = state.posts.length;
             var itemCount = postCount;
-            if (state.paging) {
+            if (state.hasMore) {
               itemCount += 1;
             }
             return _buildPostList(topic, postCount, itemCount, state);

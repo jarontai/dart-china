@@ -72,10 +72,10 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
         status: TopicListStatus.success,
         topics: pageModel.data,
         page: 0,
-        more: pageModel.hasNext,
+        hasMore: pageModel.hasNext,
       ));
     } else if (state.status.isSuccess) {
-      if (state.more || refresh) {
+      if (state.hasMore || refresh) {
         var categoryId;
         var categorySlug;
         var cat = state.categories[state.categoryIndex];
@@ -88,10 +88,6 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
           emit(state.copyWith(
             status: TopicListStatus.loading,
           ));
-        } else {
-          emit(state.copyWith(
-            status: TopicListStatus.paging,
-          ));
         }
 
         var nextPage = refresh ? 0 : state.page + 1;
@@ -102,7 +98,7 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
           status: TopicListStatus.success,
           topics: oldTopics..addAll(pageModel.data),
           page: nextPage,
-          more: pageModel.hasNext,
+          hasMore: pageModel.hasNext,
         ));
       }
     }

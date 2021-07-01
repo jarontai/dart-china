@@ -46,7 +46,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (theState is SearchInitial) {
       emit(SearchLoading());
     } else if (theState is SearchSuccess) {
-      if (!theState.more || theState.paging) {
+      if (!theState.hasMore) {
         return;
       }
       emit(theState.copyWith(loading: true));
@@ -62,9 +62,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(SearchSuccess(
       slugs: List.of(oldSlugs..addAll(slugs)),
       data: List.of(oldPosts..addAll(pageModel.data)),
-      more: pageModel.hasNext,
+      hasMore: pageModel.hasNext,
       page: pageModel.page,
-      paging: false,
     ));
   }
 }

@@ -15,33 +15,30 @@ class SearchSuccess extends SearchState {
   final List<String> slugs;
   final List<SearchResult> data;
   final int page;
-  final bool more;
-  final bool paging;
+  final bool hasMore;
 
   SearchSuccess({
     required this.slugs,
     required this.data,
     required this.page,
-    required this.more,
-    this.paging = false,
+    required this.hasMore,
   });
 
   SearchSuccess copyWith({
     List<String>? slugs,
     List<SearchResult>? data,
     int? page,
-    bool? more,
+    bool? hasMore,
     bool? loading,
   }) {
     return SearchSuccess(
       slugs: slugs ?? this.slugs,
       data: data ?? this.data,
       page: page ?? this.page,
-      more: more ?? this.more,
-      paging: loading ?? this.paging,
+      hasMore: hasMore ?? this.hasMore,
     );
   }
 
   @override
-  List<Object> get props => [slugs, data, page, more, paging];
+  List<Object> get props => [slugs, data, page, hasMore];
 }

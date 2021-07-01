@@ -34,7 +34,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   }
 
   void _fetch(String username, {bool refresh = false}) async {
-    if (!state.more) {
+    if (!state.hasMore) {
       return;
     }
 
@@ -44,15 +44,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       emit(state.copyWith(status: NotificationStatus.loading));
     }
 
-    if (page > 0) {
-      emit(state.copyWith(status: NotificationStatus.paging));
-    }
-
     final pageModel = await _userRepository.notifications(username, page: page);
     emit(state.copyWith(
       status: NotificationStatus.success,
       page: page,
-      more: pageModel.hasNext,
+      hasMore: pageModel.hasNext,
       notifications: List.of(state.notifications)..addAll(pageModel.data),
     ));
   }
