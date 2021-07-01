@@ -4,7 +4,9 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
 
 ## 功能
 
-[Dart中文社区](https://www.dart-china.org/)使用知名社区软件[Discourse](https://www.discourse.org/)搭建，功能异常丰富。本APP定位为网页端的简化版，只提供社区软件所必需的部分功能。
+[Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[Discourse](https://www.discourse.org/)搭建，本APP定位为Web端的简化版，只提供社区软件所必需的部分功能。
+
+备注：Discourse是有官方app的，但其实现方式是网页套壳，使用体验不佳。
 
 目前已实现的功能（页面）：
 
