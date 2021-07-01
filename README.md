@@ -50,18 +50,37 @@ dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质
 * [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报组件
 * ...
 
+## 文件结构
+
+    .
+    ├── dart_china/            DartChina项目代码
+    |  ├── ... ...
+    |  └── lib/        
+    |     ├── features/        所有功能模块
+    |     |   ├── ... ... 
+    |     |   ├── auth/        具体功能模块
+    |     |   |   ├── bloc/    模块的bloc
+    |     |   |   └── view/    模块的ui
+    |     |   └── ... ...      
+    |     ├── models/          模型
+    |     ├── repositories/    repository层
+    |     ├── widgets/         公共的UI组件
+    |     ├── app.dart         主应用
+    |     ├── common.dart      公用的常量和方法
+    |     ├── config.dart      应用配置
+    |     ├── main_dev.dart    dev环境启动文件
+    |     ├── main_prod.dart   prod环境启动文件
+    |     └── util.dart        工具类
+    ├── design/                UI参考图片（只作为UI实现的参考，非正式设计稿）
+    ├── screenshots/           应用截图，截自ios模拟器
+    └── scripts/               各种使用Dart编写的工具脚本，如：打包apk
+
+
 ## 应用架构
 
 ### 简介
 
 // TODO:
-
-### 文件结构
-
-    .                 项目根目录
-    ├── dart_china/   App项目源码 (内部结构在架构部分进行介绍)
-    ├── design/       采自dribbble.com的UI参考图片（只作为UI实现的参考，非设计稿）
-    ├── scripts/      各种Dart脚本，如：打包apk
 
 ### 分层
 
