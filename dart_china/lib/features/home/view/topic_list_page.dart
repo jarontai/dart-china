@@ -62,7 +62,7 @@ class _TopicListPageState extends State<TopicListPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF4162D2),
+        color: ColorPalette.homeBackgroundColor,
       ),
       child: SafeArea(
         bottom: false,

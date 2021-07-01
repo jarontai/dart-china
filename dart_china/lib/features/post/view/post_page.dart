@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:dart_china/widgets/widgets.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../common.dart';
+
 class PostPage extends StatefulWidget {
   PostPage({
     Key? key,
@@ -33,6 +35,8 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        backgroundColor: ColorPalette.backgroundColor,
+        elevation: 0,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),

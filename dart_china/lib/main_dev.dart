@@ -39,7 +39,7 @@ void main() async {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.circle;
+    EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.fadingCircle;
 
     Bloc.observer = SimpleBlocObserver();
 

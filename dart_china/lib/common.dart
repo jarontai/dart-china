@@ -31,6 +31,7 @@ abstract class Messages {
 
 abstract class ColorPalette {
   static final backgroundColor = Color(0xFF3978f8);
+  static final homeBackgroundColor = Color(0xFF4162D2);
   static final tagColor = Color(0xFFf2f6fa);
   static final topicBgColor = Color(0xFFF1F6FA);
   static final topicCardColor = Color(0xFFFDFDFD);

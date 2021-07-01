@@ -67,7 +67,8 @@ class HomeSliverHeader extends SliverPersistentHeaderDelegate {
 
     return AppBar(
       centerTitle: true,
-      backgroundColor: titleVisiable ? Color(0xFF4162D2) : Colors.transparent,
+      backgroundColor:
+          titleVisiable ? ColorPalette.homeBackgroundColor : Colors.transparent,
       elevation: 0,
       leading: menuButton,
       title: titleVisiable
