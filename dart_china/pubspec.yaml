@@ -44,6 +44,7 @@ dependencies:
 # dependency_overrides:
 #   discourse_api:
 #     path: ../../discourse_api
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

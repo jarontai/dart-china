@@ -2,8 +2,14 @@ part of 'repositories.dart';
 
 class PostRepository extends BaseRepository {
   Future<PageModel<Post>> fetchTopicPosts(Topic topic, {int page = 0}) async {
-    var topics = await client.topicPosts(topic, page: page);
-    return topics;
+    var pageModel =
+        await client.topicPosts(topic, page: page, filterPost: false);
+    pageModel = pageModel.copyWith(
+      data: pageModel.data
+          .where((post) => post.postType == kDefaultPostType)
+          .toList(),
+    );
+    return pageModel;
   }
 
   Future<Post> createPost(int topicId, String content) async {

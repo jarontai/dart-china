@@ -8,11 +8,13 @@ class TopicPostCard extends StatelessWidget {
     required this.topic,
     required this.post,
     this.topicPost = false,
+    this.isLast = false,
   }) : super(key: key);
 
   final Topic topic;
   final Post post;
   final bool topicPost;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class TopicPostCard extends StatelessWidget {
         color: ColorPalette.topicCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
+      margin: isLast ? EdgeInsets.only(bottom: 20) : null,
       child: Column(
         children: [
           TopicPostHeader(

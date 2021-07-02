@@ -6,6 +6,8 @@ export './config.dart';
 final getIt = GetIt.instance;
 
 const kSplashRadius = 25.0;
+
+const kDefaultPostType = 1;
 const kEnableCategories = ['share', 'question', 'meta'];
 const kDefaultCategorySlug = 'all';
 const kDefaultCategoryName = '全部';

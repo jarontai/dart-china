@@ -135,10 +135,10 @@ class _TopicPageState extends State<TopicPage> {
             return ListLoader();
           }
           return TopicPostCard(
-            topic: topic,
-            post: state.posts[index],
-            topicPost: index == 0,
-          );
+              topic: topic,
+              post: state.posts[index],
+              topicPost: index == 0,
+              isLast: index >= postCount - 1);
         },
         separatorBuilder: (BuildContext context, int index) {
           if (index == 0) {
@@ -147,7 +147,7 @@ class _TopicPageState extends State<TopicPage> {
               height: 50,
               color: ColorPalette.topicBgColor,
               child: Text(
-                '回复 (${topic.postsCount})',
+                '回复 (${topic.postsCount - 1})',
                 style: TextStyle(
                   color: ColorPalette.titleColor,
                   fontSize: 16,
