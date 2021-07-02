@@ -38,7 +38,16 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
       _fetchTopicPosts();
     } else if (event is TopicReply) {
       _createTopicPost(event.content);
+    } else if (event is TopicReset) {
+      _reset();
     }
+  }
+
+  _reset() {
+    emit(state.copyWith(
+      postSuccess: false,
+      error: '',
+    ));
   }
 
   _fetchTopicPosts() async {
@@ -64,13 +73,19 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
       status: TopicStatus.posting,
       postSuccess: false,
     ));
-    var post = await _postRepository.createPost(state.topic!.id, content);
-    emit(state.copyWith(
-      posts: List.of(state.posts)..add(post),
-      status: TopicStatus.success,
-      postSuccess: true,
-    ));
-    emit(state.copyWith(postSuccess: false));
+    var postResult = await _postRepository.createPost(state.topic!.id, content);
+    postResult.result((value) {
+      emit(state.copyWith(
+        status: TopicStatus.success,
+        posts: List.of(state.posts)..add(value),
+        postSuccess: true,
+      ));
+    }, (value) {
+      emit(state.copyWith(
+        status: TopicStatus.success,
+        postSuccess: false,
+      ));
+    });
   }
 
   String buildTopicUrl(int topicId) {

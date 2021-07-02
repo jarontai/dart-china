@@ -24,3 +24,5 @@ class TopicReply extends TopicEvent {
     required this.content,
   });
 }
+
+class TopicReset extends TopicEvent {}

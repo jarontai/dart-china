@@ -17,6 +17,7 @@ class ReplySection extends StatefulWidget {
 }
 
 class _ReplySectionState extends State<ReplySection> {
+  final int _minLength = 8;
   bool _open = false;
   bool _empty = true;
   bool _focus = false;
@@ -72,18 +73,19 @@ class _ReplySectionState extends State<ReplySection> {
                         ),
                         padding: EdgeInsets.only(
                           left: 3,
-                          right: 50,
+                          right: 60,
+                          bottom: 2,
                         ),
                         child: TextField(
                           focusNode: _focusNode,
                           controller: _textEditingController,
                           minLines: 1,
-                          maxLines: 6,
+                          maxLines: 5,
                           decoration: InputDecoration(
                             isDense: true,
                             fillColor: _focus
                                 ? Colors.blue.shade100
-                                : Colors.grey.shade300,
+                                : Colors.blue.shade100,
                             filled: true,
                             border: OutlineInputBorder(
                               gapPadding: 0,
@@ -95,9 +97,11 @@ class _ReplySectionState extends State<ReplySection> {
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(
                                 color: Colors.blue.shade500,
-                                width: 1.2,
+                                width: 1,
                               ),
                             ),
+                            hintText: '快速回复，至少8个字符',
+                            hintStyle: TextStyle(color: Colors.grey.shade400),
                           ),
                         ),
                       ),
@@ -107,7 +111,6 @@ class _ReplySectionState extends State<ReplySection> {
               : SizedBox.shrink(),
         ),
         FloatingActionButton(
-          mini: true,
           backgroundColor: ColorPalette.backgroundColor,
           child: Icon(iconData),
           onPressed: () {
@@ -125,11 +128,12 @@ class _ReplySectionState extends State<ReplySection> {
                 setState(() {
                   _open = false;
                 });
-              } else {
-                widget.onReply(_textEditingController.text);
+              } else if (_textEditingController.text.length >= _minLength) {
                 setState(() {
                   _open = false;
                 });
+                widget.onReply(_textEditingController.text);
+                _textEditingController.clear();
               }
             }
           },

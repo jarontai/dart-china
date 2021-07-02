@@ -12,8 +12,15 @@ class PostRepository extends BaseRepository {
     return pageModel;
   }
 
-  Future<Post> createPost(int topicId, String content) async {
-    return await client.postCreate(topicId, content);
+  Future<Result<Post, String>> createPost(int topicId, String content) async {
+    var error = '';
+    var result;
+    try {
+      result = await client.postCreate(topicId, content);
+    } catch (e) {
+      error = '创建失败';
+    }
+    return error.isEmpty ? Success(result) : Failure(error);
   }
 
   Future<PageModel<SearchResult>> search(String token,

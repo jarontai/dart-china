@@ -96,7 +96,6 @@ class _TopicListPageState extends State<TopicListPage> {
           ),
           floatingActionButton: showToTop
               ? FloatingActionButton(
-                  mini: true,
                   backgroundColor: ColorPalette.backgroundColor,
                   child: Icon(Icons.arrow_upward_outlined),
                   onPressed: () {

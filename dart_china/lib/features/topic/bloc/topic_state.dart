@@ -17,6 +17,7 @@ class TopicState extends Equatable {
   final int page;
   final bool hasMore;
   final bool postSuccess;
+  final String error;
 
   TopicState({
     this.status = TopicStatus.initial,
@@ -25,6 +26,7 @@ class TopicState extends Equatable {
     this.page = -1,
     this.hasMore = true,
     this.postSuccess = false,
+    this.error = '',
   });
 
   TopicState copyWith({
@@ -34,6 +36,7 @@ class TopicState extends Equatable {
     int? page,
     bool? hasMore,
     bool? postSuccess,
+    String? error,
   }) {
     return TopicState(
       status: status ?? this.status,
@@ -42,9 +45,10 @@ class TopicState extends Equatable {
       page: page ?? this.page,
       hasMore: hasMore ?? this.hasMore,
       postSuccess: postSuccess ?? this.postSuccess,
+      error: error ?? this.error,
     );
   }
 
   @override
-  List<Object?> get props => [status, topic, posts, page, postSuccess];
+  List<Object?> get props => [status, topic, posts, page, postSuccess, error];
 }
