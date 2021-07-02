@@ -103,7 +103,20 @@ UI/逻辑/数据
 已知的待改进的各种不足和问题：
 
   * 错误处理
+  * 测试
   * UI细节
   * ...
 
 // TODO：
+
+## 参考
+
+以下列出本项目所参考的文档/资料/博客等等
+
+bloc官网：[bloclibrary.dev](https://bloclibrary.dev/)
+
+油管视频教程：[The Best Flutter Bloc Complete Course](https://www.youtube.com/watch?v=THCkkQ-V1-8&t=314s)
+
+mews技术博文：[one-year-in-production-with-flutter](https://developers.mews.com/one-year-in-production-with-flutter/)
+
+Flutter项目生成工具: [very_good_cli](https://github.com/VeryGoodOpenSource/very_good_cli)
