@@ -6,8 +6,6 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
 
 [Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[Discourse](https://www.discourse.org/)搭建，本APP定位为Web端的简化版，只提供社区软件所必需的部分功能。
 
-备注：Discourse是有官方app的，但其实现方式是网页套壳，使用体验不佳。
-
 目前已实现的功能（页面）：
 
   * 主题列表
@@ -19,6 +17,8 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
   * 注册
   * 我的
   * 异常上报和事件统计
+
+备注：Discourse是有官方app的，但其实现方式是网页套壳，使用体验不佳。
 
 ## 截图
 
@@ -52,41 +52,58 @@ dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质
 ## 文件结构
 
     .
-    ├── dart_china/           DartChina项目代码
-    |  ├── ...
-    |  ├── .env.example       dotenv配置模板
+    ├── dart_china/               DartChina项目代码
+    |  ├── .env.example           dotenv配置模板
     |  └── lib/                
-    |    ├── features/        所有功能模块
-    |    |  ├── ... 
-    |    |  ├── auth/         具体功能模块
-    |    |  |  ├── bloc/      模块的bloc
-    |    |  |  └── view/      模块的ui
-    |    |  └── ...    
-    |    ├── models/          模型
-    |    ├── repositories/    repository层
-    |    ├── widgets/         公共的UI组件
-    |    ├── app.dart         主应用
-    |    ├── common.dart      公用的常量和方法
-    |    ├── config.dart      应用配置
-    |    ├── main_dev.dart    dev环境启动文件
-    |    ├── main_prod.dart   prod环境启动文件
-    |    └── util.dart        工具类
-    ├── screenshots/          应用截图，截自ios模拟器
-    └── scripts/              各种使用Dart编写的工具脚本，如：打包apk
+    |    ├── features/            功能模块文件夹
+    |    |  ├── feature1/         具体的功能模块
+    |    |  |  ├── bloc/          模块bloc文件夹
+    |    |  |  |  ├── bloc.dart   模块bloc
+    |    |  |  |  ├── event.dart  模块事件
+    |    |  |  |  └── state.dart  模块状态
+    |    |  |  └── view/          模块UI文件夹（注意：部分模块没有UI）
+    |    |  |     ├── widgets/    模块内部的UI组件
+    |    |  |     └── page.dart   模块的页面
+    |    |  └── ...               其他功能模块
+    |    ├── models/              模型
+    |    ├── repositories/        Repository层
+    |    ├── widgets/             公共的UI组件
+    |    ├── app.dart             主应用
+    |    ├── common.dart          公用的常量和方法
+    |    ├── config.dart          应用配置
+    |    ├── main_dev.dart        dev环境启动文件
+    |    ├── main_prod.dart       prod环境启动文件
+    |    └── util.dart            工具类
+    ├── screenshots/              应用截图，截自ios模拟器
+    └── scripts/                  使用Dart编写的各种工具脚本，如：打包apk
 
 
-## 应用架构
+## 架构
 
-### 简介
+### 概述
+
+<img src="https://raw.github.com/jarontai/dart-china/master/docs/bloc_architecture_full.png">
+
+注：采自Bloc官网的架构说明图
+
+// TODO:
+
+### 纵向 - 分层
+
+UI/逻辑/数据
 
 // TODO:
 
-### 分层
-
-UI/业务逻辑/数据
+### 横向 - 功能模块化
 
 // TODO:
 
-### 模块
+## 问题
 
-// TODO:
+已知的待改进的各种不足和问题：
+
+  * 错误处理
+  * UI细节
+  * ...
+
+// TODO：
