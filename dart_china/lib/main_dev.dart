@@ -46,7 +46,10 @@ void main() async {
     await dotenv.load();
 
     final config = AppConfig.dev();
-    await initRepository(config.siteUrl, cdnUrl: config.cdnUrl);
+    await initRepository(config.siteUrl, cdnUrl: config.cdnUrl,
+        onClientCreated: (client) {
+      getIt.registerSingleton<DiscourseApiClient>(client);
+    });
     getIt.registerSingleton<AppConfig>(config);
 
     runApp(DartChinaApp());

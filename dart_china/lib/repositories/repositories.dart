@@ -1,7 +1,8 @@
-import 'package:dart_china/common.dart';
 import 'package:discourse_api/discourse_api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:result_type/result_type.dart';
+
+export 'package:discourse_api/discourse_api.dart' show DiscourseApiClient;
 
 part 'auth_repository.dart';
 part 'post_repository.dart';
@@ -14,7 +15,13 @@ final Map<int, User> userMap = {};
 
 const kDefaultPostType = 1;
 
-initRepository(String siteUrl, {String? cdnUrl}) async {
+typedef ApiClientInited = Function(DiscourseApiClient client);
+
+initRepository(
+  String siteUrl, {
+  String? cdnUrl,
+  ApiClientInited? onClientCreated,
+}) async {
   // Env string must be const!!
   const proxyAddress = String.fromEnvironment('PROXY_ADDRESS');
   if (proxyAddress.isNotEmpty) {
@@ -26,7 +33,7 @@ initRepository(String siteUrl, {String? cdnUrl}) async {
   final dir = await getApplicationDocumentsDirectory();
   _client = DiscourseApiClient.single(siteUrl,
       cdnUrl: cdnUrl, cookieDir: dir.path, proxyAddress: proxyAddress);
-  getIt.registerSingleton<DiscourseApiClient>(_client);
+  onClientCreated?.call(_client);
 
   final categories = await _client.categories();
   if (categories.isNotEmpty) {
