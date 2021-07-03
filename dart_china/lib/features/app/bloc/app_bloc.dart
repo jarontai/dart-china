@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dart_china/common.dart';
 import 'package:dart_china/features/bugly/bloc/bugly_bloc.dart';
+import 'package:discourse_api/discourse_api.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:equatable/equatable.dart';
 
@@ -46,6 +48,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppEvent event,
   ) async* {
     if (event is AppInit) {
+      final client = getIt.get<DiscourseApiClient>();
+      client.setHttpStatusHandle(_handleHttpError);
+
       if (state.userLogin) {
         _checkNotification(state.user!.username);
       }
@@ -82,6 +87,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   _shareTopic(String url, String? title) {
     Share.share('$title $url', subject: title);
+  }
+
+  _handleHttpError(int? statusCode, String message, String path) {
+    if (statusCode != null) {
+      if (statusCode >= 400 && statusCode < 500) {
+        return EasyLoading.showInfo('请求错误');
+      } else if (statusCode >= 500 && statusCode < 600) {
+        return EasyLoading.showInfo('服务器错误');
+      }
+    }
+    EasyLoading.showInfo('请求发生未知错误');
   }
 
   @override

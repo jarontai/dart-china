@@ -17,7 +17,7 @@ class ReplySection extends StatefulWidget {
 }
 
 class _ReplySectionState extends State<ReplySection> {
-  final int _minLength = 8;
+  final int _minLength = 8; // Minimal post length
   bool _open = false;
   bool _empty = true;
   bool _focus = false;

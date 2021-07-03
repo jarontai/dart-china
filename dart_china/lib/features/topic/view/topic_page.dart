@@ -67,8 +67,6 @@ class _TopicPageState extends State<TopicPage> {
         listener: (context, state) {
           if (state.postSuccess) {
             EasyLoading.showToast('回复成功');
-          } else {
-            EasyLoading.showToast('请求失败!');
           }
         },
         builder: (context, state) {

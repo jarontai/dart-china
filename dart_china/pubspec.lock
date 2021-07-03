@@ -251,10 +251,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "03b1e79b7a94b8f3b830fb48e88e3c2083f1653f"
+      resolved-ref: "377871a367c4f29cf49a800c6f86a39d5bb2d7f1"
       url: "git@github.com:jarontai/discourse_api.git"
     source: git
-    version: "0.4.2"
+    version: "0.4.3"
   dotenv:
     dependency: transitive
     description:
