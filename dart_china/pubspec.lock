@@ -251,10 +251,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "377871a367c4f29cf49a800c6f86a39d5bb2d7f1"
+      resolved-ref: "6517f363ec0a4c4f111806d60cf8a606c9baf0c7"
       url: "git@github.com:jarontai/discourse_api.git"
     source: git
-    version: "0.4.3"
+    version: "0.4.5"
   dotenv:
     dependency: transitive
     description:
@@ -507,7 +507,7 @@ packages:
       name: html2md
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.4"
+    version: "1.2.5"
   html_editor_enhanced:
     dependency: "direct main"
     description:

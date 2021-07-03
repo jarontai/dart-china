@@ -44,6 +44,8 @@ dependencies:
 # dependency_overrides:
 #   discourse_api:
 #     path: ../../discourse_api
+#   html2md:
+#     path: ../../html2md    
 
 dev_dependencies:
   flutter_test:

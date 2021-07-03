@@ -49,7 +49,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) async* {
     if (event is AppInit) {
       final client = getIt.get<DiscourseApiClient>();
-      client.setHttpStatusHandle(_handleHttpError);
+      client.setHttpErrorHandle(_handleHttpError);
 
       if (state.userLogin) {
         _checkNotification(state.user!.username);
