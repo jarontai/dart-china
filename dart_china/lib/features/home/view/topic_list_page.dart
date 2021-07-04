@@ -1,4 +1,3 @@
-import 'package:dart_china/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -169,7 +168,6 @@ class _TopicListPageState extends State<TopicListPage> {
       } else {
         return SliverFillRemaining(
           child: Container(
-            padding: EdgeInsets.only(top: 80),
             decoration: BoxDecoration(
               color: ColorPalette.topicBgColor,
               boxShadow: [
@@ -181,11 +179,8 @@ class _TopicListPageState extends State<TopicListPage> {
                 ),
               ],
             ),
-            child: Align(
-              alignment: Alignment.topCenter,
+            child: Center(
               child: SizedBox(
-                height: 20,
-                width: 20,
                 child: CircularProgressIndicator(),
               ),
             ),

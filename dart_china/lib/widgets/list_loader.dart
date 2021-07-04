@@ -9,8 +9,8 @@ class ListLoader extends StatelessWidget {
       height: 80,
       alignment: Alignment.center,
       child: SizedBox(
-        height: 24,
-        width: 24,
+        height: 25,
+        width: 25,
         child: CircularProgressIndicator(),
       ),
     );
