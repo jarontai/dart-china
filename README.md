@@ -1,12 +1,14 @@
 # Dart-China
 
-Dart中文社区App，使用Flutter编写，采用Bloc架构
+Dart中文社区App即Dart China，使用Flutter编写，采用BLoC架构，模块化开发方式
 
 ## 功能
 
-[Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[Discourse](https://www.discourse.org/)搭建，本APP定位为Web端的简化版，只提供社区软件所必需的部分功能。
+[Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。
 
-预计将实现的功能（页面）：
+本App完全使用Flutter和Dart开发（部分脚本和服务使用了原生Dart），支持Android和iOS，理论上也应该支持发布为Web应用。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
+
+App预计将实现的功能（页面）：
 
   * 主题列表
   * 主题详情与回复
@@ -34,7 +36,7 @@ Dart中文社区App，使用Flutter编写，采用Bloc架构
 
 ## 依赖
 
-dart-china 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
+Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
 
 * [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
 * [dio](https://pub.dev/packages/dio) - 最流行的 http client
@@ -128,7 +130,7 @@ UI/逻辑/数据
 
   * 主题发布
 
-### 后续版本：
+后续版本需求：
 
   * 请求缓存
   * 主题回复
