@@ -1,30 +1,44 @@
 part of 'profile_bloc.dart';
 
-abstract class ProfileState extends Equatable {
-  const ProfileState();
-
-  @override
-  List<Object> get props => [];
+enum ProfileStateStatus {
+  initial,
+  loading,
+  success,
+  updating,
+  updatingSuccess,
+  failure
 }
 
-class ProfileInitial extends ProfileState {}
+extension ProfileStateStatusX on ProfileStateStatus {
+  bool get isInitial => this == ProfileStateStatus.initial;
+  bool get isLoading => this == ProfileStateStatus.loading;
+  bool get isSuccess => this == ProfileStateStatus.success;
+  bool get isUpdating => this == ProfileStateStatus.updating;
+  bool get isUpdatingSuccess => this == ProfileStateStatus.updatingSuccess;
+  bool get isFailure => this == ProfileStateStatus.failure;
+}
 
-class ProfileLoading extends ProfileState {}
-
-class ProfileSuccess extends ProfileState {
-  final User user;
+class ProfileState extends Equatable {
+  final ProfileStateStatus status;
+  final User? user;
   final List<Topic> recentTopics;
 
-  ProfileSuccess({
-    required this.user,
-    required this.recentTopics,
+  ProfileState({
+    this.status = ProfileStateStatus.initial,
+    this.user,
+    this.recentTopics = const [],
   });
 
-  ProfileSuccess copyWith({
+  @override
+  List<Object?> get props => [status, user, recentTopics];
+
+  ProfileState copyWith({
+    ProfileStateStatus? status,
     User? user,
     List<Topic>? recentTopics,
   }) {
-    return ProfileSuccess(
+    return ProfileState(
+      status: status ?? this.status,
       user: user ?? this.user,
       recentTopics: recentTopics ?? this.recentTopics,
     );

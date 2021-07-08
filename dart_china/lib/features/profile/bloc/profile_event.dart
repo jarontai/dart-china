@@ -14,3 +14,15 @@ class ProfileInit extends ProfileEvent {
     required this.username,
   });
 }
+
+class ProfileUpdateAvatar extends ProfileEvent {
+  final int userId;
+  final String username;
+  final PickedFile newAvatar;
+
+  ProfileUpdateAvatar({
+    required this.userId,
+    required this.username,
+    required this.newAvatar,
+  });
+}

@@ -180,6 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 'email': '请正确填写邮箱',
                 'available': '邮箱不可用',
               },
+              inputAction: TextInputAction.next,
             ),
             SizedBox(
               height: 15,
@@ -194,6 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 'available': '用户名不可用',
                 'pattern': '用户名只能包含数字和字母'
               },
+              inputAction: TextInputAction.next,
             ),
             SizedBox(
               height: 15,
@@ -207,7 +209,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 'minLength': '最小长度为10',
               },
               obscure: true,
-              inputAction: TextInputAction.done,
+              inputAction: TextInputAction.next,
             ),
             SizedBox(
               height: 15,

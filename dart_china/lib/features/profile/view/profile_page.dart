@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../common.dart';
 import '../../../models/models.dart';
@@ -38,16 +39,23 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: ColorPalette.backgroundColor,
         elevation: 0,
       ),
-      body: BlocBuilder<ProfileBloc, ProfileState>(
+      body: BlocConsumer<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if (state.status.isUpdating) {
+            EasyLoading.show(status: '更新头像中，请稍候');
+          } else {
+            EasyLoading.dismiss();
+          }
+        },
         builder: (context, state) {
           final myState = state;
           User? user;
           List<Topic>? topics;
-          if (myState is ProfileSuccess) {
+          if (state.status.isSuccess) {
             user = myState.user;
             topics = myState.recentTopics;
           }
-          final loading = myState is ProfileLoading;
+          final loading = state.status.isLoading;
 
           return Column(
             children: [
@@ -85,10 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
             avatar: user?.avatar ?? '',
             onPickAvatar: (file) {
               if (user != null) {
-                // TODO: updateAvatar
-                // context
-                //     .read<ProfileBloc>()
-                //     .updateAvatar(user.id, user.username, file);
+                context.read<ProfileBloc>().add(ProfileUpdateAvatar(
+                    userId: user.id, username: user.username, newAvatar: file));
               }
             },
           ),

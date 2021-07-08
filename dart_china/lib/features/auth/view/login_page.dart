@@ -113,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
               messages: {
                 ValidationMessage.required: '用户名不能为空',
               },
+              inputAction: TextInputAction.next,
             ),
             SizedBox(
               height: 15,
