@@ -89,35 +89,29 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 * 采自Bloc官网的架构说明图
 
-// TODO:
+流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐，而bloc就介于前两者之间，非常适于构建需要长期维护的中大型项目。
 
-注意：bloc和flutter_bloc本身是不同的组件，为描述方便，后续统一使用称为bloc。
-
-flutter状态管理组件有provider、bloc、redux等，其中provider过于简单，redux又过于繁琐，而bloc就位于两者之间，非常适于构建需要长期维护的中大型项目。
-
-Dart China采用的状态管理组件是bloc，个人总结的bloc的优点：
+个人总结的bloc的优点：
 
 1. 单向数据流，逻辑和UI界限清晰
-2. 状态机模式
+2. 使用状态机来对逻辑流转进行抽象
 3. 自带分层架构属性
 4. 鼓励不可变对象
 5. 对测试友好
 
-### 纵向 - 分层
+// TODO: 更多内容
 
-软件架构设计中最流行的一种，就是分层模式。在Bloc的理念中，应用被分为三层，从上到下依次是：UI、业务逻辑（bloc）和数据。而数据层可能还包含Repository层、数据提供层（data provider）以及模型（model）等。
+### 分层
 
-在Bloc中，数据流转跟Redux非常相似，UI层接受用户或系统产生的事件（Event），事件发送给Bloc，而Bloc根据不同的Event生成不同的状态（State）。UI层监听状态的改变，根据状态内容更新界面。
+软件架构设计中最流行的一种，就是分层模式。在Bloc的架构理念中，应用被分为三层，从上到下依次是：视图（UI）、业务逻辑（bloc）和数据（data）。而数据层可能还包含Repository层、数据提供层（data provider）以及模型（model）等。
 
-更多Bloc详情，可以查看Bloc官网。
+Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产生的事件（Event），事件发送给Bloc。然后Bloc根据业务规则对不同的Event生成不同的状态（State），而UI层同时也在监听状态的变化，从而对界面进行更新。
 
-// TODO:
+// TODO: 更多内容
 
-### 横向 - 功能模块化
+### 功能模块化
 
-// TODO:
-
-在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照very_good_cli，使用面向功能的模块化开发方式。一个功能模块由一个或多个bloc模块，以及零个或多个页面组成。Bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
+在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照very_good_cli，使用功能模块化的开发方式。模块必需要包含一个或多个bloc模块，然后是零个或多个页面，其中bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
 
      ├── register/                  具体的功能模块，比如：注册
      |  ├── bloc/                   模块业务逻辑文件夹
@@ -128,7 +122,9 @@ Dart China采用的状态管理组件是bloc，个人总结的bloc的优点：
      |     ├── widgets/             模块内部的UI组件
      |     └── register_page.dart   模块的页面
 
-通过如此方式，各个功能模块真正实现了高内聚低耦合，功能的增减和维护都变得更加方便。当然，随之而来且无法避免的是，模块之间的[通讯问题](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
+各个功能模块真正实现了高内聚低耦合，功能的增减和维护都变得更加方便。当然，随之而来且无法避免的是，模块之间的[通讯问题](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
+
+// TODO: 更多内容
 
 ## 问题
 
