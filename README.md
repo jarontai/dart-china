@@ -6,7 +6,7 @@ Dart中文社区App即Dart China，使用Flutter编写，采用[BLoC](https://bl
 
 [Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。
 
-本App完全使用Flutter和Dart开发（部分脚本和服务使用了原生Dart），支持Android和iOS，理论上也应该支持发布为Web应用。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
+本App完全使用Flutter和Dart开发（部分脚本和服务使用了原生Dart），支持Android和iOS（理论上也支持发布为Web应用,待验证）。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
 
 App预计将实现的功能（页面）：
 
@@ -64,7 +64,7 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
     |    |  |  |  ├── register_bloc.dart   模块bloc
     |    |  |  |  ├── register_event.dart  模块事件
     |    |  |  |  └── register_state.dart  模块状态
-    |    |  |  └── view/                   模块的UI（注意：部分模块没有UI）
+    |    |  |  └── view/                   模块的UI（注意：模块可以没有UI）
     |    |  |     ├── widgets/             模块内部的UI组件
     |    |  |     └── register_page.dart   模块的页面
     |    |  └── ...                        其他功能模块
@@ -89,12 +89,12 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 * 采自Bloc官网的架构说明图
 
-流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐，而bloc就介于前两者之间，非常适于构建需要长期维护的中大型项目。
+流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐，而bloc的复杂度恰好介于两者之间，非常适于构建需要长期维护的中大型项目。
 
 个人总结的bloc的优点：
 
 1. 单向数据流，逻辑和UI界限清晰
-2. 使用状态机来对逻辑流转进行抽象
+2. 使用状态机的思想来对逻辑流转进行抽象
 3. 自带分层架构属性
 4. 鼓励不可变对象
 5. 对测试友好
@@ -111,7 +111,7 @@ Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产
 
 ### 功能模块化
 
-在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照very_good_cli，使用功能模块化的开发方式。模块必需要包含一个或多个bloc模块，然后是零个或多个页面，其中bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
+在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照very_good_cli，使用模块化的开发方式。一个功能就是一个模块，模块必需包含一个或多个bloc模块，加上零个或多个页面，而bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
 
      ├── register/                  具体的功能模块，比如：注册
      |  ├── bloc/                   模块业务逻辑文件夹
@@ -122,7 +122,7 @@ Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产
      |     ├── widgets/             模块内部的UI组件
      |     └── register_page.dart   模块的页面
 
-各个功能模块真正实现了高内聚低耦合，功能的增减和维护都变得更加方便。当然，随之而来且无法避免的是，模块之间的[通讯问题](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
+这种实现方式下，各功能模块真正实现了高内聚低耦合，功能的增减和维护都变得更加方便。当然，随之而来的是模块之间的通讯问题，官方给出的[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
 
 // TODO: 更多内容
 
