@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -239,6 +240,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            TosPrivacy(),
           ],
         ),
       ),

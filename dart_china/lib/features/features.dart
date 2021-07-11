@@ -16,6 +16,8 @@ export 'profile/view/profile_page.dart';
 //-----------------------------------------//
 export 'register/bloc/register_bloc.dart';
 export 'register/view/register_page.dart';
+export 'register/view/tos_page.dart';
+export 'register/view/privacy_page.dart';
 //-----------------------------------------//
 export 'search/bloc/search_bloc.dart';
 export 'search/view/search_page.dart';

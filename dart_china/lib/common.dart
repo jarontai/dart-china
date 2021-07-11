@@ -50,6 +50,8 @@ abstract class Routes {
   static final profile = '/profile';
   static final notification = '/notification';
   static final post = '/post';
+  static final tos = '/tos';
+  static final privacy = '/privacy';
 }
 
 abstract class RegExps {

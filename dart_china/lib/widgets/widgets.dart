@@ -6,3 +6,4 @@ export 'section_title.dart';
 export 'select_button.dart';
 export 'topic_card.dart';
 export 'topic_post_header.dart';
+export 'tos_privacy.dart';

@@ -61,6 +61,8 @@ flutter:
   assets:
     - assets/icon/logo_dart.png
     - assets/icon/logo_dart_ios.png
+    - assets/text/tos.txt
+    - assets/text/privacy.txt
     - .env
 
 flutter_icons:
