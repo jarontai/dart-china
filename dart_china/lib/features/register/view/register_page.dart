@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -89,8 +88,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
-          color: ColorPalette.backgroundColor,
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
           child: BlocConsumer<RegisterBloc, RegisterState>(
             listener: (context, state) {
               if (state is RegisterPending) {
@@ -171,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
             ReactiveInputWidget(
-              autofocus: true,
+              autofocus: false,
               email: true,
               name: 'email',
               label: '邮箱',
