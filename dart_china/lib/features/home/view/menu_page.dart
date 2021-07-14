@@ -163,6 +163,12 @@ class _MenuPageState extends State<MenuPage> {
                 },
                 selected: selected == 3,
               ),
+              _MenuItem(
+                icon: Icons.info_outlined,
+                text: '关于',
+                routeGen: () => Routes.about,
+                selected: selected == 4,
+              ),
             ],
           );
         },

@@ -13,6 +13,7 @@ class AppConfig {
         buglyAndroidAppId = dotenv.env['DEV_BUGLY_ANDROID_APP_ID']!,
         buglyIosAppId = dotenv.env['DEV_BUGLY_IOS_APP_ID']!,
         enablePreview = false,
+        enalbeBugly = false,
         enalbeBuglyDebug = false;
 
   AppConfig.prod()
@@ -24,9 +25,11 @@ class AppConfig {
         buglyAndroidAppId = dotenv.env['PROD_BUGLY_ANDROID_APP_ID']!,
         buglyIosAppId = dotenv.env['PROD_BUGLY_IOS_APP_ID']!,
         enablePreview = false,
+        enalbeBugly = true,
         enalbeBuglyDebug = false;
 
   final bool enablePreview;
+  final bool enalbeBugly;
   final bool enalbeBuglyDebug;
   final String buglyAndroidAppId;
   final String buglyIosAppId;

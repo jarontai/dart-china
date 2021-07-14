@@ -58,11 +58,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       _authBloc.add(AuthLoginCheck());
 
       final config = getIt.get<AppConfig>();
-      _buglyBloc.add(BuglyInit(
-        enableDebug: config.enalbeBuglyDebug,
-        androidAppId: config.buglyAndroidAppId,
-        iosAppId: config.buglyIosAppId,
-      ));
+      if (config.enalbeBugly) {
+        print('--- Bugly is enabled! ---');
+        _buglyBloc.add(BuglyInit(
+          enableDebug: config.enalbeBuglyDebug,
+          androidAppId: config.buglyAndroidAppId,
+          iosAppId: config.buglyIosAppId,
+        ));
+      } else {
+        print('--- Bugly is disabled! ---');
+      }
     } else if (event is AppHome) {
       if (state.userLogin) {
         _checkNotification(state.user!.username);

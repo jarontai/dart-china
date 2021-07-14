@@ -144,7 +144,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            TosPrivacy(),
+            TosPrivacy(
+              showRegister: true,
+            ),
           ],
         ),
       ),

@@ -78,6 +78,7 @@ class DartChinaApp extends StatelessWidget {
       ),
       initialRoute: Routes.home,
       routes: {
+        Routes.about: (_) => AboutPage(),
         Routes.tos: (_) => TosPage(),
         Routes.privacy: (_) => PrivacyPage(),
         Routes.login: (_) => LoginPage(),
