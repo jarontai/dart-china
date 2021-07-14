@@ -78,11 +78,14 @@ class DartChinaApp extends StatelessWidget {
       ),
       initialRoute: Routes.home,
       routes: {
-        Routes.about: (_) => AboutPage(),
         Routes.tos: (_) => TosPage(),
         Routes.privacy: (_) => PrivacyPage(),
         Routes.login: (_) => LoginPage(),
         Routes.register: (_) => RegisterPage(),
+        Routes.about: (_) => BlocProvider<AboutBloc>(
+              create: (context) => AboutBloc()..add(AboutInit()),
+              child: AboutPage(),
+            ),
         Routes.home: (_) => BlocProvider<TopicListBloc>(
               create: (context) => TopicListBloc(
                 context.read<CategoryRepository>(),

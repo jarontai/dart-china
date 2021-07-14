@@ -1,6 +1,8 @@
 import 'package:dart_china/common.dart';
+import 'package:dart_china/features/features.dart';
 import 'package:dart_china/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -48,12 +50,16 @@ class AboutPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text(
-            '当前版本：${'V1.0.0'}', // TODO:
-            style: TextStyle(
-              color: Colors.grey,
-              // fontSize: 14,
-            ),
+          BlocBuilder<AboutBloc, AboutState>(
+            builder: (context, state) {
+              return Text(
+                '当前版本：V${state.appVersion}',
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 14,
+                ),
+              );
+            },
           ),
         ],
       ),

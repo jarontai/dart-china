@@ -1,10 +1,20 @@
 part of 'about_bloc.dart';
 
-abstract class AboutState extends Equatable {
-  const AboutState();
-  
-  @override
-  List<Object> get props => [];
-}
+class AboutState extends Equatable {
+  const AboutState({
+    this.appVersion = '',
+  });
 
-class AboutInitial extends AboutState {}
+  final String appVersion;
+
+  @override
+  List<Object> get props => [appVersion];
+
+  AboutState copyWith({
+    String? appVersion,
+  }) {
+    return AboutState(
+      appVersion: appVersion ?? this.appVersion,
+    );
+  }
+}
