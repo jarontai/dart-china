@@ -23,6 +23,11 @@ class BuglyBloc extends Bloc<BuglyEvent, BuglyState> {
   }
 
   _init(bool enableDebug, String androidId, String iosId) async {
+    if (Platform.isIOS) {
+      print('--- Bugly is disabled in ios!!! ---');
+      return;
+    }
+
     var platformVersion = '';
     var connected = false;
     try {
@@ -36,8 +41,6 @@ class BuglyBloc extends Bloc<BuglyEvent, BuglyState> {
     if (connected) {
       if (Platform.isAndroid) {
         _initBuglyAndroid(androidId, enableDebug);
-      } else if (Platform.isIOS) {
-        _initBuglyIos(iosId, enableDebug);
       }
     }
 
