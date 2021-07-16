@@ -32,7 +32,10 @@ initRepository(
 
   final dir = await getApplicationDocumentsDirectory();
   _client = DiscourseApiClient.single(siteUrl,
-      cdnUrl: cdnUrl, cookieDir: dir.path, proxyAddress: proxyAddress);
+      cdnUrl: cdnUrl,
+      cookieDir: dir.path,
+      proxyAddress: proxyAddress,
+      timeout: 30);
   onClientCreated?.call(_client);
 
   final categories = await _client.categories();
