@@ -89,7 +89,7 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 * 采自Bloc官网的架构说明图
 
-流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐，而bloc的复杂度恰好介于两者之间，非常适于构建需要长期维护的中大型项目。
+流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐。而bloc的复杂度介于前两者之间，非常适于构建需要长期维护的中大型项目。
 
 个人总结的bloc的优点：
 
@@ -111,7 +111,7 @@ Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产
 
 ### 功能模块化
 
-在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照了very_good_cli，使用模块化的开发方式。一个功能就是一个模块，模块必需包含一个或多个bloc模块，以及零个或多个页面，而bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
+在很多flutter项目中，应用一般都是按页面开发，逻辑和ui都散落在各处。Dart China参照了very_good_cli，使用模块化的开发方式。一个功能就是一个模块，模块必需包含一个或多个bloc模块，以及零个或多个页面。bloc模块本身又由事件（event）、状态（state）和逻辑（bloc）组成。
 
      ├── register/                  具体的功能模块，比如：注册
      |  ├── bloc/                   模块业务逻辑文件夹
@@ -122,7 +122,7 @@ Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产
      |     ├── widgets/             模块内部的UI组件
      |     └── register_page.dart   模块的页面
 
-这种实现方式下，各功能模块真正实现了高内聚低耦合，功能的增减和维护都变得更加方便。当然，随之而来的是模块之间的通讯问题，官方给出的[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
+这种实现方式下，各功能模块真正实现了高内聚低耦合，功能维护变得更加直观和方便。当然，随之而来的是模块之间的通讯问题，官方给出的[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
 
 // TODO: 更多内容
 
@@ -154,7 +154,8 @@ Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产
 
 ### v1.1.0
 
-  * 主题发布
+  * 主题发布页
+  * 优化快速回复UI
 
 后续版本需求：
 
