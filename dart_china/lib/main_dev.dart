@@ -46,7 +46,7 @@ void main() async {
     await dotenv.load();
 
     final config = AppConfig.dev();
-    await initRepository(config.siteUrl, cdnUrl: config.cdnUrl,
+    await initApiClient(config.siteUrl, cdnUrl: config.cdnUrl,
         onClientCreated: (client) {
       getIt.registerSingleton<DiscourseApiClient>(client);
     });

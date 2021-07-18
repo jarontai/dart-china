@@ -7,6 +7,7 @@ import 'package:discourse_api/discourse_api.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:equatable/equatable.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../features.dart';
 import '../../../models/models.dart';
@@ -48,6 +49,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppEvent event,
   ) async* {
     if (event is AppInit) {
+      bool connected = await _checkConnectivity();
+      if (!connected) {
+        EasyLoading.showError('未连接到网络，请检查!', duration: Duration(seconds: 300));
+        return;
+      }
+
+      await prepareRepository();
+
       final client = getIt.get<DiscourseApiClient>();
       client.setHttpErrorHandle(_handleHttpError);
 
@@ -75,6 +84,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } else if (event is AppShare) {
       _shareTopic(event.url, event.title);
     }
+  }
+
+  Future<bool> _checkConnectivity() async {
+    final result = await Connectivity().checkConnectivity();
+    return result != ConnectivityResult.none;
   }
 
   _updateLogin(bool status, User? user, {bool? notifcation}) {

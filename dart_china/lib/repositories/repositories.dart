@@ -17,7 +17,7 @@ const kDefaultPostType = 1;
 
 typedef ApiClientInited = Function(DiscourseApiClient client);
 
-initRepository(
+initApiClient(
   String siteUrl, {
   String? cdnUrl,
   ApiClientInited? onClientCreated,
@@ -37,7 +37,9 @@ initRepository(
       proxyAddress: proxyAddress,
       timeout: 30);
   onClientCreated?.call(_client);
+}
 
+prepareRepository() async {
   final categories = await _client.categories();
   if (categories.isNotEmpty) {
     for (var cat in categories) {
