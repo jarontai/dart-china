@@ -53,7 +53,7 @@ class AboutPage extends StatelessWidget {
           BlocBuilder<AboutBloc, AboutState>(
             builder: (context, state) {
               return Text(
-                '当前版本：V${state.appVersion}',
+                '当前版本：V${state.appVersion}+${state.buildNumber}',
                 style: TextStyle(
                   color: Colors.grey,
                   // fontSize: 14,

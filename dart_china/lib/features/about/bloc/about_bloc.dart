@@ -21,6 +21,9 @@ class AboutBloc extends Bloc<AboutEvent, AboutState> {
 
   _init() async {
     final info = await PackageInfo.fromPlatform();
-    emit(state.copyWith(appVersion: info.version));
+    emit(state.copyWith(
+      appVersion: info.version,
+      buildNumber: info.buildNumber,
+    ));
   }
 }
