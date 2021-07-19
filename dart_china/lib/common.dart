@@ -42,17 +42,19 @@ abstract class ColorPalette {
 }
 
 abstract class Routes {
-  static final home = '/';
-  static final topic = '/topic';
-  static final search = '/search';
-  static final login = '/login';
-  static final register = '/register';
-  static final profile = '/profile';
-  static final notification = '/notification';
-  static final post = '/post';
-  static final tos = '/tos';
-  static final privacy = '/privacy';
-  static final about = '/about';
+  static const home = '/';
+  static const topic = '/topic';
+  static const search = '/search';
+  static const login = '/login';
+  static const register = '/register';
+  static const profile = '/profile';
+  static const notification = '/notification';
+  static const post = '/post';
+  static const tos = '/tos';
+  static const privacy = '/privacy';
+  static const about = '/about';
+
+  static const loginRoutes = const [profile, notification, post];
 }
 
 abstract class RegExps {

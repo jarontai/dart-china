@@ -99,12 +99,6 @@ class DartChinaApp extends StatelessWidget {
               ),
               child: SearchPage(),
             ),
-        Routes.notification: (_) => BlocProvider<NotificationBloc>(
-              create: (context) => NotificationBloc(
-                context.read<UserRepository>(),
-              ),
-              child: NotificationPage(),
-            ),
       },
       onGenerateRoute: (settings) => _generateRoutes(settings, context),
       debugShowCheckedModeBanner: false,
@@ -114,50 +108,75 @@ class DartChinaApp extends StatelessWidget {
   Route<dynamic>? _generateRoutes(
       RouteSettings settings, BuildContext context) {
     var routeName = settings.name;
-    if (routeName == Routes.topic) {
-      final topicId = settings.arguments as int;
-      return MaterialPageRoute(
-        builder: (_) => BlocProvider<TopicBloc>(
-          create: (context) => TopicBloc(
-            context.read<TopicRepository>(),
-            context.read<PostRepository>(),
+
+    // TODO: route guard?
+    // if (Routes.loginRoutes.contains(routeName)) {
+    //   final state = context.read<AppBloc>().state;
+    //   final userLogin = state.userLogin;
+    //   if (!userLogin) {
+    //     return MaterialPageRoute(builder: (_) => LoginPage());
+    //   }
+    // }
+
+    switch (routeName) {
+      case Routes.notification:
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider<NotificationBloc>(
+              create: (context) => NotificationBloc(
+                context.read<UserRepository>(),
+              ),
+              child: NotificationPage(),
+            );
+          },
+        );
+
+      case Routes.topic:
+        final topicId = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<TopicBloc>(
+            create: (context) => TopicBloc(
+              context.read<TopicRepository>(),
+              context.read<PostRepository>(),
+            ),
+            child: TopicPage(
+              topicId: topicId,
+            ),
           ),
-          child: TopicPage(
-            topicId: topicId,
+        );
+
+      case Routes.profile:
+        var username;
+        if (settings.arguments != null) {
+          username = settings.arguments as String;
+        }
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<ProfileBloc>(
+            create: (context) => ProfileBloc(
+              context.read<UserRepository>(),
+              context.read<TopicRepository>(),
+            ),
+            child: ProfilePage(
+              username: username,
+            ),
           ),
-        ),
-      );
-    } else if (routeName == Routes.profile) {
-      var username;
-      if (settings.arguments != null) {
-        username = settings.arguments as String;
-      }
-      return MaterialPageRoute(
-        builder: (_) => BlocProvider<ProfileBloc>(
-          create: (context) => ProfileBloc(
-            context.read<UserRepository>(),
-            context.read<TopicRepository>(),
+        );
+
+      case Routes.post:
+        final args = settings.arguments as PostArguments;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<PostBloc>(
+            create: (context) => PostBloc(
+              context.read<TopicRepository>(),
+              context.read<PostRepository>(),
+            ),
+            child: PostPage(
+              isTopic: args.isTopic,
+              postId: args.postId,
+              topicId: args.topicId,
+            ),
           ),
-          child: ProfilePage(
-            username: username,
-          ),
-        ),
-      );
-    } else if (routeName == Routes.post) {
-      final args = settings.arguments as PostArguments;
-      return MaterialPageRoute(
-        builder: (_) => BlocProvider<PostBloc>(
-          create: (context) => PostBloc(
-            context.read<TopicRepository>(),
-            context.read<PostRepository>(),
-          ),
-          child: PostPage(
-            isTopic: args.isTopic,
-            postId: args.postId,
-            topicId: args.topicId,
-          ),
-        ),
-      );
+        );
     }
   }
 }
