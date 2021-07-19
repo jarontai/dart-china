@@ -34,24 +34,6 @@ App预计将实现的功能（页面）：
 | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/login.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/profile.png">  | <img src="https://raw.github.com/jarontai/dart-china/master/screenshots/search.png">  |
 
 
-## 依赖
-
-Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
-
-* [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
-* [dio](https://pub.dev/packages/dio) - 最流行的 http client
-* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的Discourse API封装库
-* [html2md](https://github.com/jarontai/html2md) - 由作者编写的将html转换为markdown的组件
-* [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）代码生成工具
-* [flutter_markdown](https://pub.dev/packages/flutter_markdown) - flutter官方提供的markdown渲染组件
-* [stash](https://pub.dev/packages/stash) - 功能强大的缓存库
-* [cached_network_image](https://pub.dev/packages/cached_network_image) - 图片缓存组件
-* [flutter_zoom_drawer](https://pub.dev/packages/flutter_zoom_drawer) - 主页菜单组件
-* [reactive_forms](https://pub.dev/packages/reactive_forms) - 功能超丰富的表单处理组件
-* [flutter_easyloading](https://pub.dev/packages/flutter_easyloading) - Loading组件
-* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报组件
-* ...
-
 ## 文件结构
 
     .
@@ -81,6 +63,24 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
     └── scripts/                           使用Dart编写的各种工具脚本，如：打包apk
 
 
+## 依赖
+
+Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质量的原则，主要的依赖有：
+
+* [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
+* [dio](https://pub.dev/packages/dio) - 最流行的 http client
+* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的Discourse API封装库
+* [html2md](https://github.com/jarontai/html2md) - 由作者编写的将html转换为markdown的组件
+* [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）代码生成工具
+* [flutter_markdown](https://pub.dev/packages/flutter_markdown) - flutter官方提供的markdown渲染组件
+* [stash](https://pub.dev/packages/stash) - 功能强大的缓存库
+* [cached_network_image](https://pub.dev/packages/cached_network_image) - 图片缓存组件
+* [flutter_zoom_drawer](https://pub.dev/packages/flutter_zoom_drawer) - 主页菜单组件
+* [reactive_forms](https://pub.dev/packages/reactive_forms) - 功能超丰富的表单处理组件
+* [flutter_easyloading](https://pub.dev/packages/flutter_easyloading) - Loading组件
+* [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报组件
+* ...
+
 ## 架构
 
 ### BLoC
@@ -91,7 +91,7 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐。而bloc的复杂度介于前两者之间，非常适合对架构有追求，需要长期维护的正式项目。
 
-个人总结的bloc的优点：
+个人总结bloc的优点：
 
 1. 单向数据流，逻辑和UI界限清晰
 2. 可以使用状态机的思维方式对状态的流转进行抽象
@@ -109,13 +109,13 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 Bloc中的数据流转跟Redux非常相似，UI层负责接受用户或系统产生的事件（Event），事件发送给Bloc。然后Bloc根据业务规则对不同的Event生成不同的状态（State），而UI层同时也在监听状态的变化，从而对界面进行更新。
 
-Dart China 的架构实现参考very_good_cli及众多bloc教程，使用分层和模块化的开发方式。一个功能就是一个模块，模块必需包含一个或多个bloc模块，以及零个或多个页面。bloc模块本身又由事件（event）、状态（state）和逻辑（bloc）组成。
+Dart China 的架构实现参考very_good_cli及众多bloc教程，使用分层和模块化的开发方式。一个功能就是一个模块，模块必需包含一个或多个bloc模块，以及零个或多个页面。bloc模块本身又由事件（event）、状态（state）和逻辑（bloc）组成。以下为模块构成示意：
 
      ├── register/                  具体的功能模块，比如：注册
      |  ├── bloc/                   模块业务逻辑文件夹
      |  |  ├── register_bloc.dart   模块bloc
-     |  |  ├── register_event.dart  模块事件
-     |  |  └── register_state.dart  模块状态
+     |  |  ├── register_event.dart  模块的事件
+     |  |  └── register_state.dart  模块的状态
      |  └── view/                   模块的UI（注意：部分模块没有UI）
      |     ├── widgets/             模块内部的UI组件
      |     └── register_page.dart   模块的页面
@@ -124,12 +124,12 @@ Dart China 的架构实现参考very_good_cli及众多bloc教程，使用分层�
 
 // TODO: 更多内容
 
-## 存在问题
+## 问题
 
-作为我个人对BLoC首次真正实战，还存在的各种不足和问题待改善：
+作为个人对Bloc的首次实战，本项目还存在的很多问题待改善：
 
   * 复杂markdown内容的解析，比如：对他人发言的引用
-  * 完善的错误处理机制
+  * 完善的错误处理
   * 缓存
   * 测试
   * UI细节
@@ -151,13 +151,11 @@ Dart China 的架构实现参考very_good_cli及众多bloc教程，使用分层�
   * 关于
   * 异常上报和运营统计(bugly)
 
-### v1.1.0
+### 后续版本需求
 
-  * 主题发布页
   * 优化快速回复UI
-
-后续版本需求：
-
+  * 独立的主题发布页
+  * 图片查看优化
   * 请求缓存
   * 主题回复
   * 主题、回复可编辑  
