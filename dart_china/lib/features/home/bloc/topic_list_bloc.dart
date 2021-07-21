@@ -65,6 +65,8 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
         return;
       }
 
+      yield state.copyWith(categoryIndex: event.categoryIndex);
+
       var categories = state.categories;
       if (event.categoryIndex < categories.length) {
         this.add(
