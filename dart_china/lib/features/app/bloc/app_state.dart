@@ -2,21 +2,21 @@ part of 'app_bloc.dart';
 
 class AppState extends Equatable {
   final bool userLogin;
-  final bool hasNotification;
   final User? user;
+  final bool hasNotification;
   final Map<int, Category>? categoryMap;
 
   AppState({
     this.userLogin = false,
-    this.hasNotification = false,
     this.user,
+    this.hasNotification = false,
     this.categoryMap,
   });
 
   AppState copyWith({
     bool? userLogin,
-    bool? hasNotification,
     User? user,
+    bool? hasNotification,
     Map<int, Category>? categoryMap,
   }) {
     return AppState(

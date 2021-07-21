@@ -25,14 +25,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) : super(AppState()) {
     _loginSubscription = _authBloc.stream.listen((authState) {
       if (authState is AuthLoginSuccess) {
-        _updateLogin(true, authState.user);
+        this.add(AppAuthChange(login: true, user: authState.user));
+        this.add(AppCheckNotification());
       } else if (authState is AuthLogoutSuccess) {
-        _updateLogin(false, null);
+        this.add(AppAuthChange(login: false, user: null));
       }
     });
     _registerSubscription = _registerBloc.stream.listen((authState) {
       if (authState is RegisterSuccess) {
-        _updateLogin(true, authState.user);
+        this.add(AppAuthChange(login: true, user: authState.user));
+        this.add(AppCheckNotification());
       }
     });
   }
@@ -55,34 +57,39 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         return;
       }
 
-      await prepareRepository();
-
-      final client = getIt.get<DiscourseApiClient>();
-      client.setHttpErrorHandle(_handleHttpError);
-
+      await _init();
+    } else if (event is AppCheckNotification) {
       if (state.userLogin) {
-        _checkNotification(state.user!.username);
+        yield await _checkNotification(state.user!.username);
       }
-
-      _authBloc.add(AuthLoginCheck());
-
-      final config = getIt.get<AppConfig>();
-      if (config.enalbeBugly) {
-        print('--- Bugly is enabled! ---');
-        _buglyBloc.add(BuglyInit(
-          enableDebug: config.enalbeBuglyDebug,
-          androidAppId: config.buglyAndroidAppId,
-          iosAppId: config.buglyIosAppId,
-        ));
-      } else {
-        print('--- Bugly is disabled! ---');
-      }
-    } else if (event is AppHome) {
-      if (state.userLogin) {
-        _checkNotification(state.user!.username);
-      }
+    } else if (event is AppAuthChange) {
+      yield state.copyWith(
+        userLogin: event.login,
+        user: event.user,
+      );
     } else if (event is AppShare) {
       _shareTopic(event.url, event.title);
+    }
+  }
+
+  _init() async {
+    await prepareRepository();
+
+    final client = getIt.get<DiscourseApiClient>();
+    client.setHttpErrorHandle(_handleHttpError);
+
+    _authBloc.add(AuthLoginCheck());
+
+    final config = getIt.get<AppConfig>();
+    if (config.enalbeBugly) {
+      print('--- Bugly is enabled! ---');
+      _buglyBloc.add(BuglyInit(
+        enableDebug: config.enalbeBuglyDebug,
+        androidAppId: config.buglyAndroidAppId,
+        iosAppId: config.buglyIosAppId,
+      ));
+    } else {
+      print('--- Bugly is disabled! ---');
     }
   }
 
@@ -91,17 +98,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     return result != ConnectivityResult.none;
   }
 
-  _updateLogin(bool status, User? user, {bool? notifcation}) {
-    emit(state.copyWith(
-      userLogin: status,
-      user: user,
-      hasNotification: notifcation,
-    ));
-  }
-
-  _checkNotification(String username) async {
+  Future<AppState> _checkNotification(String username) async {
     final has = await _userRepository.hasNotification(username);
-    emit(state.copyWith(hasNotification: has));
+    return state.copyWith(hasNotification: has);
   }
 
   _shareTopic(String url, String? title) {

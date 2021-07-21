@@ -9,7 +9,17 @@ abstract class AppEvent extends Equatable {
 
 class AppInit extends AppEvent {}
 
-class AppHome extends AppEvent {}
+class AppAuthChange extends AppEvent {
+  final bool login;
+  final User? user;
+
+  AppAuthChange({
+    required this.login,
+    this.user,
+  });
+}
+
+class AppCheckNotification extends AppEvent {}
 
 class AppExit extends AppEvent {}
 
