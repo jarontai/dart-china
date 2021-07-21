@@ -29,8 +29,8 @@ class _SearchPageState extends State<SearchPage> {
     _scrollController.addListener(() {
       if (!_scrollController.hasClients) return;
 
-      var maxScroll = _scrollController.position.maxScrollExtent;
-      if (_scrollController.offset >= (maxScroll * 0.9)) {
+      var maxExtent = _scrollController.position.maxScrollExtent;
+      if (maxExtent > 0 && _scrollController.offset >= (maxExtent * 0.9)) {
         var value = form.control('search').value;
         context
             .read<SearchBloc>()

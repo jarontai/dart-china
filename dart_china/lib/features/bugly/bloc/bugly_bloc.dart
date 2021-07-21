@@ -18,14 +18,15 @@ class BuglyBloc extends Bloc<BuglyEvent, BuglyState> {
     BuglyEvent event,
   ) async* {
     if (event is BuglyInit) {
-      await _init(event.enableDebug, event.androidAppId, event.iosAppId);
+      yield await _init(event.enableDebug, event.androidAppId, event.iosAppId);
     }
   }
 
-  _init(bool enableDebug, String androidId, String iosId) async {
+  Future<BuglyState> _init(
+      bool enableDebug, String androidId, String iosId) async {
     if (Platform.isIOS) {
       print('--- Bugly is disabled in ios!!! ---');
-      return;
+      return state;
     }
 
     var platformVersion = '';
@@ -40,14 +41,14 @@ class BuglyBloc extends Bloc<BuglyEvent, BuglyState> {
 
     if (connected) {
       if (Platform.isAndroid) {
-        _initBuglyAndroid(androidId, enableDebug);
+        await _initBuglyAndroid(androidId, enableDebug);
       }
     }
 
-    emit(state.copyWith(
+    return state.copyWith(
       platformVersion: platformVersion,
       connected: connected,
-    ));
+    );
   }
 
   _initBuglyAndroid(String appId, bool enableDebug) async {

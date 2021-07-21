@@ -30,7 +30,8 @@ class _TopicListPageState extends State<TopicListPage> {
     _scrollController.addListener(() {
       if (_scrollController.hasClients) {
         var maxExtent = _scrollController.position.maxScrollExtent;
-        if (_scrollController.offset >= (maxExtent * 0.9) &&
+        if (maxExtent > 0 &&
+            _scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
           context.read<TopicListBloc>().add(TopicListFetch(refresh: false));
         }

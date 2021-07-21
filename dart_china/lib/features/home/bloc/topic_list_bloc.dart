@@ -44,88 +44,72 @@ class TopicListBloc extends Bloc<TopicListEvent, TopicListState> {
     TopicListEvent event,
   ) async* {
     if (event is TopicListInit) {
-      _fetchCategories();
+      yield await _fetchCategories();
     } else if (event is TopicListFetch) {
-      _fetchLatest(refresh: event.refresh);
-    } else if (event is TopicListPoll) {
-      await _checkLatest();
-    } else if (event is TopicListChangeCategory) {
-      _changeCategory(event.categoryIndex);
-    }
-  }
-
-  _fetchCategories() async {
-    var categories = await _categoryRepository.fetchAll();
-    categories
-        .retainWhere((element) => kEnableCategories.contains(element.slug));
-    categories.insert(0, theAllCategory);
-    emit(state.copyWith(
-      categoryIndex: 0,
-      categories: categories,
-    ));
-  }
-
-  _fetchLatest({bool refresh = false}) async {
-    if (state.status.isInitial) {
-      var pageModel = await _topicRepository.fetchLatest();
-      emit(state.copyWith(
-        status: TopicListStatus.success,
-        topics: pageModel.data,
-        page: 0,
-        hasMore: pageModel.hasNext,
-      ));
-    } else if (state.status.isSuccess) {
-      if (state.hasMore || refresh) {
-        var categoryId;
-        var categorySlug;
-        var cat = state.categories[state.categoryIndex];
-        if (cat.slug != kDefaultCategorySlug) {
-          categoryId = cat.id;
-          categorySlug = cat.slug;
-        }
-
-        if (refresh) {
-          emit(state.copyWith(
-            status: TopicListStatus.loading,
-          ));
-        }
-
-        var nextPage = refresh ? 0 : state.page + 1;
-        var pageModel = await _topicRepository.fetchLatest(
-            page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
-        var oldTopics = refresh ? <Topic>[] : List.of(state.topics);
-        emit(state.copyWith(
-          status: TopicListStatus.success,
-          topics: oldTopics..addAll(pageModel.data),
-          page: nextPage,
-          hasMore: pageModel.hasNext,
-        ));
+      if (event.refresh) {
+        yield state.copyWith(
+          status: TopicListStatus.loading,
+          categoryIndex: event.categoryIndex ?? state.categoryIndex,
+        );
       }
-    }
-  }
 
-  _checkLatest() async {
-    var latest = await _topicRepository.checkLatest();
-    if (latest) {
-      await _fetchLatest(refresh: true);
-    } else {
-      await Future.delayed(Duration(milliseconds: 500));
-    }
-  }
-
-  _changeCategory(int index) async {
-    if (state.status.isSuccess) {
-      if (index == state.categoryIndex) {
+      yield await _fetchLatest(
+          refresh: event.refresh, categoryIndex: event.categoryIndex);
+    } else if (event is TopicListPoll) {
+      var latest = await _topicRepository.checkLatest();
+      if (latest) {
+        yield await _fetchLatest(refresh: true);
+      }
+    } else if (event is TopicListChangeCategory) {
+      if (event.categoryIndex == state.categoryIndex) {
         return;
       }
 
       var categories = state.categories;
-      if (index < categories.length) {
-        emit(state.copyWith(
-          categoryIndex: index,
-        ));
-        await _fetchLatest(refresh: true);
+      if (event.categoryIndex < categories.length) {
+        this.add(
+          TopicListFetch(refresh: true, categoryIndex: event.categoryIndex),
+        );
       }
     }
+  }
+
+  Future<TopicListState> _fetchCategories() async {
+    var categories = await _categoryRepository.fetchAll();
+    categories
+        .retainWhere((element) => kEnableCategories.contains(element.slug));
+    categories.insert(0, theAllCategory);
+    return state.copyWith(
+      categoryIndex: 0,
+      categories: categories,
+    );
+  }
+
+  Future<TopicListState> _fetchLatest(
+      {bool refresh = false, int? categoryIndex}) async {
+    if (state.hasMore || refresh) {
+      var categoryId;
+      var categorySlug;
+      var newCategoryIndex = categoryIndex ?? state.categoryIndex;
+      var cat = state.categories[newCategoryIndex];
+      if (cat.slug != kDefaultCategorySlug) {
+        categoryId = cat.id;
+        categorySlug = cat.slug;
+      }
+
+      var nextPage = refresh ? 0 : state.page + 1;
+      var pageModel = await _topicRepository.fetchLatest(
+          page: nextPage, categoryId: categoryId, categorySlug: categorySlug);
+      var oldTopics = refresh ? <Topic>[] : List.of(state.topics);
+      return state.copyWith(
+        status: TopicListStatus.success,
+        topics: oldTopics..addAll(pageModel.data),
+        page: nextPage,
+        hasMore: pageModel.hasNext,
+        categoryIndex: newCategoryIndex,
+      );
+    }
+
+    return state;
   }
 }

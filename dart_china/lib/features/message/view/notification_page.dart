@@ -36,7 +36,8 @@ class _NotificationPageState extends State<NotificationPage> {
     _scrollController.addListener(() {
       if (_username != null && _scrollController.hasClients) {
         var maxExtent = _scrollController.position.maxScrollExtent;
-        if (_scrollController.offset >= (maxExtent * 0.9) &&
+        if (maxExtent > 0 &&
+            _scrollController.offset >= (maxExtent * 0.9) &&
             !_scrollController.position.outOfRange) {
           context
               .read<NotificationBloc>()
