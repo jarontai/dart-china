@@ -15,15 +15,15 @@ class AboutBloc extends Bloc<AboutEvent, AboutState> {
     AboutEvent event,
   ) async* {
     if (event is AboutInit) {
-      _init();
+      yield await _init();
     }
   }
 
-  _init() async {
+  Future<AboutState> _init() async {
     final info = await PackageInfo.fromPlatform();
-    emit(state.copyWith(
+    return state.copyWith(
       appVersion: info.version,
       buildNumber: info.buildNumber,
-    ));
+    );
   }
 }

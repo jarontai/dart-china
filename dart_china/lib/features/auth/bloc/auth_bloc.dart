@@ -26,46 +26,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthEvent event,
   ) async* {
     if (event is AuthLoginInit) {
-      emit(AuthLoginInitial());
+      yield AuthLoginInitial();
     } else if (event is AuthLoginPost) {
-      _login(event.username, event.password);
+      yield (AuthLoginPending());
+
+      final result =
+          await _authRepository.login(event.username, event.password);
+      if (result.isSuccess) {
+        final user = result.success;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString(_kUsername, user.username);
+
+        yield AuthLoginSuccess(user: user);
+      } else {
+        yield AuthLoginFail(error: '登录失败');
+      }
     } else if (event is AuthLogout) {
-      _logout();
+      yield await _logout();
     } else if (event is AuthLoginCheck) {
-      _check();
+      yield await _check();
     }
   }
 
-  _check() async {
+  Future<AuthState> _check() async {
     var login = await _authRepository.checkLogin();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var username = prefs.getString(_kUsername);
     if (login) {
       if (username != null && username.isNotEmpty) {
         var user = await _userRepository.userInfo(username);
-        emit(AuthLoginSuccess(user: user));
+        return AuthLoginSuccess(user: user);
       }
     } else {
       if (username != null) {
         await _authRepository.logout(username);
       }
     }
+    return AuthLogoutSuccess();
   }
 
-  _login(String username, String password) async {
-    emit(AuthLoginPending());
-    var result = await _authRepository.login(username, password);
-    result.result((value) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_kUsername, value.username);
-
-      emit(AuthLoginSuccess(user: value));
-    }, (value) {
-      emit(AuthLoginFail(error: '登录失败'));
-    });
-  }
-
-  _logout() async {
+  Future<AuthState> _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var username = prefs.getString(_kUsername);
     if (username != null) {
@@ -80,6 +80,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await item.delete(recursive: true);
     }
 
-    emit(AuthLogoutSuccess());
+    return AuthLogoutSuccess();
   }
 }
