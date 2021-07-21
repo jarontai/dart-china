@@ -27,30 +27,34 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     NotificationEvent event,
   ) async* {
     if (event is NotificationFetch) {
-      _fetch(event.username, refresh: event.refresh);
+      if (event.refresh) {
+        yield state.copyWith(status: NotificationStatus.loading);
+      }
+
+      yield await _fetch(event.username, refresh: event.refresh);
     } else if (event is NotificationRead) {
       // TODO:
     }
   }
 
-  void _fetch(String username, {bool refresh = false}) async {
+  Future<NotificationState> _fetch(String username,
+      {bool refresh = false}) async {
     if (!state.hasMore) {
-      return;
+      return state;
     }
 
     var page = state.page + 1;
     if (refresh) {
       page = 0;
-      emit(state.copyWith(status: NotificationStatus.loading));
     }
 
     final pageModel = await _userRepository.notifications(username, page: page);
-    emit(state.copyWith(
+    return state.copyWith(
       status: NotificationStatus.success,
       page: page,
       hasMore: pageModel.hasNext,
       notifications: List.of(state.notifications)..addAll(pageModel.data),
-    ));
+    );
   }
 
   Future<bool> hasNotification(String username) {

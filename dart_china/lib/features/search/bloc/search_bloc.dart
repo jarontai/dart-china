@@ -11,7 +11,7 @@ part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc(this._postRepository) : super(SearchInitial());
+  SearchBloc(this._postRepository) : super(SearchState());
 
   final PostRepository _postRepository;
 
@@ -28,42 +28,40 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchEvent event,
   ) async* {
     if (event is SearchInit) {
-      emit(SearchInitial());
+      yield state.copyWith(status: SearchStatus.initial);
     } else if (event is SearchFetch) {
-      _doSearch(event.search, refresh: event.refresh);
+      if (event.refresh) {
+        yield state.copyWith(status: SearchStatus.loading);
+      }
+      yield await _doSearch(event.search, refresh: event.refresh);
     }
   }
 
-  void _doSearch(String text, {bool refresh = false}) async {
-    if (refresh) {
-      emit(SearchInitial());
-    }
-
+  Future<SearchState> _doSearch(String text, {bool refresh = false}) async {
     var page = 1;
     var oldSlugs = <String>[];
     var oldPosts = <SearchResult>[];
-    var theState = state;
-    if (theState is SearchInitial) {
-      emit(SearchLoading());
-    } else if (theState is SearchSuccess) {
-      if (!theState.hasMore) {
-        return;
-      }
-      emit(theState.copyWith(loading: true));
 
-      oldPosts = theState.data;
-      oldSlugs = theState.slugs;
-      page = theState.page + 1;
+    if (state.hasMore) {
+      oldPosts = state.data;
+      oldSlugs = state.slugs;
+      page = state.page + 1;
+    }
+    if (refresh) {
+      oldPosts = [];
+      oldSlugs = [];
+      page = 1;
     }
 
     var pageModel = await _postRepository.search(text, page: page);
     var slugs =
         pageModel.data.map((e) => categorySlugMap[e.topic.categoryId] ?? '');
-    emit(SearchSuccess(
+    return state.copyWith(
+      status: SearchStatus.success,
       slugs: List.of(oldSlugs..addAll(slugs)),
       data: List.of(oldPosts..addAll(pageModel.data)),
       hasMore: pageModel.hasNext,
       page: pageModel.page,
-    ));
+    );
   }
 }

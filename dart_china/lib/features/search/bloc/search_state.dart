@@ -1,37 +1,38 @@
 part of 'search_bloc.dart';
 
-abstract class SearchState extends Equatable {
-  const SearchState();
+enum SearchStatus { initial, loading, success, failure }
 
-  @override
-  List<Object> get props => [];
+extension SearchStatusX on SearchStatus {
+  bool get isInitial => this == SearchStatus.initial;
+  bool get isLoading => this == SearchStatus.loading;
+  bool get isSuccess => this == SearchStatus.success;
+  bool get isFailure => this == SearchStatus.failure;
 }
 
-class SearchInitial extends SearchState {}
-
-class SearchLoading extends SearchState {}
-
-class SearchSuccess extends SearchState {
+class SearchState extends Equatable {
+  final SearchStatus status;
   final List<String> slugs;
   final List<SearchResult> data;
   final int page;
   final bool hasMore;
 
-  SearchSuccess({
-    required this.slugs,
-    required this.data,
-    required this.page,
-    required this.hasMore,
+  SearchState({
+    this.status = SearchStatus.initial,
+    this.slugs = const [],
+    this.data = const [],
+    this.page = 0,
+    this.hasMore = true,
   });
 
-  SearchSuccess copyWith({
+  SearchState copyWith({
+    SearchStatus? status,
     List<String>? slugs,
     List<SearchResult>? data,
     int? page,
     bool? hasMore,
-    bool? loading,
   }) {
-    return SearchSuccess(
+    return SearchState(
+      status: status ?? this.status,
       slugs: slugs ?? this.slugs,
       data: data ?? this.data,
       page: page ?? this.page,
@@ -40,5 +41,5 @@ class SearchSuccess extends SearchState {
   }
 
   @override
-  List<Object> get props => [slugs, data, page, hasMore];
+  List<Object> get props => [status, slugs, data, page, hasMore];
 }

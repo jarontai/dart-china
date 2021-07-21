@@ -19,25 +19,23 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterEvent event,
   ) async* {
     if (event is RegisterInit) {
-      emit(RegisterInitial());
+      yield RegisterInitial();
     } else if (event is RegisterPost) {
-      _register(event.email, event.username, event.password);
+      yield RegisterPending();
+      yield await _register(event.email, event.username, event.password);
     }
   }
 
-  Future<void> _register(String email, String username, String password) async {
-    emit(RegisterPending());
+  Future<RegisterState> _register(
+      String email, String username, String password) async {
     final result = await _authRepository.register(email, username, password);
     if (result) {
       final user = await _authRepository.login(username, password);
-      user.result((value) {
-        emit(RegisterSuccess(user: value));
-      }, (value) {
-        emit(RegisterFailure());
-      });
-    } else {
-      emit(RegisterFailure());
+      if (user.isSuccess) {
+        return RegisterSuccess(user: user.success);
+      }
     }
+    return RegisterFailure();
   }
 
   Future<bool> checkAvailable({String? email, String? username}) async {

@@ -93,14 +93,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildSearchResult(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
-        var myState = state;
-        if (myState is SearchLoading) {
+        if (state.status.isLoading) {
           return ListLoader();
         }
-        if (myState is SearchSuccess) {
-          final dataCount = myState.data.length;
+        if (state.status.isSuccess) {
+          final dataCount = state.data.length;
           var itemCount = dataCount;
-          if (myState.hasMore) {
+          if (state.hasMore) {
             itemCount++;
           }
 
@@ -112,9 +111,9 @@ class _SearchPageState extends State<SearchPage> {
                 return ListLoader();
               }
 
-              var topic = myState.data[index].topic;
-              var post = myState.data[index].post;
-              var slug = myState.slugs[index];
+              var topic = state.data[index].topic;
+              var post = state.data[index].post;
+              var slug = state.slugs[index];
               var time = DateTime.parse(post.createdAt);
 
               return SearchItem(

@@ -29,63 +29,63 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
   ) async* {
     if (event is TopicFetch) {
       if (event.fetchTopic) {
-        emit(state.copyWith(status: TopicStatus.loading));
-        var theTopic = await _topicRepository.findTopic(event.topicId);
-        emit(state.copyWith(
+        yield state.copyWith(status: TopicStatus.loading);
+        final theTopic = await _topicRepository.findTopic(event.topicId);
+        yield state.copyWith(
           topic: theTopic,
-        ));
+        );
       }
-      _fetchTopicPosts();
+
+      if (state.hasMore) {
+        yield await _fetchTopicPosts();
+      }
     } else if (event is TopicReply) {
-      _createTopicPost(event.content);
+      yield state.copyWith(
+        status: TopicStatus.posting,
+        postSuccess: false,
+      );
+
+      yield await _createTopicPost(event.content);
     } else if (event is TopicReset) {
-      _reset();
+      yield state.copyWith(
+        postSuccess: false,
+        error: '',
+      );
     }
   }
 
-  _reset() {
-    emit(state.copyWith(
-      postSuccess: false,
-      error: '',
-    ));
-  }
-
-  _fetchTopicPosts() async {
+  Future<TopicState> _fetchTopicPosts() async {
     if (!state.hasMore) {
-      return;
+      return state;
     }
 
     var page = state.page + 1;
     var pageModel =
         await _postRepository.fetchTopicPosts(state.topic!, page: page);
     var newPosts = List.of(state.posts)..addAll(pageModel.data);
-    emit(state.copyWith(
+    return state.copyWith(
       status: TopicStatus.success,
       posts: newPosts,
       page: page,
       hasMore: pageModel.hasNext,
-    ));
+    );
   }
 
-  _createTopicPost(String content) async {
+  Future<TopicState> _createTopicPost(String content) async {
     assert(state.topic != null, 'Topic should not be null');
-    emit(state.copyWith(
-      status: TopicStatus.posting,
-      postSuccess: false,
-    ));
+
     var postResult = await _postRepository.createPost(state.topic!.id, content);
-    postResult.result((value) {
-      emit(state.copyWith(
+    if (postResult.isSuccess) {
+      return state.copyWith(
         status: TopicStatus.success,
-        posts: List.of(state.posts)..add(value),
+        posts: List.of(state.posts)..add(postResult.success),
         postSuccess: true,
-      ));
-    }, (value) {
-      emit(state.copyWith(
-        status: TopicStatus.success,
-        postSuccess: false,
-      ));
-    });
+      );
+    }
+    return state.copyWith(
+      status: TopicStatus.success,
+      postSuccess: false,
+    );
   }
 
   String buildTopicUrl(int topicId) {

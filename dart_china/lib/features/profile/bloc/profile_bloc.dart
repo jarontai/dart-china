@@ -22,28 +22,28 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfileEvent event,
   ) async* {
     if (event is ProfileInit) {
-      _init(event.username);
+      yield state.copyWith(status: ProfileStateStatus.loading);
+      yield await _init(event.username);
     } else if (event is ProfileUpdateAvatar) {
-      _updateAvatar(event.userId, event.username, event.newAvatar);
+      yield state.copyWith(status: ProfileStateStatus.updating);
+      await _updateAvatar(event.userId, event.username, event.newAvatar);
+      this.add(ProfileInit(username: event.username));
     }
   }
 
-  _init(String username) async {
-    emit(state.copyWith(status: ProfileStateStatus.loading));
+  Future<ProfileState> _init(String username) async {
     final user = await authRepository.userProfile(username);
     final topics = await topicRepository.recentReadTopics();
-    emit(state.copyWith(
-        status: ProfileStateStatus.success, user: user, recentTopics: topics));
+    return state.copyWith(
+        status: ProfileStateStatus.success, user: user, recentTopics: topics);
   }
 
   _updateAvatar(int userId, String username, PickedFile file) async {
-    emit(state.copyWith(status: ProfileStateStatus.updating));
     final bytes = await file.readAsBytes();
     final uploadId = await authRepository.uploadAvatar(userId, bytes);
     if (uploadId != null && uploadId > 0) {
       await authRepository.updateAvatar(username, uploadId);
     }
-    _init(username);
   }
 
   // updateBio(String username, String bio) async {
