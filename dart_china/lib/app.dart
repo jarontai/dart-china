@@ -28,6 +28,10 @@ class DartChinaApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (_) => PushBloc()..add(PushInitEvent()),
+            lazy: false,
+          ),
+          BlocProvider(
             create: (_) => BuglyBloc(),
           ),
           BlocProvider(

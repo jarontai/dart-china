@@ -25,10 +25,13 @@ export 'search/view/search_page.dart';
 export 'topic/bloc/topic_bloc.dart';
 export 'topic/view/topic_page.dart';
 //-----------------------------------------//
-export 'bugly/bloc/bugly_bloc.dart';
-//-----------------------------------------//
 export 'post/bloc/post_bloc.dart';
 export 'post/view/post_page.dart';
 //-----------------------------------------//
 export 'about/bloc/about_bloc.dart';
 export 'about/view/about_page.dart';
+//-----------------------------------------//
+export 'bugly/bloc/bugly_bloc.dart';
+//-----------------------------------------//
+export 'push/bloc/push_bloc.dart';
+//-----------------------------------------//
