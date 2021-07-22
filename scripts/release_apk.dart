@@ -31,7 +31,14 @@ main(List<String> args) async {
 
       final process = await Process.start(
         'flutter',
-        ['build', 'apk', '--target=lib/main_prod.dart', '--split-per-abi'],
+        [
+          'build',
+          'apk',
+          '--target=lib/main_prod.dart',
+          '--split-per-abi',
+          '--obfuscate',
+          '--split-debug-info=debug'
+        ],
         workingDirectory: dir.path,
       );
       process.stdout.listen((event) {
