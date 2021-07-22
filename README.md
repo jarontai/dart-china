@@ -162,6 +162,12 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
   * UI细节优化
   * 测试代码（非功能需求）
 
+## 下载地址
+
+Android apk: [Github releases](https://github.com/jarontai/dart-china/releases/)
+
+iOS 应用商店地址: [Dart China](https://apps.apple.com/cn/app/id1574605471)
+
 ## 参考
 
 以下是本项目实现所参考的文档、资料和博客等：
