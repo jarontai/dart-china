@@ -672,9 +672,11 @@ packages:
   jpush_flutter:
     dependency: "direct main"
     description:
-      name: jpush_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: jarontai
+      resolved-ref: "438e44c390af261b9e0a182dfc6396f92476023e"
+      url: "git@github.com:jarontai/jpush-flutter-plugin.git"
+    source: git
     version: "2.1.4"
   js:
     dependency: transitive

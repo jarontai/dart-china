@@ -41,7 +41,10 @@ dependencies:
   url_launcher: ^6.0.6
   flutter_dotenv: ^5.0.0
   connectivity_plus: ^1.0.6
-  jpush_flutter: ^2.1.4
+  jpush_flutter:
+    git:
+      url: git@github.com:jarontai/jpush-flutter-plugin.git
+      ref: jarontai
 
 # dependency_overrides:
 #   discourse_api:
