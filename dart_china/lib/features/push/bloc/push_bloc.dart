@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dart_china/common.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -22,6 +23,8 @@ class PushBloc extends Bloc<PushEvent, PushState> {
         return;
       }
 
+      print('--- Start JPush config ---');
+
       jpush.addEventHandler(
           onReceiveNotification: (Map<String, dynamic> message) async {
         print("JPush: flutter onReceiveNotification: $message");
@@ -34,11 +37,21 @@ class PushBloc extends Bloc<PushEvent, PushState> {
         print("JPush: flutter onReceiveNotificationAuthorization: $message");
       });
 
+      final appConfig = getIt.get<AppConfig>();
+      var debug = true;
+      var production = false;
+      if (Platform.isIOS && appConfig.isProd) {
+        production = true;
+      }
+      if (appConfig.isProd) {
+        debug = false;
+      }
+
       jpush.setup(
-        appKey: "7096370dad448d28104d21f7", //你自己应用的 AppKey
+        appKey: appConfig.jpushAppkey, //你自己应用的 AppKey
         channel: "default",
-        production: false,
-        debug: true,
+        production: production,
+        debug: debug,
       );
 
       try {
@@ -53,6 +66,8 @@ class PushBloc extends Bloc<PushEvent, PushState> {
         jpush.applyPushAuthority(
             new NotificationSettingsIOS(sound: true, alert: true, badge: true));
       }
+
+      print('--- Finish JPush config ---');
     }
   }
 }
