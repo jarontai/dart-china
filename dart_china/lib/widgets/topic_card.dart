@@ -47,12 +47,12 @@ class TopicCard extends StatelessWidget {
                 Navigator.of(context)
                     .pushNamed(Routes.topic, arguments: topic.id);
               },
-              child: PostBody(content: topic.excerpt!),
+              child: PostBody(content: topic.excerpt ?? ''),
             ),
           ),
           SizedBox(height: 8),
           _TopicStatus(
-            slug: topic.categorySlug!,
+            slug: topic.categorySlug ?? '',
             view: topic.views,
             posts: topic.postsCount,
             like: topic.likeCount,
