@@ -6,7 +6,7 @@ Dart中文社区App即Dart China，使用Flutter编写，采用[BLoC](https://bl
 
 [Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。
 
-本App完全使用Flutter和Dart开发（部分脚本和服务使用了原生Dart），支持Android和iOS（理论上也支持发布为Web应用,待验证）。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
+本App完全使用Flutter和Dart开发（部分脚本使用原生Dart），支持Android和iOS（理论上也支持发布为Web应用,待验证）。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
 
 App预计将实现的功能（页面）：
 
@@ -18,8 +18,11 @@ App预计将实现的功能（页面）：
   * 登录
   * 注册
   * 我的
+  * 推送
   * 异常上报和运营统计
   * 请求缓存
+
+在Flutter应用开发中，需要重点关注的是状态管理，以及应用整体架构的设计。在Provider、Bloc、Redux、MobX等流行状态库之中，Dart China选择了Bloc，具体原因可以查看[架构](#架构)
 
 备注：Discourse是有官方app的，但其实现方式是网页套壳，使用体验不佳。
 
@@ -153,11 +156,11 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
 
 ### 后续版本需求
 
+  * 推送
   * 优化快速回复UI
-  * 独立的主题发布页
-  * 图片查看优化
+  * 帖子图片查看优化
   * 请求缓存
-  * 主题回复
+  * 独立的主题发布页
   * 主题、回复可编辑  
   * UI细节优化
   * 测试代码（非功能需求）
