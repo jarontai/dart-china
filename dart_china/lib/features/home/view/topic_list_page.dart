@@ -60,49 +60,52 @@ class _TopicListPageState extends State<TopicListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: ColorPalette.homeBackgroundColor,
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: RefreshIndicator(
-            key: _refreshKey,
-            onRefresh: () async {
-              context.read<TopicListBloc>().add(TopicListPoll());
-            },
-            child: CustomScrollView(
-              controller: _scrollController,
-              physics: ClampingScrollPhysics(),
-              slivers: [
-                _buildHeader(),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverCategorySelector(onSelect: () {
-                    _jumpToTop();
-                  }),
-                ),
-                _buildTopicList(context),
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Container(
-                    color: ColorPalette.topicBgColor,
+    return DoubleTapExit(
+      '再按一次退出',
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorPalette.homeBackgroundColor,
+        ),
+        child: SafeArea(
+          bottom: false,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: RefreshIndicator(
+              key: _refreshKey,
+              onRefresh: () async {
+                context.read<TopicListBloc>().add(TopicListPoll());
+              },
+              child: CustomScrollView(
+                controller: _scrollController,
+                physics: ClampingScrollPhysics(),
+                slivers: [
+                  _buildHeader(),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SliverCategorySelector(onSelect: () {
+                      _jumpToTop();
+                    }),
                   ),
-                )
-              ],
+                  _buildTopicList(context),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      color: ColorPalette.topicBgColor,
+                    ),
+                  )
+                ],
+              ),
             ),
+            floatingActionButton: showToTop
+                ? FloatingActionButton(
+                    backgroundColor: ColorPalette.backgroundColor,
+                    child: Icon(Icons.arrow_upward_outlined),
+                    onPressed: () {
+                      _jumpToTop();
+                    },
+                  )
+                : null,
           ),
-          floatingActionButton: showToTop
-              ? FloatingActionButton(
-                  backgroundColor: ColorPalette.backgroundColor,
-                  child: Icon(Icons.arrow_upward_outlined),
-                  onPressed: () {
-                    _jumpToTop();
-                  },
-                )
-              : null,
         ),
       ),
     );
