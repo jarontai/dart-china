@@ -100,8 +100,10 @@ class _ReplySectionState extends State<ReplySection> {
                                 width: 1,
                               ),
                             ),
-                            hintText: '快速回复，至少8个字符',
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
+                            hintText: '快速回复，至少$_minLength个字符',
+                            hintStyle: TextStyle(
+                              color: Colors.black38,
+                            ),
                           ),
                         ),
                       ),
