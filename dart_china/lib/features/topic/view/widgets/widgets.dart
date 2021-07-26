@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:photo_view/photo_view.dart';
 import '../../../../models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';

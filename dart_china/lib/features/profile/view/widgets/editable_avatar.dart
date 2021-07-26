@@ -1,6 +1,6 @@
 part of 'widgets.dart';
 
-typedef ImagePickCallback = Function(PickedFile file);
+typedef ImagePickCallback = Function(XFile file);
 
 class EditableAvatar extends StatefulWidget {
   EditableAvatar({required this.avatar, this.onPickAvatar});
@@ -40,13 +40,13 @@ class _EditableAvatarState extends State<EditableAvatar> {
                     icon: Icon(Icons.edit_outlined),
                     onPressed: () async {
                       final image =
-                          await _picker.getImage(source: ImageSource.gallery);
+                          await _picker.pickImage(source: ImageSource.gallery);
                       if (image != null) {
                         widget.onPickAvatar!(image);
                       }
 
                       Future.delayed(Duration(milliseconds: 10), () async {
-                        final response = await _picker.getLostData();
+                        final response = await _picker.retrieveLostData();
                         if (response.isEmpty) {
                           return;
                         } else if (response.file != null) {

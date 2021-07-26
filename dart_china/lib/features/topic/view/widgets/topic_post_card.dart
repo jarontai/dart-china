@@ -109,9 +109,12 @@ class TopicPostCard extends StatelessWidget {
       );
     } else {
       return FullScreenWidget(
-        child: ExtendedImage.network(
-          uri.toString(),
-          mode: ExtendedImageMode.gesture,
+        child: Hero(
+          tag: uri.path,
+          child: ExtendedImage.network(
+            uri.toString(),
+            mode: ExtendedImageMode.gesture,
+          ),
         ),
       );
     }

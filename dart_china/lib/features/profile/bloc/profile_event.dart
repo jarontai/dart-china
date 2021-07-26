@@ -18,7 +18,7 @@ class ProfileInit extends ProfileEvent {
 class ProfileUpdateAvatar extends ProfileEvent {
   final int userId;
   final String username;
-  final PickedFile newAvatar;
+  final XFile newAvatar;
 
   ProfileUpdateAvatar({
     required this.userId,

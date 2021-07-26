@@ -38,7 +38,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         status: ProfileStateStatus.success, user: user, recentTopics: topics);
   }
 
-  _updateAvatar(int userId, String username, PickedFile file) async {
+  _updateAvatar(int userId, String username, XFile file) async {
     final bytes = await file.readAsBytes();
     final uploadId = await authRepository.uploadAvatar(userId, bytes);
     if (uploadId != null && uploadId > 0) {
