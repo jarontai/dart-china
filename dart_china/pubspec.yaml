@@ -45,6 +45,7 @@ dependencies:
     git:
       url: git@github.com:jarontai/jpush-flutter-plugin.git
       ref: jarontai
+  extended_image: ^4.1.0
 
 # dependency_overrides:
 #   discourse_api:

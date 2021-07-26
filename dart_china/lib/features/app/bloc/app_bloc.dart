@@ -53,8 +53,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is AppInit) {
       bool connected = await _checkConnectivity();
       if (!connected) {
-        EasyLoading.showError('未连接到网络，请检查!', duration: Duration(seconds: 300));
+        EasyLoading.showError('未连接到网络，请检查!', duration: Duration(seconds: 15));
         return;
+      } else {
+        EasyLoading.dismiss();
       }
 
       await _init();
