@@ -40,10 +40,8 @@ class PushBloc extends Bloc<PushEvent, PushState> {
       final appConfig = getIt.get<AppConfig>();
       var debug = true;
       var production = false;
-      if (Platform.isIOS && appConfig.isProd) {
-        production = true;
-      }
       if (appConfig.isProd) {
+        production = true;
         debug = false;
       }
 
