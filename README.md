@@ -72,7 +72,7 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 * [flutter_bloc](https://pub.dev/packages/flutter_bloc) - 最核心的状态管理组件，应用整体架构的主梁
 * [dio](https://pub.dev/packages/dio) - 最流行的 http client
-* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的Discourse API封装库
+* [discourse_api](https://github.com/jarontai/discourse_api) - 由作者编写的Discourse API的适配和封装库
 * [html2md](https://github.com/jarontai/html2md) - 由作者编写的将html转换为markdown的组件
 * [freezed](https://pub.dev/packages/freezed) - 不可变对象（模型）代码生成工具
 * [flutter_markdown](https://pub.dev/packages/flutter_markdown) - flutter官方提供的markdown渲染组件
@@ -82,6 +82,7 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 * [reactive_forms](https://pub.dev/packages/reactive_forms) - 功能超丰富的表单处理组件
 * [flutter_easyloading](https://pub.dev/packages/flutter_easyloading) - Loading组件
 * [bugly_crash](https://pub.dev/packages/bugly_crash) - 腾讯bugly，异常上报组件
+* [jpush_flutter](https://github.com/jpush/jpush-flutter-plugin) - JPush官方插件
 * ...
 
 ## 架构
@@ -125,8 +126,6 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
 
 各个功能模块几乎完全隔离，符合高内聚低耦合的设计原则，代码的维护变得更加直观和方便。当然，随之而来的一个难题是模块之间的通讯，bloc官方也给出了应对[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
 
-// TODO: 更多内容
-
 ## 问题
 
 作为个人对Bloc的首次实战，本项目还存在的很多问题待改善：
@@ -137,8 +136,6 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
   * 测试
   * UI细节
   * ...
-
-// TODO：
 
 ## 版本规划
 
@@ -154,11 +151,13 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
   * 关于
   * 异常上报和运营统计(bugly)
 
-### 后续版本需求
-
+### v1.1.0
   * 推送
   * 优化快速回复UI
   * 帖子图片查看优化
+
+### 后续版本需求
+
   * 请求缓存
   * 独立的主题发布页
   * 主题、回复可编辑  
