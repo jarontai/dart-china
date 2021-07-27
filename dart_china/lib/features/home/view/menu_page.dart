@@ -185,7 +185,7 @@ class _MenuPageState extends State<MenuPage> {
             child: _MenuItem(
               icon: Icons.exit_to_app_outlined,
               text: '登出',
-              routeGen: () => '/',
+              routeGen: () => '',
               selected: false,
               callback: () {
                 context.read<AuthBloc>().add(AuthLogout());
