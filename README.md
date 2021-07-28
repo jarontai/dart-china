@@ -6,7 +6,7 @@ Dart中文社区App即Dart China，使用Flutter编写，采用[BLoC](https://bl
 
 [Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。
 
-本App完全使用Flutter和Dart开发（部分脚本使用原生Dart），支持Android和iOS（理论上也支持发布为Web应用,待验证）。项目代码完全开源，Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。
+本App完全使用Flutter和Dart开发（各种脚本也使用原生Dart编写），支持Android和iOS（理论上也支持发布为Web应用，待验证），项目代码全部开源。Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。v1.0版本已经发布上线，详细地址请看[下载地址](#下载地址)。
 
 App预计将实现的功能（页面）：
 
@@ -22,7 +22,7 @@ App预计将实现的功能（页面）：
   * 异常上报和运营统计
   * 请求缓存
 
-在Flutter应用开发中，需要重点关注的是状态管理，以及应用整体架构的设计。在Provider、Bloc、Redux、MobX等流行状态库之中，Dart China选择了Bloc，具体原因可以查看[架构](#架构)
+在Flutter应用开发中，需要重点关注的是状态管理，以及应用整体架构的设计。在Provider、Bloc、Redux、MobX等众多状态库之中，Dart China选择了Bloc，具体原因可以查看[架构](#架构)
 
 备注：Discourse是有官方app的，但其实现方式是网页套壳，使用体验不佳。
 
@@ -93,38 +93,43 @@ Dart China 使用了很多第三方库即依赖，秉承主流、专注和高质
 
 * Bloc官网的架构说明图
 
-流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐。而bloc的复杂度介于前两者之间，非常适合对架构有追求，需要长期维护的中大型项目。
+流行的flutter状态管理组件有provider、bloc、redux等，其中provider稍显单薄，redux又过于繁琐。而bloc的复杂度介于前两者之间，易于上手，文档丰富，扩展性好，非常适合对架构有追求，需要长期维护的中大型项目。
 
-Bloc的整体设计跟Redux非常相似，UI层负责接受用户或系统产生的事件（Event），事件发送给Bloc。Bloc根据业务规则对不同的Event生成不同的不可变的状态（State），而UI层同时也在监听状态的变化，从而对界面进行更新。
+Bloc的整体设计跟Redux非常相似，UI层负责接受用户或系统产生的事件（Event），并发送给Bloc处理。Bloc根据事件执行相应的业务逻辑，同时也生成不同的状态（State）。而状态的改变也会通知到UI层，从而对UI界面进行更新。
 
 个人总结bloc的优点：
 
 1. 单向数据流，逻辑和UI界限清晰
-2. 可以使用状态机的思维方式对状态流转进行抽象
-3. 自带分层架构和模块化属性
+2. 使用状态机的思维方式对应用事件和状态进行抽象
+3. 自带分层架构和模块化属性，易于扩展和维护
 4. 鼓励使用不可变数据对象
 5. 对测试友好
+6. 丰富的官方文档
 
 ### 分层与模块化
 
-在很多flutter项目中，应用一般都是按页面开发，然后围绕多个Provider+ChangeNotifier展开整个应用架构。个人认为，此种方式下的代码逻辑并不清晰，不利于维护。
+在很多flutter项目中，应用一般都是按页面开发，然后围绕多个Provider+ChangeNotifier展开整个应用架构。个人认为，此种方式下的代码逻辑并不清晰，不利于维护和扩展。
+
+Dart China 的架构实现参考了[very_good_cli](https://github.com/VeryGoodOpenSource/very_good_cli)及众多bloc教程，使用分层架构和功能模块化的开发方式。
 
 软件架构设计中最流行的一种，就是分层模式。在Bloc的架构理念中，应用被分为三层，从上到下依次是：视图（UI）、业务逻辑（bloc）和数据（data）。而数据层可能还包含Repository层、数据提供层（data provider）以及模型（model）等。
 
-Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenSource/very_good_cli)及众多bloc教程，使用分层和模块化的开发方式。一个功能就是一个大的模块，它包含一个或多个bloc模块，以及零个或多个页面。而bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
+面向功能的模块化开发，将每个功能或者说特性看作一个大的功能模块。功能模块内部包含多个bloc模块，以及零个或多个视图UI。而bloc模块又由事件（event）、状态（state）和逻辑（bloc）组成。
 
-功能模块构成示例：
+功能模块示例：
 
      ├── register/                  具体的功能模块，比如：注册
-     |  ├── bloc/                   模块业务逻辑文件夹
-     |  |  ├── register_bloc.dart   模块bloc
+     |  ├── bloc/                   模块的bloc
+     |  |  ├── register_bloc.dart   模块的业务逻辑
      |  |  ├── register_event.dart  模块的事件
      |  |  └── register_state.dart  模块的状态
      |  └── view/                   模块的UI（注意：部分模块没有UI）
      |     ├── widgets/             模块内部的UI组件
      |     └── register_page.dart   模块的页面
 
-各个功能模块几乎完全隔离，符合高内聚低耦合的设计原则，代码的维护变得更加直观和方便。当然，随之而来的一个难题是模块之间的通讯，bloc官方也给出了应对[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
+各个功能模块之间几乎完全隔离，符合高内聚低耦合的设计原则，功能的维护和扩展变得更加直观、方便。
+
+当然，随之而来的难题是模块之间的通讯，bloc官方也给出了应对[方案](https://bloclibrary.dev/#/architecture?id=bloc-to-bloc-communication)。
 
 ## 问题
 
@@ -152,6 +157,7 @@ Dart China 的架构实现参考[very_good_cli](https://github.com/VeryGoodOpenS
   * 异常上报和运营统计(bugly)
 
 ### v1.1.0
+
   * 推送
   * 优化快速回复UI
   * 帖子图片查看优化
