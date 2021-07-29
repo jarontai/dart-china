@@ -23,18 +23,18 @@ class PushBloc extends Bloc<PushEvent, PushState> {
         return;
       }
 
-      print('--- Start JPush config ---');
+      logger.d('--- Start JPush config ---');
 
       jpush.addEventHandler(
           onReceiveNotification: (Map<String, dynamic> message) async {
-        print("JPush: flutter onReceiveNotification: $message");
+        logger.d("JPush: flutter onReceiveNotification: $message");
       }, onOpenNotification: (Map<String, dynamic> message) async {
-        print("JPush: flutter onOpenNotification: $message");
+        logger.d("JPush: flutter onOpenNotification: $message");
       }, onReceiveMessage: (Map<String, dynamic> message) async {
-        print("JPush: flutter onReceiveMessage: $message");
+        logger.d("JPush: flutter onReceiveMessage: $message");
       }, onReceiveNotificationAuthorization:
               (Map<String, dynamic> message) async {
-        print("JPush: flutter onReceiveNotificationAuthorization: $message");
+        logger.d("JPush: flutter onReceiveNotificationAuthorization: $message");
       });
 
       final appConfig = getIt.get<AppConfig>();
@@ -54,10 +54,10 @@ class PushBloc extends Bloc<PushEvent, PushState> {
 
       try {
         jpush.getRegistrationID().then((rid) {
-          print("JPush: flutter get registration id : $rid");
+          logger.d("JPush: flutter get registration id : $rid");
         });
       } catch (e) {
-        print("JPush: flutter get registration error - $e");
+        logger.d("JPush: flutter get registration error - $e");
       }
 
       if (Platform.isIOS) {
@@ -65,7 +65,7 @@ class PushBloc extends Bloc<PushEvent, PushState> {
             new NotificationSettingsIOS(sound: true, alert: true, badge: true));
       }
 
-      print('--- Finish JPush config ---');
+      logger.d('--- Finish JPush config ---');
     }
   }
 }

@@ -2,6 +2,8 @@ import 'package:discourse_api/discourse_api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:result_type/result_type.dart';
 
+import '../common.dart';
+
 export 'package:discourse_api/discourse_api.dart' show DiscourseApiClient;
 
 part 'auth_repository.dart';
@@ -25,9 +27,9 @@ initApiClient(
   // Env string must be const!!
   const proxyAddress = String.fromEnvironment('PROXY_ADDRESS');
   if (proxyAddress.isNotEmpty) {
-    print('--- Proxy Enabled: $proxyAddress ---');
+    logger.d('--- Proxy Enabled: $proxyAddress ---');
   } else {
-    print('--- Proxy Not Enabled: $proxyAddress ---');
+    logger.d('--- Proxy Not Enabled: $proxyAddress ---');
   }
 
   final dir = await getApplicationDocumentsDirectory();

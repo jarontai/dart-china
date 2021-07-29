@@ -1,4 +1,4 @@
-# Dart-China
+# Dart China
 
 Dart中文社区App即Dart China，使用Flutter编写，采用[BLoC](https://bloclibrary.dev/)架构，模块化开发方式
 

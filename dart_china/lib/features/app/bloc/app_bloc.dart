@@ -84,14 +84,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     final config = getIt.get<AppConfig>();
     if (config.enalbeBugly) {
-      print('--- Bugly is enabled! ---');
+      logger.d('--- Bugly is enabled! ---');
       _buglyBloc.add(BuglyInit(
         enableDebug: config.enalbeBuglyDebug,
         androidAppId: config.buglyAndroidAppId,
         iosAppId: config.buglyIosAppId,
       ));
     } else {
-      print('--- Bugly is disabled! ---');
+      logger.d('--- Bugly is disabled! ---');
     }
   }
 

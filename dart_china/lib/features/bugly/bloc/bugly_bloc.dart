@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../common.dart';
+
 part 'bugly_event.dart';
 part 'bugly_state.dart';
 
@@ -25,7 +27,7 @@ class BuglyBloc extends Bloc<BuglyEvent, BuglyState> {
   Future<BuglyState> _init(
       bool enableDebug, String androidId, String iosId) async {
     if (Platform.isIOS) {
-      print('--- Bugly is disabled in ios!!! ---');
+      logger.d('--- Bugly is disabled in ios!!! ---');
       return state;
     }
 

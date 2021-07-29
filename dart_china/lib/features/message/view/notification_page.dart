@@ -173,7 +173,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   ? null
                   : (TapGestureRecognizer()
                     ..onTap = () {
-                      print('Click message');
+                      logger.d('Click message');
                     }))
         ]),
       ),

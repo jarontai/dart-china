@@ -6,22 +6,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:bugly_crash/bugly.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logger/logger.dart';
 
 import 'app.dart';
 import 'common.dart';
 import 'config.dart';
 import 'repositories/repositories.dart';
 
-class SimpleBlocObserver extends BlocObserver {
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-  }
-}
+// class ProdBlocObserver extends BlocObserver {
+//   @override
+//   void onEvent(Bloc bloc, Object? event) {
+//     super.onEvent(bloc, event);
+//     logger.d('Bloc onEvent: ${bloc.runtimeType} ${event.runtimeType}');
+//   }
+// }
 
 void main() async {
+  logger = Logger();
+  Logger.level = Level.warning;
+
   FlutterError.onError = (FlutterErrorDetails details) async {
-    print("zone current print error");
+    logger.w("zone current print error");
     Zone.current.handleUncaughtError(details.exception, details.stack!);
   };
 
@@ -33,7 +38,7 @@ void main() async {
 
     EasyLoading.instance..indicatorType = EasyLoadingIndicatorType.fadingCircle;
 
-    Bloc.observer = SimpleBlocObserver();
+    // Bloc.observer = ProdBlocObserver();
 
     await dotenv.load();
 
