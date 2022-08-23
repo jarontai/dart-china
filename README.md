@@ -1,10 +1,10 @@
 # Dart China
 
-Dart中文社区App即Dart China，使用Flutter编写，采用[BLoC](https://bloclibrary.dev/)架构，模块化开发方式
+Dart中文社区App即Dart China ([无限期关闭中](https://github.com/jarontai/dart-china/issues/3#issuecomment-1224268580))，使用Flutter编写，采用[BLoC](https://bloclibrary.dev/)架构，模块化开发方式
 
 ## 功能
 
-[Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。
+[Dart中文社区](https://www.dart-china.org/)Web端使用知名社区软件[discourse](https://www.discourse.org/)搭建，本App定位为discourse的简化版，只提供社区软件所必需的部分功能。https://github.com/jarontai/dart-china/issues/3#issuecomment-1224268580
 
 本App完全使用Flutter和Dart开发（各种脚本也使用原生Dart编写），支持Android和iOS（理论上也支持发布为Web应用，待验证），项目代码全部开源。Android版本将直接通过GitHub发布apk文件，iOS版本则将提交到苹果AppStore发布。v1.0版本已经发布上线，详细地址请看[下载地址](#下载地址)。
 
